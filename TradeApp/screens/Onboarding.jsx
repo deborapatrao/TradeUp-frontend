@@ -1,6 +1,10 @@
+import { useNavigation } from "@react-navigation/native";
 import { Heading, Center, VStack, HStack, Button } from "native-base";
 
 const Onboarding = () => {
+
+    const navigation = useNavigation()
+
     return (
         <>
             <Center
@@ -18,18 +22,20 @@ const Onboarding = () => {
 
                     <HStack space={3}>
                         <Button
-                            onPress={() => console.log("Sign up is pressed")}
+                            onPress={() => navigation.navigate("signup")}
+                            colorScheme="indigo"
                         >
                             Sign up
                         </Button>
                         <Button
-                            onPress={() => console.log("Log in is pressed")}
+                            onPress={() => navigation.navigate("login")}
+                            colorScheme="indigo"
                         >
                             Log in
                         </Button>
                     </HStack>
 
-                    <Button size="sm" variant="link">
+                    <Button size="sm" variant="link" colorScheme="indigo">
                         Skip
                     </Button>
                 </VStack>
