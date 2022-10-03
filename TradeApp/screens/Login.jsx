@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Text,
@@ -13,7 +13,14 @@ import {
     NativeBaseProvider,
 } from "native-base";
 
-const Login = () => {
+const Login = ({ navigation }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const loginHandler = () => {
+        console.log("Login here");
+    };
+
     return (
         <Center w="100%">
             <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -41,12 +48,22 @@ const Login = () => {
 
                 <VStack space={3} mt="5">
                     <FormControl>
-                        <FormControl.Label>Email ID</FormControl.Label>
-                        <Input />
+                        <FormControl.Label>Email</FormControl.Label>
+                        <Input
+                            placeholder="example@gmail.com"
+                            value={email}
+                            onChangeText={setEmail}
+                        />
                     </FormControl>
                     <FormControl>
                         <FormControl.Label>Password</FormControl.Label>
-                        <Input type="password" />
+                        <Input
+                            secureTextEntry
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChangeText={setPassword}
+                        />
                         <Link
                             _text={{
                                 fontSize: "xs",
@@ -59,7 +76,12 @@ const Login = () => {
                             Forget Password?
                         </Link>
                     </FormControl>
-                    <Button mt="2" colorScheme="indigo">
+                    <Button
+                        mt="2"
+                        colorScheme="indigo"
+                        disabled={!email || !password}
+                        onPress={loginHandler}
+                    >
                         Sign in
                     </Button>
                     <HStack mt="6" justifyContent="center">

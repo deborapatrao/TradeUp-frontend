@@ -1,1 +1,11 @@
-r
+
+const Home = () => {
+
+    return (
+        <>
+
+        </>
+    );
+};
+
+export default Home;

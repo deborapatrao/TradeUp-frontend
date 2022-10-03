@@ -19,7 +19,7 @@ export default function App() {
                 <Header />
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName="onboarding">
-                        <Stack.Screen name="onboarding" component={Onboarding} />
+                        <Stack.Screen name="onboarding" component={Onboarding} options={{ headerShown: false }} />
                         <Stack.Screen name="signup" component={SignUp} />
                         <Stack.Screen name="login" component={Login} />
                     </Stack.Navigator>

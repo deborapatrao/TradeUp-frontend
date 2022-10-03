@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Heading,
@@ -10,7 +10,17 @@ import {
     NativeBaseProvider,
 } from "native-base";
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
+
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPasword] = useState("")
+
+    const registerHandler = () => {
+        console.log("Register button clicked");
+    }
+
     return (
         <Center w="100%">
             <Box safeArea p="2" w="90%" maxW="290" py="8">
@@ -37,18 +47,45 @@ const SignUp = () => {
                 </Heading>
                 <VStack space={3} mt="5">
                     <FormControl>
+                        <FormControl.Label>First Name</FormControl.Label>
+                        <Input
+                            placeholder="Enter your first name"
+                            value={firstName}
+                            onChangeText={firstName}
+                        />
+                    </FormControl>
+                    <FormControl>
+                        <FormControl.Label>Last Name</FormControl.Label>
+                        <Input
+                            placeholder="Enter your last name"
+                            value={lastName}
+                            onChangeText={lastName}
+                        />
+                    </FormControl>
+                    <FormControl>
                         <FormControl.Label>Email</FormControl.Label>
-                        <Input />
+                        <Input
+                            placeholder="Email address"
+                            value={email}
+                            onChangeText={email}
+                        />
                     </FormControl>
                     <FormControl>
                         <FormControl.Label>Password</FormControl.Label>
-                        <Input type="password" />
+                        <Input
+                            placeholder="Enter your password"
+                            value={password}
+                            onChangeText={password}
+                        />
                     </FormControl>
-                    <FormControl>
-                        <FormControl.Label>Confirm Password</FormControl.Label>
-                        <Input type="password" />
-                    </FormControl>
-                    <Button mt="2" colorScheme="indigo">
+                    <Button
+                        mt="2"
+                        colorScheme="indigo"
+                        disabled={
+                            !firstName || !lastName || !email || !password
+                        }
+                        onPress={registerHandler}
+                    >
                         Sign up
                     </Button>
                 </VStack>
