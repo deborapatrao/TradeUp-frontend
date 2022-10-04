@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Box,
     Text,
@@ -10,16 +10,32 @@ import {
     Button,
     HStack,
     Center,
-    NativeBaseProvider,
 } from "native-base";
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../redux/action'
 
-const Login = ({ navigation }) => {
+const Login = () => {
+
+    const { error } = useSelector(state=>state.auth)
+
+    const dispatch = useDispatch()
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const loginHandler = () => {
-        console.log("Login here");
+        dispatch(login(email, password))
     };
+
+    useEffect(() => {
+        if(error){
+            alert(error)
+            dispatch({ type: "clearError" })
+        }
+
+    }, [error, dispatch, alert])
+
+    console.log(error)
 
     return (
         <Center w="100%">
@@ -53,6 +69,7 @@ const Login = ({ navigation }) => {
                             placeholder="example@gmail.com"
                             value={email}
                             onChangeText={setEmail}
+                            autoCapitalize='none'
                         />
                     </FormControl>
                     <FormControl>

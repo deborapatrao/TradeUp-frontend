@@ -15,7 +15,7 @@ const SignUp = ({ navigation }) => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
-    const [password, setPasword] = useState("")
+    const [password, setPassword] = useState("")
 
     const registerHandler = () => {
         console.log("Register button clicked");
@@ -51,7 +51,7 @@ const SignUp = ({ navigation }) => {
                         <Input
                             placeholder="Enter your first name"
                             value={firstName}
-                            onChangeText={firstName}
+                            onChangeText={setFirstName}
                         />
                     </FormControl>
                     <FormControl>
@@ -59,7 +59,7 @@ const SignUp = ({ navigation }) => {
                         <Input
                             placeholder="Enter your last name"
                             value={lastName}
-                            onChangeText={lastName}
+                            onChangeText={setLastName}
                         />
                     </FormControl>
                     <FormControl>
@@ -67,7 +67,7 @@ const SignUp = ({ navigation }) => {
                         <Input
                             placeholder="Email address"
                             value={email}
-                            onChangeText={email}
+                            onChangeText={setEmail}
                         />
                     </FormControl>
                     <FormControl>
@@ -75,7 +75,7 @@ const SignUp = ({ navigation }) => {
                         <Input
                             placeholder="Enter your password"
                             value={password}
-                            onChangeText={password}
+                            onChangeText={setPassword}
                         />
                     </FormControl>
                     <Button

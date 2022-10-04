@@ -22,13 +22,13 @@ const Onboarding = () => {
 
                     <HStack space={3}>
                         <Button
-                            onPress={() => navigation.navigate("signup")}
+                            onPress={() => navigation.navigate("Signup")}
                             colorScheme="indigo"
                         >
                             Sign up
                         </Button>
                         <Button
-                            onPress={() => navigation.navigate("login")}
+                            onPress={() => navigation.navigate("Login")}
                             colorScheme="indigo"
                         >
                             Log in
