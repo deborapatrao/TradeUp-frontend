@@ -8,9 +8,9 @@ import {
 const Loader = () => {
     return (
         <HStack space={2} justifyContent="center">
-            <Spinner accessibilityLabel="Loading posts" />
+            <Spinner accessibilityLabel="Loading data" />
             <Heading color="primary.500" fontSize="md">
-                Loading
+                Loading ...
             </Heading>
         </HStack>
     );

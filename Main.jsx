@@ -13,11 +13,10 @@ import Onboarding from "./src/screens/Onboarding";
 import SignUp from "./src/screens/SignUp";
 import Login from './src/screens/Login';
 import Home from './src/screens/Home';
-import Loader from './src/components/Loader';
+import Loader from './src/components/utils/Loader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Test from './src/screens/Test';
 
-import HomeStackScreen from './src/navigation/stacks/HomeStackScreen';
 import AppStack from './src/navigation/AppStack';
 
 const Stack = createNativeStackNavigator();
@@ -36,11 +35,11 @@ const Main = ({ route }) => {
 
   return <>
     {/* Uncomment me if you want to see Bottom Tabs */}
-    {/* <AppStack /> */}
+    <AppStack />
 
 
     {/* Comment me out if you want to see Bottom Tabs */}
-    <NativeBaseProvider>
+    {/* <NativeBaseProvider>
       <StatusBar style="auto" />
       <Header />
       {loading ? <Center flex={1} px="3"><Loader /></Center> : <NavigationContainer>
@@ -53,7 +52,7 @@ const Main = ({ route }) => {
 
         {isAuthenticated}
       </NavigationContainer>}
-    </NativeBaseProvider>
+    </NativeBaseProvider> */}
   </>
 }
 
