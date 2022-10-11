@@ -7,14 +7,26 @@ import Onboarding from "../screens/Onboarding";
 
 const Stack = createNativeStackNavigator();
 
-export default function AuthStack(){
-    return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen name="Onboarding" component={Onboarding} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+export default function AuthStack({ onboardingHandler }) {
+	return (
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen
+					name="Onboarding"
+					options={{
+						headerShown: false, // hide header
+					}}
+				>
+					{(props) => (
+						<Onboarding
+							{...props}
+							onboardingHandler={onboardingHandler}
+						/>
+					)}
+				</Stack.Screen>
+				<Stack.Screen name="Login" component={Login} />
+				<Stack.Screen name="SignUp" component={SignUp} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }
