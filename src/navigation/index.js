@@ -9,7 +9,9 @@ export default function RootNavigation() {
 	return (
 		<NativeBaseProvider>
 			<StatusBar style="auto" />
-			{email ? <AppStack /> : <AuthStack />}
+			{/* {email ? <AppStack /> : <AuthStack />} */}
+            <AppStack />
+            {/* <AuthStack /> */}
 		</NativeBaseProvider>
 	);
 }
