@@ -14,13 +14,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/action";
 
-// Firebase
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../config/firebase-config";
 
-
-const Login = () => {
+const Login = ({ navigation }) => {
 	const { error } = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
@@ -28,60 +23,21 @@ const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	// const loginHandler = () => {
-	// 	dispatch(login(email, password));
-	// };
-
-	// useEffect(() => {
-	// 	if (error) {
-	// 		alert(error);
-	// 		dispatch({ type: "clearError" });
-	// 	}
-	// }, [error, dispatch, alert]);
-
-	// console.log(error);
-
-	// Firebase
-	const auth = getAuth();
-
 	const loginHandler = () => {
-		signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				// Signed in
-				const user = userCredential.user;
-				// ...
-			})
-			.catch((error) => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-			});
+		dispatch(login(email, password));
 	};
+
+	useEffect(() => {
+		if (error) {
+			alert(error);
+			dispatch({ type: "clearError" });
+			navigation.navigate("Login");
+		}
+	}, [error, dispatch, alert]);
 
 	return (
 		<Center w="100%">
 			<Box safeArea p="2" py="8" w="90%" maxW="290">
-				<Heading
-					size="lg"
-					fontWeight="600"
-					color="coolGray.800"
-					_dark={{
-						color: "warmGray.50",
-					}}
-				>
-					Welcome
-				</Heading>
-				<Heading
-					mt="1"
-					_dark={{
-						color: "warmGray.200",
-					}}
-					color="coolGray.600"
-					fontWeight="medium"
-					size="xs"
-				>
-					Sign in to continue!
-				</Heading>
-
 				<VStack space={3} mt="5">
 					<FormControl>
 						<FormControl.Label>Email</FormControl.Label>
@@ -129,7 +85,7 @@ const Login = () => {
 								color: "warmGray.200",
 							}}
 						>
-							I'm a new user.{" "}
+							New to TradeUp?{" "}
 						</Text>
 						<Link
 							_text={{
@@ -137,7 +93,7 @@ const Login = () => {
 								fontWeight: "medium",
 								fontSize: "sm",
 							}}
-							href="#"
+							onPress={() => navigation.navigate("SignUp")}
 						>
 							Sign Up
 						</Link>

@@ -9,6 +9,7 @@ import {
 	Button,
 	Center,
 	Link,
+	Checkbox
 } from "native-base";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -36,7 +37,7 @@ const SignUp = ({ navigation }) => {
 
 	return (
 		<Center w="100%">
-			<Box safeArea p="2" w="90%" maxW="290" py="8">
+			<Box safeArea p="2" w="100%" maxW="290" py="8">
 				<VStack space={3} mt="5">
 					<FormControl>
 						<FormControl.Label>Email</FormControl.Label>
@@ -53,7 +54,17 @@ const SignUp = ({ navigation }) => {
 							value={password}
 							onChangeText={setPassword}
 						/>
+						<FormControl.HelperText>
+							At least 8 characters with uppercase letters and numbers
+						</FormControl.HelperText>
 					</FormControl>
+
+					<HStack space={6}>
+						<Checkbox shadow={2} value="test" accessibilityLabel="Terms">
+							I accept the terms &amp; conditions
+						</Checkbox>
+					</HStack>
+
 					<Button
 						mt="2"
 						colorScheme="indigo"
@@ -72,7 +83,7 @@ const SignUp = ({ navigation }) => {
 								color: "warmGray.200",
 							}}
 						>
-							Already have an account?.{" "}
+							Already have an account?{" "}
 						</Text>
 						<Link
 							_text={{

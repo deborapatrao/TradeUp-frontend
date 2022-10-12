@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Test from '../screens/Test';
 
 import MarketStack from './stacks/MarketStack';
-import HomeStack from './stacks/MainStack';
+import MainStack from './stacks/MainStack';
 import Home from '../screens/Home';
 import HomeHeader from '../components/layout/HomeHeader';
 import WalletTabNavigator from './stacks/WalletTabNavigator';
@@ -48,7 +48,7 @@ const AppStack = () => {
                     tabBarInactiveTintColor: 'gray',
                     headerShown: false, // hide header
                 })}>
-                    <Tab.Screen name="Home" component={HomeStack} />
+                    <Tab.Screen name="Home" component={MainStack} />
                     <Tab.Screen name="Market" component={MarketStack} />
                     <Tab.Screen name="Resources" component={Test} />
                     <Tab.Screen name="Wallet" component={WalletTabNavigator} options={{

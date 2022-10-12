@@ -7,7 +7,7 @@ import Onboarding from "../screens/Onboarding";
 
 const Stack = createNativeStackNavigator();
 
-export default function AuthStack({ onboardingHandler }) {
+export default function AuthStack({ skipAuthHandler }) {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
@@ -20,7 +20,7 @@ export default function AuthStack({ onboardingHandler }) {
 					{(props) => (
 						<Onboarding
 							{...props}
-							onboardingHandler={onboardingHandler}
+							skipAuthHandler={skipAuthHandler}
 						/>
 					)}
 				</Stack.Screen>
