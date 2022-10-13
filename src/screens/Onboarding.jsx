@@ -21,13 +21,13 @@ const Onboarding = ({ navigation, skipAuthHandler }) => {
 
                     <HStack space={3}>
                         <Button
-                            onPress={() => navigation.navigate("SignUp")}
+                            onPress={() => navigation.navigate("Sign Up")}
                             colorScheme="indigo"
                         >
                             Sign up
                         </Button>
                         <Button
-                            onPress={() => navigation.navigate("Login")}
+                            onPress={() => navigation.navigate("Sign In")}
                             colorScheme="indigo"
                         >
                             Log in

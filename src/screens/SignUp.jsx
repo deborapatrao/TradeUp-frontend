@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Box,
 	Text,
@@ -9,31 +9,34 @@ import {
 	Button,
 	Center,
 	Link,
-	Checkbox
+	Checkbox,
+	Pressable,
+	Icon,
 } from "native-base";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../redux/action";
 
 const SignUp = ({ navigation }) => {
+
+	const { error } = useSelector((state) => state.auth);
+
+	const dispatch = useDispatch();
+
+	const [show, setShow] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const auth = getAuth();
-
 	async function registerHandler() {
-		try {
-			await createUserWithEmailAndPassword(auth, email, password)
-				.then((userCredential) => {
-					// Signed in
-					const user = userCredential.user;
-					// ...
-				})
-				.catch((error) => {
-					const errorCode = error.code;
-					const errorMessage = error.message;
-					// ..
-				});
-		} catch (error) {}
+		dispatch(signup(email, password))
 	}
+
+	useEffect(() => {
+		if (error) {
+			alert(error);
+			dispatch({ type: "clearError" });
+		}
+	}, [error, dispatch, alert]);
 
 	return (
 		<Center w="100%">
@@ -45,6 +48,7 @@ const SignUp = ({ navigation }) => {
 							placeholder="Email address"
 							value={email}
 							onChangeText={setEmail}
+							autoCapitalize="none"
 						/>
 					</FormControl>
 					<FormControl>
@@ -53,6 +57,25 @@ const SignUp = ({ navigation }) => {
 							placeholder="Enter your password"
 							value={password}
 							onChangeText={setPassword}
+							type={show ? "text" : "password"}
+							InputRightElement={
+								<Pressable onPress={() => setShow(!show)}>
+									<Icon
+										as={
+											<MaterialIcons
+												name={
+													show
+														? "visibility"
+														: "visibility-off"
+												}
+											/>
+										}
+										size={5}
+										mr="2"
+										color="muted.400"
+									/>
+								</Pressable>
+							}
 						/>
 						<FormControl.HelperText>
 							At least 8 characters with uppercase letters and numbers
@@ -68,9 +91,6 @@ const SignUp = ({ navigation }) => {
 					<Button
 						mt="2"
 						colorScheme="indigo"
-						disabled={
-							!email || !password
-						}
 						onPress={registerHandler}
 					>
 						Sign up
@@ -91,7 +111,7 @@ const SignUp = ({ navigation }) => {
 								fontWeight: "medium",
 								fontSize: "sm",
 							}}
-							onPress={() => navigation.navigate("Login")}
+							onPress={() => navigation.navigate("Sign In")}
 						>
 							Sign In
 						</Link>

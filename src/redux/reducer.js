@@ -17,6 +17,22 @@ export const authReducer = createReducer({}, {
         state.error = action.payload;
     },
 
+    signupRequest: (state) => {
+        state.loading = true;
+    },
+    signupSuccess: (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.token = action.payload.token;
+        state.user = action.payload.token;
+        state.message = action.payload.message
+    },
+    signupFailure: (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.error = action.payload;
+    },
+
     loadUserRequest: (state) => {
         state.loading = true;
     },
@@ -37,6 +53,7 @@ export const authReducer = createReducer({}, {
     logoutSuccess: (state) => {
         state.loading = false;
         state.isAuthenticated = false;
+        state.token = null;
         state.user = null;
         state.token = null;
     },
