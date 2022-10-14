@@ -10,7 +10,7 @@ export const login = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: "loginRequest" });
         const { data } = await axios.post(
-            `${serverUrl}/users/login`,
+            `${serverUrl}/login`,
             { email, password },
             {
                 headers: {
@@ -26,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
             payload: error.response.data.message,
         });
 
-        console.log("Error 1", error.response.data.message);
+        console.log("Error 1", error);
     }
 };
 
@@ -35,7 +35,7 @@ export const signup = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: "signupRequest" });
         const { data } = await axios.post(
-            `${serverUrl}/users/signup`,
+            `${serverUrl}/signup`,
             { email, password },
             {
                 headers: {
@@ -64,7 +64,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
 
         console.log("getTok", getTok._tokenResponse.idToken);
 
-        const { data } = await axios.get(`${serverUrl}/users/me`, {
+        const { data } = await axios.get(`${serverUrl}/me`, {
             headers: {
                 Authorization: `Bearer ${getTok._tokenResponse.idToken}`,
             },
@@ -85,7 +85,7 @@ export const logout = () => async (dispatch) => {
     try {
         dispatch({ type: "logoutRequest" });
 
-        await axios.post(`${serverUrl}/users/logout`);
+        await axios.post(`${serverUrl}/logout`);
 
         // const auth = getAuth();
         // await firebaseSignOut(auth);
