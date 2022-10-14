@@ -14,7 +14,9 @@ const Home = () => {
 	const { user, token } = useSelector((state) => state.auth);
 
 	useEffect(() => {
+        if(user) {
 		dispatch(loadUser(token));
+        }
 	}, [dispatch]);
 
     return (

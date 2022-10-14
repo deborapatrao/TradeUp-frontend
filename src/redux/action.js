@@ -26,7 +26,7 @@ export const login = (email, password) => async (dispatch) => {
             payload: error.response.data.message,
         });
 
-        console.log("Error 1", error);
+        console.log("Error 1", error.response.data.message);
     }
 };
 
