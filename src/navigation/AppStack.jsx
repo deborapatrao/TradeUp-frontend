@@ -1,6 +1,6 @@
 import React from 'react'
 import { StatusBar } from "expo-status-bar";
-import { NativeBaseProvider } from "native-base";
+import { NativeBaseProvider, extendTheme } from "native-base";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,8 +15,35 @@ import WalletTabNavigator from './stacks/WalletTabNavigator';
 const Tab = createBottomTabNavigator();
 
 const AppStack = () => {
+    const theme = extendTheme({
+        colors: {
+            primary: {
+                bg: "#221A32",
+                field: "#231D30",
+                blue: "#386AF5",
+                red: "#FF6666",
+            },
+            secondary: {
+                lightGray: "#CCCCCC",
+                darkGray: "#7F7F7F",
+                white: "#F2F2F2",
+            },
+            supporting: {
+                lightGreen: "#31C451",
+                darkGreen: "#29A343"
+            }
+        },
+        config: {
+            initialColorMode: 'dark',
+        }
+    });
+
+
+
+
+
     return (
-        <NativeBaseProvider>
+        <NativeBaseProvider theme={theme}>
             <StatusBar style="auto" />
             <NavigationContainer>
                 <Tab.Navigator screenOptions={({ route }) => ({
