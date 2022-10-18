@@ -8,7 +8,7 @@ export const authReducer = createReducer({}, {
         state.loading = false;
         state.isAuthenticated = true;
         state.token = action.payload.token;
-        state.user = action.payload.token;
+        // state.user = action.payload.token;
         state.message = action.payload.message
     },
     loginFailure: (state, action) => {
@@ -68,5 +68,12 @@ export const authReducer = createReducer({}, {
     }, 
     clearMessage: (state) => {
         state.message = null;
+    },
+
+    keepAuth: (state, action) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.token = action.payload;
+        // state.message = action.payload.message
     },
 })

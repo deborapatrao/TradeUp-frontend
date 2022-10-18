@@ -11,13 +11,13 @@ import { useDispatch, useSelector } from 'react-redux'
 const Home = () => {
 
     const dispatch = useDispatch();
-	const { user, token } = useSelector((state) => state.auth);
+	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
 	useEffect(() => {
-        if(user) {
+        if(!user && token && isAuthenticated) {
 		dispatch(loadUser(token));
         }
-	}, [dispatch]);
+	}, [dispatch, user]);
 
     return (
         <Box safeArea>
