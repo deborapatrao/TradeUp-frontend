@@ -1,4 +1,5 @@
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     getAuth,
     signInWithCustomToken,
@@ -19,7 +20,10 @@ export const login = (email, password) => async (dispatch) => {
             }
         );
 
+        await AsyncStorage.setItem("userIdToken", data.token);
+
         dispatch({ type: "loginSuccess", payload: data });
+
     } catch (error) {
         dispatch({
             type: "loginFailure",
@@ -44,6 +48,8 @@ export const signup = (email, password) => async (dispatch) => {
             }
         );
 
+        await AsyncStorage.setItem("userIdToken", data.token);
+
         dispatch({ type: "signupSuccess", payload: data });
     } catch (error) {
         dispatch({
@@ -62,7 +68,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         const auth = getAuth();
         const getTok = await signInWithCustomToken(auth, userIdToken);
 
-        console.log("getTok", getTok._tokenResponse.idToken);
+        // console.log("getTok", getTok._tokenResponse.idToken);
 
         const { data } = await axios.get(`${serverUrl}/me`, {
             headers: {
@@ -90,7 +96,9 @@ export const logout = () => async (dispatch) => {
         // const auth = getAuth();
         // await firebaseSignOut(auth);
 
+        await AsyncStorage.removeItem("userIdToken"); // remove the token from storage
         dispatch({ type: "logoutSuccess" });
+
     } catch (error) {
         dispatch({
             type: "logoutFailure",
