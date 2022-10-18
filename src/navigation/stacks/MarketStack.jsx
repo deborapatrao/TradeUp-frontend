@@ -2,6 +2,7 @@ import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createStackNavigator } from '@react-navigation/stack';
 import HomeHeader from '../../components/layout/HomeHeader';
 
 // screens
@@ -9,7 +10,7 @@ import MarketScreen from '../../screens/market/MarketScreen';
 import CryptoDetailTabNavigator from './CryptoDetailTabNavigator';
 import BuyAndSellScreen from '../../screens/market/BuyAndSellScreen';
 
-const HomeStack = createNativeStackNavigator();
+const HomeStack = createStackNavigator();
 
 
 const MarketStackScreen = () => {
@@ -18,9 +19,20 @@ const MarketStackScreen = () => {
             <HomeStack.Screen name="Crypto List" component={MarketScreen} options={{
                 headerTitle: (props) => <HomeHeader {...props} />,
                 headerShown: true, // hide header
+                headerStyle: {
+                    backgroundColor: '#221A32',
+
+                }
             }} />
             <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={{
-                headerTitle: 'Ticker and icon here'
+                headerTitle: 'Ticker and icon here',
+                headerStyle: {
+                    backgroundColor: '#221A32',
+                },
+                headerTitleStyle: {
+                    color: '#fff'
+                },
+                headerBackTitleVisible: false,
             }} />
             <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={{
                 headerTitle: 'Ticker and icon here'

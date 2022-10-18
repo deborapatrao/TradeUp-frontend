@@ -2,16 +2,15 @@ import React from 'react'
 import {
     Box,
     Text,
-    Button
+    Button,
+    View
 } from "native-base";
+import ChartContainer from '../../components/containers/market/ChartContainer';
 
 const ChartScreen = ({ navigation }) => {
 
     return (
-        <Box safeArea>
-            <Text>ChartScreen</Text>
-            <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell')}>BuyAndSell</Button>
-        </Box>
+        <ChartContainer navigation={navigation} />
     );
 };
 
