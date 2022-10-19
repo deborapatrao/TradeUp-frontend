@@ -149,18 +149,15 @@ const ChartComponent = () => {
                             <Button
                                 key={index}
                                 onPress={() => setTimeframe(index)}
-                                bgColor={index === timeframe ? 'primary.blue' : 'primary.field'}
+                                bgColor={index === timeframe ? 'secondary.blue' : 'primary.field'}
                                 size="xs"
+                                p={0}
+                                px={3}
                             >
                                 <Text>{item}</Text>
                             </Button>
                         )
                     })}
-                    {/* <Button bgColor={'primary.field'} onPress={() => setTimeframe(0)}>1s</Button>
-                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(1)}>1m</Button>
-                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(2)}>5m</Button>
-                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(3)}>1h</Button>
-                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(4)}>1d</Button> */}
                 </Button.Group>
             </View>
 
@@ -211,7 +208,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#231D30',
         padding: 5,
         borderRadius: 5,
-        // height: 40
     },
     chart: {
         borderBottomWidth: 2,
