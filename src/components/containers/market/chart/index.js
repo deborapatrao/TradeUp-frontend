@@ -143,16 +143,28 @@ const ChartComponent = () => {
             </View>
 
             <View>
-                <Button.Group bg={'amber.200'}>
-                    <Button onPress={() => setTimeframe(0)}>1s</Button>
-                    <Button onPress={() => setTimeframe(1)}>1m</Button>
-                    <Button onPress={() => setTimeframe(2)}>5m</Button>
-                    <Button onPress={() => setTimeframe(3)}>1h</Button>
-                    <Button onPress={() => setTimeframe(4)}>1d</Button>
+                <Button.Group style={styles.btnsPanel} size="xs">
+                    {intervals && intervals.map((item, index) => {
+                        return (
+                            <Button
+                                key={index}
+                                onPress={() => setTimeframe(index)}
+                                bgColor={index === timeframe ? 'primary.blue' : 'primary.field'}
+                                size="xs"
+                            >
+                                <Text>{item}</Text>
+                            </Button>
+                        )
+                    })}
+                    {/* <Button bgColor={'primary.field'} onPress={() => setTimeframe(0)}>1s</Button>
+                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(1)}>1m</Button>
+                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(2)}>5m</Button>
+                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(3)}>1h</Button>
+                    <Button bgColor={'primary.field'} onPress={() => setTimeframe(4)}>1d</Button> */}
                 </Button.Group>
             </View>
 
-            <View style={{ backgroundColor: 'black', paddingVertical: 10 }}>
+            <View style={{ backgroundColor: '#171122', paddingVertical: 10 }}>
                 {candles.length > 0 ? <Chart {...{ candles, domain }} /> : null}
 
 
@@ -193,6 +205,13 @@ const styles = StyleSheet.create({
     container: {
         // flex: 1,
         // backgroundColor: "#000000",
+    },
+    btnsPanel: {
+        justifyContent: 'space-around',
+        backgroundColor: '#231D30',
+        padding: 5,
+        borderRadius: 5,
+        // height: 40
     },
     chart: {
         borderBottomWidth: 2,

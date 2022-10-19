@@ -18,7 +18,7 @@ const AppStack = () => {
     const theme = extendTheme({
         colors: {
             primary: {
-                bg: "#221A32",
+                bg: "#171122",
                 field: "#231D30",
                 blue: "#386AF5",
                 red: "#FF6666",
