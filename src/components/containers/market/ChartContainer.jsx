@@ -20,6 +20,29 @@ const ChartContainer = ({ navigation }) => {
                 </Box>
                 <Text color={'secondary.white'}>ChartContainer</Text>
                 <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell')}>BuyAndSell</Button>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
+                <Text color={'secondary.white'}>ChartContainer</Text>
             </Box>
         </ScrollView>
         // </SafeAreaView>

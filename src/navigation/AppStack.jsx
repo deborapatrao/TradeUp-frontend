@@ -34,7 +34,7 @@ const AppStack = () => {
             }
         },
         config: {
-            initialColorMode: 'dark',
+            initialColorMode: 'dark', 
         }
     });
 
