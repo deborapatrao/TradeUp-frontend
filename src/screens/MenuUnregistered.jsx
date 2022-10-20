@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { logout } from "../redux/action";
 
-const Profile = () => {
+const MenuUnregistered = () => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.auth);
 
@@ -16,12 +16,13 @@ const Profile = () => {
 
 	return (
 		<Box safeArea>
-			<Text>{user ? user.email : "N/A"}</Text>
-			<Button mt="2" colorScheme="primary" onPress={logoutHandler}>
-				Logout
+			<Text>Welcome</Text>
+			<Button mt="2" colorScheme="primary" >
+				Sign In
 			</Button>
+            <Text>Create Account</Text>
 		</Box>
 	);
 };
 
-export default Profile;
+export default MenuUnregistered;

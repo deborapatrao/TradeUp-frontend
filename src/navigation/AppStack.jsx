@@ -23,7 +23,7 @@ import WalletIconActive from '../assets/images/bottom-tabs-icons/active/wallet.p
 // import { useFonts } from 'expo-font';
 // import SfProFont from '../assets/fonts/SF-Pro.ttf';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Profile from '../screens/Profile';
+import Profile from '../screens/MenuRegistered';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

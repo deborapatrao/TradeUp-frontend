@@ -14,7 +14,7 @@ const HomeHeader = ({}) => {
 						fontWeight: "medium",
 						fontSize: "sm",
 					}}
-					onPress={() => navigation.navigate("Profile")}
+					onPress={() => navigation.navigate("Menu")}
 				>
 					Profile
 				</Link>
