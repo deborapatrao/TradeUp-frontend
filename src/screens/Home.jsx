@@ -18,21 +18,34 @@ const Home = () => {
 	useEffect(() => {
 		if (!user && token && isAuthenticated) {
 			dispatch(loadUser(token));
+    
+            if(user) {
+                user.location.city ? setLocation(user.location.city) : setLocation(null);
+            }
 		}
+        
 	}, [dispatch, user]);
+
 
     // Ask for permission to access location on the device
 	useEffect(() => {
-		(async () => {
-			let { status } = await Location.requestForegroundPermissionsAsync();
-			if (status !== "granted") {
-				setErrorMsg("Permission to access location was denied");
-				return;
-			}
+            (async () => {
 
-			let location = await Location.getCurrentPositionAsync({});
-			setLocation(location);
-		})();
+                if (location == null) {
+
+                    let { status } = await Location.requestForegroundPermissionsAsync();
+                    if (status !== "granted") {
+                        setErrorMsg("Permission to access location was denied");
+                        return;
+                    }
+
+                    let userLocation = await Location.getCurrentPositionAsync({});
+                    let address = await Location.reverseGeocodeAsync(userLocation.coords);
+                    setLocation(address[0].city);
+
+                }
+            })();
+
 	}, []);
 
 	const requestPermissions = async () => {
@@ -65,8 +78,9 @@ const Home = () => {
                     return;
                 }
 
-                let location = await Location.getCurrentPositionAsync({});
-                setLocation(location);
+                let userLocation = await Location.getCurrentPositionAsync({});
+                let address = await Location.reverseGeocodeAsync(userLocation.coords);
+                setLocation(address[0].city);
             }   catch(err) {
                 console.log(err);
             }  
@@ -78,6 +92,7 @@ const Home = () => {
 			<Text fontSize="2xl" color="text.700">
 				Top Traders
 			</Text>
+            <Text color="text.700">{ user ? user.email : "Not logged in" }</Text>
 			{!location ? (
 				<Button onPress={requestPermissions}>Allow Location</Button>
 			) : (

@@ -87,6 +87,36 @@ export const loadUser = (userIdToken) => async (dispatch) => {
     }
 };
 
+export const saveLocation = (userIdToken, location) => async (dispatch) => {
+
+    try {
+        // dispatch({ type: "loadUserRequest" });
+        const auth = getAuth();
+        const getTok = await signInWithCustomToken(auth, userIdToken);
+
+        // console.log("getTok", getTok._tokenResponse.idToken);
+
+        const { data } = await axios.post(
+            `${serverUrl}/user/location`,
+            { location },
+            {
+                headers: {
+                    Authorization: `Bearer ${getTok._tokenResponse.idToken}`,
+                },
+            }
+        );
+        
+        dispatch({ type: "loadUserSuccess", payload: data });
+    } catch (error) {
+        dispatch({
+            type: "loadUserFailure",
+            payload: error.response.data.message,
+        });
+
+        console.log("Error 2", error.response.data.message);
+    }
+};
+
 export const logout = () => async (dispatch) => {
     try {
         dispatch({ type: "logoutRequest" });
