@@ -27,26 +27,7 @@ const ChartScreen = ({ navigation }) => {
   const url= 'https://api.binance.com/api/v3/depth?symbol=ETHUSDT&limit=10';
   const url24='https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT';
 
-    const coin_data = [
-        {
-          id: '1',
-          symbol: 'BTS_BTC',
-          displayName: 'BTS/BTC',
-          state: "NORMAL",
-          visibleStartTime: 1659018816626,
-          tradableStartTime: 1659018816626,
-          symbolTradeLimit:[{
-            priceScale: '10',
-            quantityScale: 0,
-            amountScale: 8,
-            minQuantity: "100",
-            minAmount: "0.00001",
-            highestBid: "0",
-            lowestAsk: "0"
-          }]
-        }
-      ];
-    
+   
     useEffect(() =>{
       const intervalId = setInterval(() =>{
         loadOrders();
