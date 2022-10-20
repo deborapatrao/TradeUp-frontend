@@ -34,13 +34,13 @@ export const login = (email, password) => async (dispatch) => {
     }
 };
 
-export const signup = (email, password) => async (dispatch) => {
+export const signup = (email, password, location) => async (dispatch) => {
 
     try {
         dispatch({ type: "signupRequest" });
         const { data } = await axios.post(
             `${serverUrl}/signup`,
-            { email, password },
+            { email, password, location },
             {
                 headers: {
                     "Content-Type": "application/json",

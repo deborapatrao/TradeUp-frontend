@@ -12,6 +12,7 @@ import Home from '../screens/Home';
 import HomeHeader from '../components/layout/HomeHeader';
 import WalletTabNavigator from './stacks/WalletTabNavigator';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Profile from '../screens/Profile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
