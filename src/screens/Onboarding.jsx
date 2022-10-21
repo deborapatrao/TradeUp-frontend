@@ -1,10 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { Heading, Center, VStack, HStack, Button } from "native-base";
 
-const Onboarding = () => {
+const Onboarding = ({ navigation, skipAuthHandler }) => {
 
-    const navigation = useNavigation()
-
+    // const navigation = useNavigation()
     return (
         <>
             <Center
@@ -22,20 +21,20 @@ const Onboarding = () => {
 
                     <HStack space={3}>
                         <Button
-                            onPress={() => navigation.navigate("Signup")}
+                            onPress={() => navigation.navigate("Sign Up")}
                             colorScheme="indigo"
                         >
                             Sign up
                         </Button>
                         <Button
-                            onPress={() => navigation.navigate("Login")}
+                            onPress={() => navigation.navigate("Sign In")}
                             colorScheme="indigo"
                         >
                             Log in
                         </Button>
                     </HStack>
 
-                    <Button size="sm" variant="link" colorScheme="indigo">
+                    <Button size="sm" variant="link" colorScheme="indigo" onPress={skipAuthHandler}>
                         Skip
                     </Button>
                 </VStack>

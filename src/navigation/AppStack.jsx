@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Test from '../screens/Test';
 
 import MarketStack from './stacks/MarketStack';
+import MainStack from './stacks/MainStack';
 import Home from '../screens/Home';
 import HomeHeader from '../components/layout/HomeHeader';
 import WalletTabNavigator from './stacks/WalletTabNavigator';
@@ -21,9 +22,10 @@ import ResourceIconActive from '../assets/images/bottom-tabs-icons/active/resour
 import WalletIconActive from '../assets/images/bottom-tabs-icons/active/wallet.png';
 // import { useFonts } from 'expo-font';
 // import SfProFont from '../assets/fonts/SF-Pro.ttf';
-
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
 
@@ -118,7 +120,7 @@ const AppStack = () => {
                         fontSize: 12,
                     },
                 })}>
-                    <Tab.Screen name="Home" component={Home} options={{
+                    <Tab.Screen name="Home" component={MainStack} options={{
                         headerTitle: (props) => <HomeHeader {...props} />,
                         headerBackgroundContainerStyle: {
                             backgroundColor: '#171122',
