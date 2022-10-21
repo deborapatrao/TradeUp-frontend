@@ -13,7 +13,11 @@ const Tab = createMaterialTopTabNavigator();
 
 const CryptoDetailTabNavigator = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            tabBarLabelStyle: { fontSize: 12, color: '#fff' },
+            // tabBarItemStyle: { width: 100 },
+            tabBarStyle: { backgroundColor: '#171122' },
+        }}>
             <Tab.Screen name="Chart" component={ChartScreen} />
             <Tab.Screen name="Orders" component={OrdersScreen} />
             <Tab.Screen name="Coin Info" component={CoinInfoScreen} />
