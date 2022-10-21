@@ -3,19 +3,15 @@ import {
     Box,
     Button,
     VStack,
-    Center,
     Text,
     HStack,
     Divider,
     ScrollView,
     Heading,
     Stack,
-    Select,
-    ChevronDownIcon,
-    ChevronUpIcon,
 } from "native-base";
 import { StyleSheet} from "react-native";
-import axios from 'axios';
+import PriceStatic from '../../components/containers/market/PriceStatic';
 
 
 const ChartScreen = ({ navigation }) => {
@@ -61,13 +57,14 @@ const ChartScreen = ({ navigation }) => {
          <ScrollView>
         <VStack w="100%" safeArea>
             <Box >
-                <Box m={2}>
+                {/* <Box m={2}>
                   {dataCoin.priceChangePercent > 0 ? 
                   <Text>Price Per Unit <ChevronUpIcon style={{color:"#31c451", alignItems: 'center'}}/> {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}</Text> : 
                   <Text>Price Per Unit <ChevronDownIcon style={{color:"#FF6666", alignItems: 'center'}}/> {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}</Text> }
 
                     <Text fontSize='4xl'>≈${parseFloat(dataCoin.prevClosePrice).toFixed(2)}</Text>
-                </Box>                
+                </Box>                 */}
+                <PriceStatic/>
                 <Box m={2}>
                     <Text>Chart  with  change </Text>
                 </Box>
