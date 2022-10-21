@@ -7,7 +7,7 @@ import Candle, { Candle as CandleModel } from "./Candle";
 
 // Getting size based on the device width
 export const { width: size } = Dimensions.get("window");
-const newSize = size - 90;
+const newSize = size - 120;
 
 
 

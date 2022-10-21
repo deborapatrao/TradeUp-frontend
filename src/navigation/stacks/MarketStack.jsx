@@ -20,19 +20,21 @@ const MarketStackScreen = () => {
                 headerTitle: (props) => <HomeHeader {...props} />,
                 headerShown: true, // hide header
                 headerStyle: {
-                    backgroundColor: '#221A32',
-
+                    backgroundColor: '#171122',
                 }
             }} />
             <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={{
                 headerTitle: 'Ticker and icon here',
                 headerStyle: {
-                    backgroundColor: '#221A32',
+                    backgroundColor: '#171122',
                 },
                 headerTitleStyle: {
                     color: '#fff'
                 },
                 headerBackTitleVisible: false,
+                headerBackTitleStyle: {
+                    color: '#fff'
+                }
             }} />
             <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={{
                 headerTitle: 'Ticker and icon here'
