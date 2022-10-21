@@ -14,7 +14,18 @@ const Tab = createMaterialTopTabNavigator();
 
 const WalletTabNavigator = () => {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarActiveTintColor: '#fff',
+            tabBarInactiveTintColor: '#fff',
+            tabBarStyle: {
+                backgroundColor: '#171122',
+            },
+            tabBarLabelStyle: {
+                fontSize: 16,
+                textTransform: 'none',
+            },
+        }}>
             <Tab.Screen name="Overview" component={OverviewScreen} />
             <Tab.Screen name="Assets" component={AssetsScreen} />
             <Tab.Screen name="All Trades" component={TradesScreen} />

@@ -12,7 +12,7 @@ import {
 } from "native-base";
 import { StyleSheet} from "react-native";
 import PriceStatic from '../../components/containers/market/PriceStatic';
-
+import ChartContainer from '../../components/containers/market/ChartContainer';
 
 const ChartScreen = ({ navigation }) => {
   const [dataBids, setDataBids] = useState([])
@@ -55,18 +55,18 @@ const ChartScreen = ({ navigation }) => {
     return (
         <>
          <ScrollView>
-        <VStack w="100%" safeArea>
+        <VStack w="100%" backgroundColor='#171122' safeArea>
             <Box >
                 {/* <Box m={2}>
                   {dataCoin.priceChangePercent > 0 ? 
-                  <Text>Price Per Unit <ChevronUpIcon style={{color:"#31c451", alignItems: 'center'}}/> {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}</Text> : 
-                  <Text>Price Per Unit <ChevronDownIcon style={{color:"#FF6666", alignItems: 'center'}}/> {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}</Text> }
-
+                    <Text>Price Per Unit <ChevronUpIcon style={{color:"#31c451", alignItems: 'center'}}/> {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}</Text> : 
+                    <Text>Price Per Unit <ChevronDownIcon style={{color:"#FF6666", alignItems: 'center'}}/> {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}</Text> }
+                    
                     <Text fontSize='4xl'>≈${parseFloat(dataCoin.prevClosePrice).toFixed(2)}</Text>
-                </Box>                 */}
+                  </Box>                 */}
                 <PriceStatic/>
-                <Box m={2}>
-                    <Text>Chart  with  change </Text>
+                <Box >
+                  <ChartContainer navigation={navigation} />
                 </Box>
                     {/* <Box style={styles.container}> */}
                 <ScrollView>
@@ -146,9 +146,9 @@ const ChartScreen = ({ navigation }) => {
           </VStack>
         <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('PriceAlert')}>BuyAndSell</Button>
         </ScrollView>
-        </>
-    )
 
+        </>
+    );
 };
 
 const styles = StyleSheet.create({
