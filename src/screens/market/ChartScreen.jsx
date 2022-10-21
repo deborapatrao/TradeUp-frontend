@@ -10,7 +10,7 @@ const ChartScreen = ({ navigation }) => {
     return (
         <Box safeArea>
             <Text>ChartScreen</Text>
-            <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell')}>BuyAndSell</Button>
+            <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('PriceAlert')}>BuyAndSell</Button>
         </Box>
     );
 };
