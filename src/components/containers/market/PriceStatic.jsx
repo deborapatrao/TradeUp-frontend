@@ -13,9 +13,10 @@ import {
     Select,
     ChevronDownIcon,
     ChevronUpIcon,
+    Icon,
 } from "native-base";
 import { StyleSheet} from "react-native";
-import axios from 'axios';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const PriceStatic = ({ navigation }) => {
@@ -45,23 +46,31 @@ const PriceStatic = ({ navigation }) => {
         <>
         <Box m={2}>
             {dataCoin.priceChangePercent > 0 ? 
-            <Text>Price Per Unit    
+            <Text style={styles.text}>Price Per Unit    
                 <ChevronUpIcon 
-                    style={{color:"#31c451", alignItems: 'center'}}/> 
+                    style={{ ml:2, color:"#31c451", alignItems: 'center'}}/> 
             {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}
             </Text> 
             : 
-            <Text>Price Per Unit 
+            <Text style={styles.text}>Price Per Unit 
                 <ChevronDownIcon 
                     style={{color:"#FF6666", alignItems: 'center'}}/> 
             {Math.floor(parseFloat(dataCoin.priceChangePercent) * 100) + '%'}
             </Text> }
-            <Text fontSize='4xl'>≈${parseFloat(dataCoin.prevClosePrice).toFixed(2)}</Text>
+            <Text color={'#F2F2F2'} fontSize='4xl'>≈${parseFloat(dataCoin.prevClosePrice).toFixed(2)}</Text>
         </Box>  
         </> 
         )
 
 };
+const styles = StyleSheet.create({
+  text:{
+      color:'#F2F2F2',
+      fontSize:16,
+      marginBottom:2,
+      marginRight:4,
+  }
+});
 
 
 export default PriceStatic;
