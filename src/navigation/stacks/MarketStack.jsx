@@ -22,12 +22,12 @@ const MarketStackScreen = () => {
                 headerTitle: (props) => <HomeHeader {...props} />,
                 headerShown: true, // hide header
             }} />
-            <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={{
-                headerTitle: (props) => <MarketHeader {...props}/>,
+            <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation }) => ({
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation}/>,
                 navigationBarColor:'gray.400',
                 headerTitleAlign:'center'                
                 //    headerBackImageSource:'src image'
-            }} />
+            })} />
             <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={{
                headerTitle: 'Ticker and icon here'
             }} />

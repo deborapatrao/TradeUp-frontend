@@ -12,7 +12,7 @@ import {
 import { StyleSheet} from "react-native";
 import PriceStatic from '../../components/containers/market/PriceStatic';
 
-const PriceAlertScreen = () => {
+const PriceAlertScreen = ({ navigation }) => {
     const [alertType, setAlertType] = useState()
     const [valueUser,setValueUser] = useState()
 
