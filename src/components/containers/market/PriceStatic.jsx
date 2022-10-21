@@ -20,7 +20,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const PriceStatic = ({ navigation }) => {
-  const [dataCoin, setDataCoin] = useState([])
+  const [dataCoin, setDataCoin] = useState(0)
   const [loading, setLoading] = useState(true)
   
   const url24='https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT';
