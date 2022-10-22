@@ -24,7 +24,7 @@ export const authReducer = createReducer({}, {
         state.loading = false;
         state.isAuthenticated = true;
         state.token = action.payload.token;
-        state.user = action.payload.token;
+        // state.user = action.payload.token;
         state.message = action.payload.message
     },
     signupFailure: (state, action) => {

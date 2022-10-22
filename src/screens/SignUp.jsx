@@ -16,6 +16,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../redux/action";
+import * as Location from "expo-location";
 
 const SignUp = ({ navigation }) => {
 
@@ -26,9 +27,35 @@ const SignUp = ({ navigation }) => {
 	const [show, setShow] = useState(false);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [location, setLocation] = useState(null);
+	const [errorMsg, setErrorMsg] = useState(null);
+
+	useEffect(() => {
+		(async () => {
+			let { status } = await Location.requestForegroundPermissionsAsync();
+			if (status !== "granted") {
+				setErrorMsg("Permission to access location was denied");
+				return;
+			}
+
+			let location = await Location.getCurrentPositionAsync({});
+
+			let address = await Location.reverseGeocodeAsync(location.coords);
+
+			const userLocation = {
+				latitude: location.coords.latitude,
+				longitude: location.coords.longitude,
+				city: address[0].city,
+				state: address[0].region,
+				country: address[0].country,
+			}
+
+			setLocation(userLocation);
+		})();
+	}, []);
 
 	async function registerHandler() {
-		dispatch(signup(email, password))
+		dispatch(signup(email, password, location))
 	}
 
 	useEffect(() => {
