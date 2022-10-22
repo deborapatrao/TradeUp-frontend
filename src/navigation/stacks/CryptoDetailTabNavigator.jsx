@@ -16,7 +16,7 @@ const CryptoDetailTabNavigator = () => {
         <Tab.Navigator screenOptions={{
             tabBarLabelStyle: { fontSize: 12, color: '#fff' },
             // tabBarItemStyle: { width: 100 },
-            tabBarStyle: { backgroundColor: '#221A32' },
+            tabBarStyle: { backgroundColor: '#171122' },
         }}>
             <Tab.Screen name="Chart" component={ChartScreen} />
             <Tab.Screen name="Orders" component={OrdersScreen} />
