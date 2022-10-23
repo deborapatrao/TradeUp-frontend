@@ -138,11 +138,6 @@ const ChartComponent = () => {
         <SafeAreaView style={styles.container}>
 
             <View>
-                <Text>Chart</Text>
-                <Text>≈$18,900 USDT</Text>
-            </View>
-
-            <View>
                 <Button.Group style={styles.btnsPanel} size="xs">
                     {intervals && intervals.map((item, index) => {
                         return (

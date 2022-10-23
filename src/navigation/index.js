@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from "../components/utils/Loader";
-import { loadUser } from "../redux/action";
 
 export default function RootNavigation() {
 	const dispatch = useDispatch();
@@ -35,6 +34,8 @@ export default function RootNavigation() {
 	useEffect(() => {
 		checkAuth();
 	}, [dispatch]);
+
+
 
 	return (
 		<NativeBaseProvider>

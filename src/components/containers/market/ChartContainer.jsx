@@ -16,8 +16,6 @@ const ChartContainer = ({ navigation }) => {
                 <Box>
                     <ChartComponent />
                 </Box>
-                <Text color={'secondary.white'}>ChartContainer</Text>
-                <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell')}>BuyAndSell</Button>
             </Box>
         </ScrollView> 
         // </SafeAreaView>

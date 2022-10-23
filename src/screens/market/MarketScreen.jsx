@@ -4,14 +4,13 @@ import {
     Button,
     Text
 } from "native-base";
+import CryptoList from '../../components/lists/CryptoList';
 
 const MarketScreen = ({ navigation }) => {
 
     return (
-        <Box bgColor={'primary.bg'} flex={1}>
-            {/* <Text fontFamily="body" fontWeight="100" fontStyle="normal" color={'primary.bg'}>MarketScreen</Text>
-            <Text fontFamily="body" fontWeight="200" fontStyle="normal" color={'primary.bg'}>MarketScreen</Text> */}
-            <Text>MarketScreen</Text>
+        <Box>
+            <CryptoList />
             <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('CryptoDetail')}>Crypto Detail Screen</Button>
         </Box>
     );
