@@ -1,6 +1,9 @@
-import { View, Box, Text, Icon, Button } from 'native-base'
-import Ionicons from '@expo/vector-icons/Ionicons';
-import React from 'react'
+import { View, Box, Text, Icon, Button } from "native-base";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import React from "react";
+import { getAuth, signOut } from "firebase/auth";
+
+const auth = getAuth()
 
 const Test = ({ navigation }) => {
     return (
@@ -12,7 +15,8 @@ const Test = ({ navigation }) => {
             </Text>
             <Button onPress={() => navigation.navigate('')}>InfoHome</Button>
         </Box>
-    )
-}
 
-export default Test
+    );
+};
+
+export default Test;
