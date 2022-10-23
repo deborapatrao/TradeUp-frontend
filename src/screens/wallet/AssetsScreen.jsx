@@ -7,7 +7,7 @@ import {
 const AssetsScreen = () => {
 
     return (
-        <Box safeArea>
+        <Box bgColor={'primary.bg'} flex={1}>
             <Text>AssetsScreen</Text>
         </Box>
     );

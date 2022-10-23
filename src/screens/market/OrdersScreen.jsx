@@ -7,7 +7,7 @@ import {
 const OrdersScreen = () => {
 
     return (
-        <Box safeArea>
+        <Box bgColor={'primary.bg'} flex={1}>
             <Text>OrdersScreen</Text>
         </Box>
     );

@@ -7,7 +7,7 @@ import {
 const OverviewScreen = () => {
 
     return (
-        <Box safeArea>
+        <Box bgColor={'primary.bg'} flex={1}>
             <Text>OverviewScreen</Text>
         </Box>
     );
