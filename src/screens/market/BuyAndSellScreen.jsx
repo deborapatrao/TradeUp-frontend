@@ -7,7 +7,7 @@ import {
 const BuyAndSellScreen = () => {
 
     return (
-        <Box safeArea>
+        <Box bgColor={'primary.bg'} flex={1}>
             <Text>BuyAndSellScreen</Text>
         </Box>
     );

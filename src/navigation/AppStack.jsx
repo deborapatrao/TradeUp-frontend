@@ -132,9 +132,19 @@ const AppStack = () => {
                         headerShown: true, // hide header
                     }} />
                     <Tab.Screen name="Market" component={MarketStack} />
-                    <Tab.Screen name="Resources" component={Test} />
+                    <Tab.Screen name="Resources" component={Test} options={{
+                        headerShown: true,
+                        headerTitle: (props) => <HomeHeader {...props} />,
+                        headerStyle: {
+                            backgroundColor: '#171122',
+                        },
+                        headerTitleStyle: {
+                            color: '#F2F2F2',
+                        },
+                    }} />
                     <Tab.Screen name="Wallet" component={WalletTabNavigator} options={{
                         headerShown: true,
+                        headerTitle: (props) => <HomeHeader {...props} />,
                         headerStyle: {
                             backgroundColor: '#171122',
                         },

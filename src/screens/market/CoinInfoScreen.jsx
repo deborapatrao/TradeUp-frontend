@@ -7,7 +7,7 @@ import {
 const CoinInfoScreen = () => {
 
     return (
-        <Box safeArea>
+        <Box bgColor={'primary.bg'} flex={1}>
             <Text>CoinInfoScreen</Text>
         </Box>
     );

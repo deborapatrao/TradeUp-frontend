@@ -7,7 +7,7 @@ import {
 const TradesScreen = () => {
 
     return (
-        <Box safeArea>
+        <Box bgColor={'primary.bg'} flex={1}>
             <Text>TradesScreen</Text>
         </Box>
     );
