@@ -17,9 +17,6 @@ import { Icon } from "native-base";
 import { TouchableOpacity } from "react-native";
 
 const MenuList = ({ navigation }) => {
-
-
-
 	return (
 		<>
 			<FlatList

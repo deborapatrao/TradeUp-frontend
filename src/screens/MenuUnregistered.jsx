@@ -16,7 +16,6 @@ const MenuUnregistered = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.auth);
 	return (
-		<Box>
 			<Center>
 				<Image source={Logo} alt="Alternate Text" />
 				<Heading>Welcome</Heading>
@@ -25,15 +24,6 @@ const MenuUnregistered = ({ navigation }) => {
 				</Button>
 				<Text>Create Account</Text>
 			</Center>
-
-			<MenuList navigation={navigation} />
-
-			<Center>
-				<Button mt="2" variant="link">
-					Logout
-				</Button>
-			</Center>
-		</Box>
 	);
 };
 

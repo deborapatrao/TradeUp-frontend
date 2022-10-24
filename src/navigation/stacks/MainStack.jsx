@@ -4,8 +4,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator, createStackNavigator } from "@react-navigation/stack";
 
 // screens
-import MenuRegistered from '../../screens/MenuRegistered';
-import MenuUnregistered from '../../screens/MenuUnregistered';
 import Home from '../../screens/Home';
 import HomeHeader from '../../components/layout/HomeHeader';
 import Leaderboard from '../../screens/leaderboard/Leaderboard';
@@ -14,6 +12,7 @@ import Profile from '../../screens/Profile';
 import Notification from '../../screens/Notifications';
 import Support from '../../screens/Support';
 import UserAgreement from '../../screens/UserAgreement';
+import Menu from '../../screens/Menu';
 
 import { useSelector } from "react-redux";
 
@@ -28,7 +27,7 @@ const MainStack = () => {
             <Stack.Screen name="Main" component={Home} options={{
                 headerShown: false, // hide header
             }} />
-            <Stack.Screen name="Menu" component={user ? MenuRegistered : MenuUnregistered} options={{
+            <Stack.Screen name="Menu" component={Menu} options={{
                 headerTitle: ''
             }} />
             <Stack.Screen name="Leaderboard" component={Leaderboard} />
