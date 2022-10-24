@@ -144,7 +144,7 @@ const ChartScreen = ({ navigation }) => {
             )}
             </Box>
           </VStack>
-        <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('PriceAlert')}>BuyAndSell</Button>
+        <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell')}>BuyAndSell</Button>
         </ScrollView>
 
         </>
