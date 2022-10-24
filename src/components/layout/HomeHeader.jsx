@@ -40,11 +40,23 @@ const HomeHeader = ({navigation}) => {
     )
 }
 
-const styles = StyleSheet.create({
-    header: {
-      direction:'row',
-      justifyContent:'space-around',
-    }
-});
+	return (
+		<Center>
+			<HStack space={2} alignItems="center">
+				<Link
+					_text={{
+						color: "indigo.500",
+						fontWeight: "medium",
+						fontSize: "sm",
+					}}
+					onPress={() => navigation.navigate("Menu")}
+				>
+					Profile
+				</Link>
+				<Text>Header with icons and input here</Text>
+			</HStack>
+		</Center>
+	);
+};
 
 export default HomeHeader
