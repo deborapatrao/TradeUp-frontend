@@ -6,18 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { logout } from "../redux/action";
 
-const MenuUnregistered = () => {
+const MenuUnregistered = ({}) => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.auth);
-
-	const logoutHandler = () => {
-		dispatch(logout());
-	};
 
 	return (
 		<Box safeArea>
 			<Text>Welcome</Text>
-			<Button mt="2" colorScheme="primary" >
+			<Button mt="2" colorScheme="primary">
 				Sign In
 			</Button>
             <Text>Create Account</Text>
