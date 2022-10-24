@@ -6,6 +6,9 @@ import {
     Button
 } from "native-base";
 import axios from 'axios';
+import BuyScreen from './buyAndSell/BuyAndSell';
+import PriceStatic from '../../components/containers/market/PriceStatic';
+
 
 const BuyAndSellScreen = ({ route }) => {
     const { ticker } = route.params;
@@ -53,9 +56,8 @@ const BuyAndSellScreen = ({ route }) => {
 
     return (
         <Box bgColor={'primary.bg'} flex={1}>
-            <Input type='number' value={amount} onChangeText={(txt) => handleChange(txt)} /> 
-            <Button onPress={handleBuy}>Buy</Button>
-            <Button onPress={handleSell}>Sell</Button>
+            <PriceStatic/>
+            <BuyScreen/>
         </Box>
     );
 };
