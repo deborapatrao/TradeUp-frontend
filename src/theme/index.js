@@ -18,6 +18,11 @@ export const customTheme = extendTheme({
 			white: "#F2F2F2",
 			blue: "#386AF5",
 			red: "#FF6666",
+			600: '#386AF5',
+		},
+		tradeup: {
+			500: '#386AF5',
+			600: '#386AF5',
 		},
 		supporting: {
 			lightGreen: "#31C451",
@@ -28,15 +33,15 @@ export const customTheme = extendTheme({
 		initialColorMode: "dark",
 	},
 	components: {
-		// Button: {
-		// 	// Can simply pass default props to change default behaviour of components.
-		// 	baseStyle: {
-		// 		rounded: "md",
-		// 	},
-		// 	defaultProps: {
-		// 		colorScheme: "red",
-		// 	},
-		// },
+		Button: {
+			// Can simply pass default props to change default behaviour of components.
+			baseStyle: {
+				rounded: "md",
+			},
+			defaultProps: {
+				colorScheme: "tradeup",
+			},
+		},
 		Heading: {
 			// Can pass also function, giving you access theming tools
 			baseStyle: ({ colorMode }) => {
