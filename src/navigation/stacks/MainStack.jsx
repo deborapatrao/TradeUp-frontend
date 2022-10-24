@@ -19,8 +19,7 @@ const MainStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Main" component={Home} options={{
-                headerTitle: (props) => <HomeHeader {...props} />,
-                headerShown: true, // hide header
+                headerShown: false, // hide header
             }} />
             <Stack.Screen name="Menu" component={user ? MenuRegistered : MenuUnregistered} options={{
                 headerTitle: ''
