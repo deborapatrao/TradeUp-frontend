@@ -10,8 +10,7 @@ const MarketScreen = ({ navigation }) => {
 
     return (
         <Box>
-            <CryptoList />
-            <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('CryptoDetail')}>Crypto Detail Screen</Button>
+            <CryptoList navigation={navigation} />
         </Box>
     );
 };

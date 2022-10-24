@@ -21,7 +21,7 @@ import Label from "./Label";
 
 
 
-const ChartComponent = () => {
+const ChartComponent = ({ ticker }) => {
     const getDomain = (rows) => {
         const values = rows.map(({ high, low }) => [parseFloat(high), parseFloat(low)]).flat();
         const min = Math.min(...values);
@@ -37,7 +37,7 @@ const ChartComponent = () => {
     const candles = candlesNew.slice(0, 30);
     const domain = getDomain(candles);
 
-    console.log('main domain: ', domain);
+    // console.log('main domain: ', domain);
     // Lines when you click on the chart
     const [x, y, state] = useValues(0, 0, State.UNDETERMINED);
     const gestureHandler = onGestureEvent({
@@ -104,7 +104,7 @@ const ChartComponent = () => {
     async function getChartData() {
         try {
             const response = await axios.get(
-                `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${intervals[timeframe]}&limit=50`
+                `https://api.binance.com/api/v3/klines?symbol=${ticker}&interval=${intervals[timeframe]}&limit=50`
             );
             //   console.log(response.data);
 

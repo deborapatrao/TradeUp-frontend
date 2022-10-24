@@ -22,7 +22,7 @@ import CryptoItem from "../listItems/CryptoItem";
 const axios = require("axios");
 
 
-const CryptoList = () => {
+const CryptoList = ({ navigation }) => {
   // const [isLoading, setLoading] = useState(true);
 
   const [data, setData] = useState([]);
@@ -56,6 +56,7 @@ const CryptoList = () => {
   async function loadCoins(){
     try {
       const reponse = await axios.get(`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`);
+      console.log(JSON.stringify(reponse.data, null ,2));
 
       let newData = [];
 
@@ -114,7 +115,7 @@ const CryptoList = () => {
           data={data}
           style={{ paddingHorizontal: 5 }}
           renderItem={({ item }) => {
-            return <CryptoItem coin={item} />
+            return <CryptoItem navigation={navigation} coin={item} />
           }}
           keyExtractor={item => item.symbol}
         />

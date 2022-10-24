@@ -19,19 +19,21 @@ import { StyleSheet} from "react-native";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
-const PriceStatic = ({ navigation }) => {
+const PriceStatic = ({ ticker }) => {
   const [dataCoin, setDataCoin] = useState(0)
   const [loading, setLoading] = useState(true)
   
-  const url24='https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT';
+  const url24=`https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;
 
    
     useEffect(() =>{
+      loadOverview();
       const intervalId = setInterval(() =>{
         loadOverview();
        }, 5000);      
       return () => clearInterval(intervalId) 
     }, [])  
+    
     function loadOverview() {
       fetch(url24)
       .then((response) => response.json())
