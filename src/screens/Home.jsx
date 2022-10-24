@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Platform, Linking } from "react-native";
-import { Box, Text, Button } from "native-base";
+import { Box, Text, Button, Heading } from "native-base";
 import { loadUser } from "../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import * as Location from "expo-location";
@@ -90,17 +90,17 @@ const Home = () => {
 	};
 
 	return (
-		<Box safeArea>
-			<Text fontSize="2xl" color="text.700">
+        <>
+			<Heading>
 				Top Traders
-			</Text>
-			<Text color="text.700">{user ? user.email : "Not logged in"}</Text>
+			</Heading>
+			<Text>{user ? user.email : "Not logged in"}</Text>
 			{!location ? (
 				<Button onPress={requestPermissions}>Allow Location</Button>
 			) : (
-				<Text color="text.700">Location Allowed</Text>
+				<Text>Location Allowed</Text>
 			)}
-		</Box>
+        </>
 	);
 };
 

@@ -1,18 +1,10 @@
-import { useNavigation } from "@react-navigation/native";
 import { Heading, Center, VStack, HStack, Button } from "native-base";
 
 const Onboarding = ({ navigation, skipAuthHandler }) => {
 
-    // const navigation = useNavigation()
     return (
         <>
             <Center
-                _light={{
-                    bg: "coolGray.50",
-                }}
-                _dark={{
-                    bg: "blueGray.900",
-                }}
                 flex={1}
                 px={4}
             >
