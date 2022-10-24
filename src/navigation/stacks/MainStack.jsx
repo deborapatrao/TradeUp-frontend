@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createNativeStackNavigator, createStackNavigator } from "@react-navigation/stack";
 
 // screens
 import MenuRegistered from '../../screens/MenuRegistered';
@@ -10,7 +10,7 @@ import Home from '../../screens/Home';
 import HomeHeader from '../../components/layout/HomeHeader';
 import { useSelector } from "react-redux";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const MainStack = () => {
 
