@@ -19,7 +19,7 @@ const HomeStack = createStackNavigator();
 const MarketStackScreen = () => {
     return (
         <HomeStack.Navigator>
-            <HomeStack.Screen name="Crypto List" component={MarketScreen} options={{
+            <HomeStack.Screen name="CryptoList" component={MarketScreen} options={{
                 headerTitle: (props) => <HomeHeader {...props} />,
                 headerShown: true, // hide header
                 headerStyle: {

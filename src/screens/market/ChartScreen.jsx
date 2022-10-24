@@ -12,19 +12,29 @@ import {
 } from "native-base";
 import { StyleSheet} from "react-native";
 import PriceStatic from '../../components/containers/market/PriceStatic';
-import ChartContainer from '../../components/containers/market/ChartContainer';
+import ChartComponent from '../../components/containers/market/chart';
+import { useSelector, useDispatch } from "react-redux";
 
-const ChartScreen = ({ navigation }) => {
+
+const ChartScreen = ({ navigation, route }) => {
+  const {ticker} = route.params;
+
+  // const dispatch = useDispatch();
+	// const { user } = useSelector((state) => state.auth);
+  // console.log(user);
+
   const [dataBids, setDataBids] = useState([])
   const [dataAsks, setDataAsks] = useState([])
   const [dataCoin, setDataCoin] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const url= 'https://api.binance.com/api/v3/depth?symbol=ETHUSDT&limit=10';
-  const url24='https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT';
+  const url= `https://api.binance.com/api/v3/depth?symbol=${ticker}&limit=10`;
+  const url24=`https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;
 
    
     useEffect(() =>{
+      loadOrders();
+      loadOverview();
       const intervalId = setInterval(() =>{
         loadOrders();
         loadOverview();
@@ -64,10 +74,20 @@ const ChartScreen = ({ navigation }) => {
                     
                     <Text fontSize='4xl'>≈${parseFloat(dataCoin.prevClosePrice).toFixed(2)}</Text>
                   </Box>                 */}
-                <PriceStatic/>
-                <Box >
-                  <ChartContainer navigation={navigation} />
+                <PriceStatic ticker={ticker}/>
+
+                {/* CHART BOX */}
+                <Box>
+                  {/* <ChartContainer navigation={navigation} /> */}
+                    <ScrollView  bg={'primary.bg'} paddingX={4}> 
+                      <Box>
+                          <Box>
+                              <ChartComponent ticker={ticker}/>
+                          </Box>
+                      </Box>
+                  </ScrollView> 
                 </Box>
+                
                     {/* <Box style={styles.container}> */}
                 <ScrollView>
                     <VStack 
@@ -126,7 +146,7 @@ const ChartScreen = ({ navigation }) => {
               <>
               <Box width={'50%'}>
               {dataBids.map((bids)=>(
-                  <HStack justifyContent={'space-between'}>
+                  <HStack key={bids[0]}  justifyContent={'space-between'}>
                   <Text fontSize={"sm"} color="#31c451" ml={2}>{parseFloat(bids[0]).toFixed(4)}</Text>
                   <Text fontSize={"sm"} color="#31c451">{parseFloat(bids[1]).toFixed(4)}</Text>
                   </HStack>
@@ -134,7 +154,7 @@ const ChartScreen = ({ navigation }) => {
               </Box>
               <Box width={'50%'}>
               {dataAsks.map((asks)=>(
-                  <HStack justifyContent={'space-between'}>
+                  <HStack key={asks[0]} justifyContent={'space-between'}>
                   <Text fontSize={"sm"} color="#FF6666">{parseFloat(asks[0]).toFixed(4)}</Text>
                   <Text textAlign={'right'} mr={2} color="#FF6666">{parseFloat(asks[1]).toFixed(4)}</Text>
                   </HStack>
@@ -144,7 +164,7 @@ const ChartScreen = ({ navigation }) => {
             )}
             </Box>
           </VStack>
-        <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell')}>BuyAndSell</Button>
+        <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker })}>BuyAndSell</Button>
         </ScrollView>
 
         </>
