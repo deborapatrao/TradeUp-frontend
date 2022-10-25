@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TradeApp",
-    "slug": "TradeApp",
+    "name": "TradeUp",
+    "slug": "TradeUp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
