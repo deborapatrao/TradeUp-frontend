@@ -6,8 +6,8 @@ import {
     Button
 } from "native-base";
 import axios from 'axios';
-import BuyScreen from './buyAndSell/BuyAndSell';
 import PriceStatic from '../../components/containers/market/PriceStatic';
+import BuyAndSellComponent from './buyAndSell/BuyAndSell';
 
 
 const BuyAndSellScreen = ({ route }) => {
@@ -57,7 +57,7 @@ const BuyAndSellScreen = ({ route }) => {
     return (
         <Box bgColor={'primary.bg'} flex={1}>
             <PriceStatic/>
-            <BuyScreen/>
+            <BuyAndSellComponent/>
         </Box>
     );
 };

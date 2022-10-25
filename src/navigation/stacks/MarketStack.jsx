@@ -26,8 +26,8 @@ const MarketStackScreen = () => {
                     backgroundColor: '#171122',
                 }
             }} />
-            <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation }) => ({
-                headerTitle: (props) => <MarketHeader {...props} navigation={navigation}/>,
+            <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation, route }) => ({
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route}/>,
                 navigationBarColor:'gray.400',
                 headerTitleAlign:'center',
                 headerStyle: {

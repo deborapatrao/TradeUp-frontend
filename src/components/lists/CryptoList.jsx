@@ -56,7 +56,7 @@ const CryptoList = ({ navigation }) => {
   async function loadCoins(){
     try {
       const reponse = await axios.get(`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`);
-      console.log(JSON.stringify(reponse.data, null ,2));
+      // console.log(JSON.stringify(reponse.data, null ,2));
 
       let newData = [];
 

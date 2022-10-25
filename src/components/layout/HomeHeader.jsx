@@ -6,8 +6,9 @@ import { Avatar,
     SearchIcon, 
     InfoIcon, 
     Input,
-    Icon} from 'native-base'
+    Image} from 'native-base'
 import { StyleSheet} from "react-native";
+import NotificationIcon from '../../assets/images/icons/notif-icon.png'
 import React from 'react';
 
 const HomeHeader = ({navigation}) => {
@@ -18,23 +19,17 @@ const HomeHeader = ({navigation}) => {
                 <Avatar size={8} mt={1}/>
                 <Input 
                     placeholder='Looking for a coin?'
-                    placeholderTextColor={'gray.200'}
+                    placeholderTextColor={'secondary.lightGray'}
                     fontSize={'md'}
                     variant='rounded' 
                     focusOutlineColor={'gray.400'}
-                    bg='gray.400'
+                    backgroundColor='primary.field'
                     w='70%'
                     h='80%'
-                    _light={{
-                        bg: "coolGray.400",
-                        _focus: {
-                          bg: "coolGray.400"
-                        }
-                      }}
                     InputRightElement={
                         <SearchIcon size={5} ml={2} color={'gray.200'} mr={2}/>
-                    }/>                
-                <InfoIcon size={6} color={'gray.400'} mt={2}/>
+                    }/> 
+                <Image source={NotificationIcon} w={5} h={5} ml={2} mr={2} mt={2}/>  
             </HStack>
         </Stack>
     )
