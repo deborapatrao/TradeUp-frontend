@@ -15,8 +15,9 @@ import  SubIcon from "../../../assets/images/icons/sub-icon.png";
 import AddIcon from "../../../assets/images/icons/add-icon.png"
 
 
-const BuyAndSellComponent = ({ navigation }) => {
-    const[priceValue, setPriceValue] = useState(0)
+const BuyAndSellComponent = ({ navigation, ticker, price}) => {
+    console.log(price);
+    const[priceValue, setPriceValue] = useState(price)
     const[amountValue, setAmountValue] = useState(0)
     const[totalValue, setTotalValue] = useState(0)
     const[service, setService] = useState();
@@ -59,6 +60,40 @@ const handleAddBtn = () => {
     console.log(newPrice);
     setPriceValue(newPrice)
 }
+
+const handleBuy = async () => {
+    const data = {
+        coinTicker: ticker,
+        amount: parseFloat(totalValue),
+        userId: 'KItp69rp3LbtIV9l5HseDudsd5P2'
+    }
+    console.log(data);
+    
+    // try {
+    //     const response = await axios.post('http://192.168.194.246:8080/api/buy', data)
+    //     console.log(response.data);
+        
+    // } catch (error) {
+    //     console.log(error);
+    // }
+}
+
+const handleSell = async () => {
+    const data = {
+        coinTicker: ticker,
+        amount: parseFloat(amount),
+        userId: 'KItp69rp3LbtIV9l5HseDudsd5P2'
+    }
+    console.log(data);
+    try {
+        const response = await axios.post('http://192.168.194.246:8080/api/sell', data)
+        console.log(response.data);
+    } catch (error) {
+        console.log(error);
+    }  
+}
+
+
 
 return (
     <>
@@ -109,7 +144,6 @@ return (
                     flexBasis={'70%'} 
                     onChangeText={text => handleTextChange(text)} 
                     value={`${priceValue}`}
-                    defaultValue={'0'}
                     keyboardType={'number-pad'}
                     textAlign={'center'}
                     />
@@ -224,7 +258,7 @@ return (
         mr={3} 
         mt={10} 
         backgroundColor={'secondary.blue'}
-        onPress={handleClick} >Buy</Button> 
+        onPress={handleBuy} >Buy</Button> 
 
       }
       {/* <Button w={'93%'} alignSelf={'flex-start'} onPress={handleClick} ml={3} mr={3} mt={10}>Buy</Button> */}

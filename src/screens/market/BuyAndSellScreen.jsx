@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Text,
@@ -11,8 +11,30 @@ import BuyAndSellComponent from './buyAndSell/BuyAndSell';
 
 
 const BuyAndSellScreen = ({ route }) => {
+    const [dataCoin, setDataCoin] = useState(0)
     const { ticker } = route.params;
     const [amount, setAmount] = React.useState(0)
+
+    const url24=`https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;
+
+    useEffect(() =>{
+        loadOverview();
+        const intervalId = setInterval(() =>{
+          loadOverview();
+         }, 5000);      
+        return () => clearInterval(intervalId) 
+      }, [])  
+      
+      function loadOverview() {
+        fetch(url24)
+        .then((response) => response.json())
+        .then((json)=>{
+          setDataCoin(json)
+        })
+        .catch((error)=>console.error(error))
+        .finally(()=>console.log('finished'))
+      }
+
 
     const handleChange = (amount) => {
         console.log(parseFloat(amount));
@@ -21,43 +43,12 @@ const BuyAndSellScreen = ({ route }) => {
         }
     }
 
-    const handleBuy = async () => {
-        const data = {
-            coinTicker: ticker,
-            amount: parseFloat(amount),
-            userId: 'KItp69rp3LbtIV9l5HseDudsd5P2'
-        }
-        
-        try {
-            const response = await axios.post('http://192.168.194.246:8080/api/buy', data)
-            console.log(response.data);
-            
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const handleSell = async () => {
-        const data = {
-            coinTicker: ticker,
-            amount: parseFloat(amount),
-            userId: 'KItp69rp3LbtIV9l5HseDudsd5P2'
-        }
-        console.log(data);
-        try {
-            const response = await axios.post('http://192.168.194.246:8080/api/sell', data)
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
-        }  
-    }
-
     
 
     return (
         <Box bgColor={'primary.bg'} flex={1}>
-            <PriceStatic/>
-            <BuyAndSellComponent/>
+            <PriceStatic ticker={ticker}/>
+            <BuyAndSellComponent price={dataCoin.askPrice} ticker={ticker} />
         </Box>
     );
 };
