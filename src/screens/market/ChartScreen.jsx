@@ -42,7 +42,6 @@ const ChartScreen = ({ navigation, route }) => {
       return () => clearInterval(intervalId) 
     }, [])  
 
-
     function loadOrders() {
       fetch(url)
       .then((response) => response.json())
@@ -94,9 +93,6 @@ const ChartScreen = ({ navigation, route }) => {
                       space="2" 
                       m="1" 
                       px="2" 
-                      borderColor='black'
-                      borderWidth={2}
-                      borderRadius={5}
                       width="auto"
                     >
                       <Heading size="md">Overview</Heading>
@@ -130,7 +126,6 @@ const ChartScreen = ({ navigation, route }) => {
                           </HStack>
                         </Box>
                       </Stack>    
-                      <Divider/>
                     </VStack>
                   </ScrollView>
               </Box>
@@ -154,7 +149,7 @@ const ChartScreen = ({ navigation, route }) => {
               </Box>
               <Box width={'50%'}>
               {dataAsks.map((asks)=>(
-                  <HStack key={asks[0]} justifyContent={'space-between'}>
+                  <HStack ml={1} key={asks[0]} justifyContent={'space-between'}>
                   <Text fontSize={"sm"} color="#FF6666">{parseFloat(asks[0]).toFixed(4)}</Text>
                   <Text textAlign={'right'} mr={2} color="#FF6666">{parseFloat(asks[1]).toFixed(4)}</Text>
                   </HStack>
@@ -176,8 +171,6 @@ const styles = StyleSheet.create({
     display:'flex',
     flexDirection:'row',
     justifyContent:'space-between',
-    borderColor: 'black',
-    borderWidth: 1,
     m:2,
   },
   text:{
