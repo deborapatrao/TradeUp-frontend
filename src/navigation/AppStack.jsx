@@ -87,7 +87,7 @@ const AppStack = () => {
 					tabBarLabelStyle: {
 						fontSize: 12,
 					},
-
+					tabBarHideOnKeyboard: true
 				})}
 			>
 				<Tab.Screen

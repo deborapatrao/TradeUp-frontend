@@ -15,17 +15,33 @@ import  SubIcon from "../../../assets/images/icons/sub-icon.png";
 import AddIcon from "../../../assets/images/icons/add-icon.png"
 
 
-const BuyAndSellComponent = ({ navigation, ticker, price}) => {
-    console.log(price);
-    const[priceValue, setPriceValue] = useState(price)
-    const[amountValue, setAmountValue] = useState(0)
-    const[totalValue, setTotalValue] = useState(0)
+const BuyAndSellComponent = ({ navigation, ticker}) => {
+    const[priceValue, setPriceValue] = useState(0);
+    const[amountValue, setAmountValue] = useState('')
+    const[totalValue, setTotalValue] = useState('')
     const[service, setService] = useState();
     const[buyActive, setBuyActive] = useState(true);
     const[sellActive, setSellActive] = useState(false);
+
+    const url24=`https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;
+
+    useEffect(() =>{
+        loadOverview();
+      }, [])  
+      
+      function loadOverview() {
+        fetch(url24)
+        .then((response) => response.json())
+        .then((json)=>{
+            setPriceValue(json.askPrice)
+        })
+        .catch((error)=>console.error(error))
+        // .finally(()=>console.log('finished'))
+      }
+
    
     const url= 'https://api.binance.com/api/v3/depth?symbol=ETHUSDT&limit=10';
-    const url24='https://api.binance.com/api/v3/ticker/24hr?symbol=ETHUSDT';
+
 
     const handleClick = ()=>{
         console.log(`price from value is ${priceValue}`);
@@ -33,23 +49,15 @@ const BuyAndSellComponent = ({ navigation, ticker, price}) => {
         console.log(`price from total is ${totalValue}`);
     }
 
+    
 
-const handleTextChange=(txt)=>{
-    if(!isNaN(parseFloat(txt))){
-        setPriceValue(parseFloat(txt))
-    } else {
-        console.log('nope');
-        setPriceValue(parseFloat(priceValue))
-    }
-
-}
-
-const handleBuySellChange = (btn) =>{
-    if(btn === "sell"){
-        setBuyActive(false)
-        setSellActive(true)
-    }else{
-        setBuyActive(true)
+    
+    const handleBuySellChange = (btn) =>{
+        if(btn === "sell"){
+            setBuyActive(false)
+            setSellActive(true)
+        }else{
+            setBuyActive(true)
         setSellActive(false)
     }
 }
@@ -59,6 +67,50 @@ const handleAddBtn = () => {
     const newPrice = parseFloat(priceValue) + 1
     console.log(newPrice);
     setPriceValue(newPrice)
+}
+
+
+const handlePriceValueChange=(txt)=>{
+    const newPrice = parseFloat(txt)
+    if(!isNaN(newPrice)){
+        setPriceValue(newPrice)
+    } else {
+        console.log('nope');
+        setPriceValue(0)
+    }
+}
+
+const handleAmountChange = (txt) => {
+    const newPrice = parseFloat(txt)
+    if(!isNaN(newPrice)){
+        setAmountValue(newPrice)
+    } else {
+        console.log('nope');
+        setAmountValue('')
+    }
+    if(txt !== ''){
+        const newTotalValue = parseFloat(priceValue) * newPrice
+        setTotalValue(newTotalValue)
+    } else {
+        setTotalValue('')
+    }
+}
+
+const handleTotalChange = (txt) => {
+    const newPrice = parseFloat(txt)
+    if(!isNaN(newPrice)){
+        setTotalValue(newPrice)
+    } else {
+        console.log('nope');
+        setTotalValue('')
+    }
+
+    if(txt !== '') {
+        const newAmountValue = newPrice / parseFloat(priceValue) 
+        setAmountValue(newAmountValue)
+    } else {
+        setAmountValue('')
+    }
 }
 
 const handleBuy = async () => {
@@ -142,9 +194,11 @@ return (
                     color={'secondary.white'} 
                     variant={'unstyled'}
                     flexBasis={'70%'} 
-                    onChangeText={text => handleTextChange(text)} 
+                    onChangeText={text => handlePriceValueChange(text)} 
                     value={`${priceValue}`}
-                    keyboardType={'number-pad'}
+                    keyboardType={'numeric'}
+                    // defaultValue={`${priceValue}`}
+                    // keyboardType={'number-pad'}
                     textAlign={'center'}
                     />
                 <Button  backgroundColor={'primary.field'} 
@@ -183,7 +237,10 @@ return (
                     flexBasis={'70%'}    
                     textAlign={'center'}                
                     keyboardType={'number-pad'}
-                    onChangeText={text => setAmountValue(text)}></Input>
+                    onChangeText={text => handleAmountChange(text)} 
+                    value={`${amountValue}`}
+                    placeholder={'Amount Coin'}
+                    />
                 <Button 
                     backgroundColor={'primary.field'} 
                     borderLeftColor={'secondary.lightGray'} 
@@ -220,7 +277,10 @@ return (
                     flexBasis={'70%'} 
                     textAlign={'center'}
                     keyboardType={'number-pad'}
-                    onChangeText={text => setTotalValue(text)}></Input>
+                    onChangeText={text => handleTotalChange(text)} 
+                    value={`${totalValue}`}
+                    placeholder={'Total USDT'}
+                    />
                 <Button 
                      backgroundColor={'primary.field'} 
                      borderLeftColor={'secondary.lightGray'} 
