@@ -49,7 +49,8 @@ const WalletTabNavigator = () => {
             },
             tabBarContentContainerStyle: {
                 // backgroundColor: 'red',
-                borderTopColor: 'red'
+                borderTopColor: 'red',
+                paddingHorizontal: 4
             },
         })}>
             <Tab.Screen name="Overview" component={OverviewScreen} />

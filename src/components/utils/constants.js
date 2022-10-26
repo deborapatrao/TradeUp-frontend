@@ -7,7 +7,7 @@ export const menuItems = [
         id: 2,
         name: 'Saved Resources',
     },
-    {  
+    {
         id: 3,
         name: 'Profile Settings',
     },
