@@ -6,7 +6,6 @@ import {
     Text,
     HStack,
     Divider,
-    Icon,
     FlatList,
     Button,
     NativeBaseProvider,
@@ -18,7 +17,6 @@ import {
 import { StyleSheet, ScrollView} from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
 
-
 const axios = require("axios");
 
 
@@ -26,6 +24,7 @@ const CryptoList = ({ navigation }) => {
   // const [isLoading, setLoading] = useState(true);
 
   const [data, setData] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const [type, setType] = useState("standard");
 
   //coins supported by our app
@@ -50,7 +49,7 @@ const CryptoList = ({ navigation }) => {
 
     return () => clearInterval(intervalId);
 
-  }, [type])
+  }, [type, toggle])
 
   
   async function loadCoins(){
@@ -58,20 +57,29 @@ const CryptoList = ({ navigation }) => {
       const reponse = await axios.get(`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`);
       // console.log(JSON.stringify(reponse.data, null ,2));
 
-      let newData = [];
+      let sortedData = [];
 
         switch(type){
           case "24":
-            newData =  reponse.data.sort((a, b) => a.priceChangePercent - b.priceChangePercent);
+            sortedData =  reponse.data.sort((a, b) => {
+              return toggle
+              ?a.priceChangePercent - b.priceChangePercent
+              :b.priceChangePercent - a.priceChangePercent  
+            });
+            
             break;
           case "alphabetical":
-            newData = data.sort((a, b) => a.symbol.localeCompare(b.symbol));
+            sortedData = data.sort((a, b) => {
+              return toggle
+              ?a.symbol.localeCompare(b.symbol)
+              :b.symbol.localeCompare(a.symbol)
+            });
             break;
           default:
-            newData = reponse.data
+            sortedData = reponse.data
           } 
 
-          setData([...newData])
+          setData([...sortedData])
 
     } catch (error) {
       console.log(error)
@@ -80,13 +88,14 @@ const CryptoList = ({ navigation }) => {
 
 
   const handleTypeChange = (selectedType) => {
-    setType(selectedType)
+    setType(selectedType);
+    setToggle(!toggle)
   }
 
   return(
     <>
     
-      <View style={{...styles.background}}>
+      <View>
         
         <HStack style={styles.column}>
           <Button style={styles.background} 
@@ -128,7 +137,7 @@ const CryptoList = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#221A32',
+    backgroundColor: '#171122',
   }, 
 
   column: {
@@ -165,7 +174,8 @@ const styles = StyleSheet.create({
 
   percentageNegative: {
     backgroundColor: '#ff6666',
-  }
+  },
+
 });
 
 
