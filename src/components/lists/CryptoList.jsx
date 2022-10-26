@@ -16,8 +16,6 @@ import {
 } from "native-base";
 import { StyleSheet, ScrollView} from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
-import Arrow from '../../assets/images/icons/alert-icon.png'
-
 
 const axios = require("axios");
 
