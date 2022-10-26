@@ -135,7 +135,6 @@ const BuyAndSellComponent = ({ navigation, ticker}) => {
             const data = {
                 coinTicker: ticker,
                 amount: parseFloat(amountValue),
-                userId: 'KItp69rp3LbtIV9l5HseDudsd5P2'
             }
 
             setLoadingBuy(true);
@@ -153,7 +152,6 @@ const BuyAndSellComponent = ({ navigation, ticker}) => {
             const data = {
                 coinTicker: ticker,
                 amount: parseFloat(amountValue),
-                userId: 'KItp69rp3LbtIV9l5HseDudsd5P2'
             }
             
             setLoadingSell(true);
