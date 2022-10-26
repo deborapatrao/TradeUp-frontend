@@ -6,7 +6,6 @@ import {
     Text,
     HStack,
     Divider,
-    Image,
     FlatList,
     Button,
     NativeBaseProvider,
@@ -106,9 +105,6 @@ const CryptoList = ({ navigation }) => {
           >
             <Text style={styles.text}>Pair</Text>
             <Text style={styles.text}>USDT</Text>
-            <Image source={Arrow}
-            alt={'arrow icon'}
-            style={styles.arrow}/>
           </Button>
 
           <Button style={styles.background} >
@@ -182,12 +178,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff6666',
   },
 
-  arrow: {
-    borderWidth: '1px',
-    borderColor: 'red',
-    borderStyle: 'solid',
-    backgroundColor: 'green'
-  },
 });
 
 
