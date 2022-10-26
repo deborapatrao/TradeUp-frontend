@@ -13,7 +13,7 @@ import React from 'react';
 
 const HomeHeader = ({navigation}) => {
     return (
-        <Stack safeArea >
+        <Stack>
             <HStack justifyContent={'space-between'} w='100%' justifyItems={'center'} mb={2}>
                 {/* <Avatar size={8} alignSelf={'flex-start'} onPress={() => navigation.navigate('Menu')}/>                 */}
                 <Avatar size={8} mt={1}/>
