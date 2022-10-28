@@ -31,7 +31,7 @@ const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
 
-    const { colorMode } = useColorMode();
+	const { colorMode } = useColorMode();
 
 	const MyTheme = {
 		colors: {
@@ -80,14 +80,17 @@ const AppStack = () => {
 					headerShown: false, // hide header
 					tabBarStyle: {
 						backgroundColor: "#171122",
-                        borderTopColor: "#413556",
-                        height: 60,
-                        paddingBottom: 7,
+						borderTopColor: "#413556",
+						height: 60,
+						// paddingBottom: 20,
+						// paddingTop: 10,
+						height: 85
 					},
 					tabBarLabelStyle: {
 						fontSize: 12,
 					},
-					tabBarHideOnKeyboard: true
+					tabBarHideOnKeyboard: true,
+
 				})}
 			>
 				<Tab.Screen

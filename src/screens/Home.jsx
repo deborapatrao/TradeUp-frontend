@@ -102,8 +102,10 @@ const Home = () => {
 		}
 	};
 
+
+
 	return (
-        <>
+		<>
 			<Heading>
 				Top Traders
 			</Heading>
@@ -113,7 +115,7 @@ const Home = () => {
 			) : (
 				<Text>Location Allowed</Text>
 			)}
-        </>
+		</>
 	);
 };
 

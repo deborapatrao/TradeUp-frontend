@@ -27,9 +27,9 @@ const MarketStackScreen = () => {
                 }
             }} />
             <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation, route }) => ({
-                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route}/>,
-                navigationBarColor:'gray.400',
-                headerTitleAlign:'center',
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route} />,
+                navigationBarColor: 'gray.400',
+                headerTitleAlign: 'center',
                 headerStyle: {
                     backgroundColor: '#171122',
                 },
@@ -39,13 +39,13 @@ const MarketStackScreen = () => {
                 headerBackTitleVisible: false,
                 headerBackTitleStyle: {
                     color: '#fff'
-                }                
+                }
                 //    headerBackImageSource:'src image'
             })} />
             <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={({ navigation, route }) => ({
-                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route}/>,
-                navigationBarColor:'gray.400',
-                headerTitleAlign:'center',
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route} />,
+                navigationBarColor: 'gray.400',
+                headerTitleAlign: 'center',
                 headerStyle: {
                     backgroundColor: '#171122',
                 },
@@ -55,13 +55,13 @@ const MarketStackScreen = () => {
                 headerBackTitleVisible: false,
                 headerBackTitleStyle: {
                     color: '#fff'
-                }                
-            })}/>
+                }
+            })} />
             <HomeStack.Screen name="PriceAlert" component={PriceAlertScreen} options={{
                 headerTitle: 'Price Alert',
-                headerTitleAlign:'center'
+                headerTitleAlign: 'center'
             }} />
-            
+
         </HomeStack.Navigator>
     )
 }
