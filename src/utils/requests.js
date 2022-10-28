@@ -37,3 +37,22 @@ export const getWalletData = async (url) => {
     }
     return data;
 }
+
+export const getBuyAndSellData = async (url, ticker) => {
+    let data = null;
+    try {
+        const userId = await AsyncStorage.getItem("userId");
+
+        const response = await axios.post(`${BASE_URL}${url}`, {
+            userId: userId,
+            coinTicker: ticker
+        })
+
+        console.log('RESPONSE: ', response.data);
+        data = response.data;
+
+    } catch (error) {
+        console.log(error);
+    }
+    return data;
+}

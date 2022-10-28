@@ -10,14 +10,17 @@ import PriceStatic from '../../components/containers/market/PriceStatic';
 import BuyAndSellComponent from './buyAndSell/BuyAndSell';
 
 
-const BuyAndSellScreen = ({ route }) => {
+const BuyAndSellScreen = ({ navigation, route }) => {
     const { ticker } = route.params;
-    
+
+    useEffect(() => {
+        navigation.setOptions({ headerTitle: ticker })
+    }, [])
 
     return (
         <Box bgColor={'primary.bg'} flex={1}>
-            <PriceStatic ticker={ticker}/>
-            <BuyAndSellComponent ticker={ticker} />
+            <PriceStatic ticker={ticker} />
+            <BuyAndSellComponent navigation={navigation} ticker={ticker} />
         </Box>
     );
 };
