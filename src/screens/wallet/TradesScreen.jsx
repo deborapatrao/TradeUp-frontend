@@ -9,13 +9,7 @@ const TradesScreen = ({ navigation }) => {
 
 	useEffect(() => {
         const checkedFocus = navigation.addListener('focus', async () => {
-            // await loadTradeHistory();
-            try {
-                const data = await getTradeHistoryData("/wallet/history");
-                setTradeHistoryData(data.tradeInfo);  
-            } catch (error) {
-                console.log(error);
-            }
+            await loadTradeHistory();
             console.log('TradesScreen focused');
         });
 
