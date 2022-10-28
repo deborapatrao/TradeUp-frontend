@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    m: 2,
+    // m: 2,
   },
   text: {
     fontSize: 10

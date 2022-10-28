@@ -44,17 +44,17 @@ const OverviewScreen = ({ navigation }) => {
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Total Gain (Loss)</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>$500</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>-</Text>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Total Trades</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>6</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>-</Text>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Average Performance</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>50%</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>-</Text>
                 </HStack>
 
                 <HStack style={styles.heading} justifyContent={'space-between'} >
