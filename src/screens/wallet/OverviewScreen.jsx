@@ -9,12 +9,7 @@ import {
 } from "native-base";
 import { getWalletData } from '../../utils/requests';
 import { StyleSheet } from 'react-native';
-<<<<<<< HEAD
-import { useSelector, useDispatch } from "react-redux";
-
-=======
 import { priceFormatter } from '../../components/utils/numberFormats';
->>>>>>> af5b61c (small fixes + numer formatters)
 
 
 const OverviewScreen = ({ navigation }) => {
@@ -64,30 +59,18 @@ const OverviewScreen = ({ navigation }) => {
 
                 <HStack style={styles.heading} justifyContent={'space-between'} >
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Total Asset Value</Heading>
-<<<<<<< HEAD
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${walletData?.totalBalance}</Heading>
-=======
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>${priceFormatter(walletData.totalBalance)}</Heading>
->>>>>>> af5b61c (small fixes + numer formatters)
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>USDT Coin</Text>
-<<<<<<< HEAD
-                    <Text style={styles.rowText} color={'secondary.white'}>${walletData?.usdtBalance}</Text>
-=======
                     <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData.usdtBalance)}</Text>
->>>>>>> af5b61c (small fixes + numer formatters)
                 </HStack>
 
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Other Assets</Text>
-<<<<<<< HEAD
-                    <Text style={styles.rowText} color={'secondary.white'}>${walletData?.assetsBalance}</Text>
-=======
                     <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData.assetsBalance)}</Text>
->>>>>>> af5b61c (small fixes + numer formatters)
                 </HStack>
 
                 <VStack space={4} mt={5}>
