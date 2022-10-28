@@ -3,7 +3,7 @@ import { Box, HStack, StatusBar, Text } from "native-base";
 const Header = () => {
     return (
         <>
-            <StatusBar backgroundColor="#2c3e50" barStyle="light-content" />
+            <StatusBar backgroundColor="#2c3e50" barStyle="light-content" mt={5} />
             <Box safeAreaTop backgroundColor="#2c3e50">
                 <HStack
                     bg="#2c3e50"
