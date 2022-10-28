@@ -22,7 +22,6 @@ const ChartScreen = ({ navigation, route }) => {
   // const dispatch = useDispatch();
   // const { user } = useSelector((state) => state.auth);
   // console.log(user);
-
   const [dataBids, setDataBids] = useState([])
   const [dataAsks, setDataAsks] = useState([])
   const [dataCoin, setDataCoin] = useState([])
@@ -88,81 +87,99 @@ const ChartScreen = ({ navigation, route }) => {
                   </Box>
                 </Box>
               </ScrollView>
+              {/* <Box style={styles.container}> */}
+              <ScrollView>
+                <VStack
+                  space="2"
+                  m="1"
+                  px="2"
+                  width="auto"
+                >
+                  <Heading size="md">Overview</Heading>
+                  <Stack direction="row" mb="2" mt="1" justifyContent={'space-between'} >
+                    <Box width={'49%'}>
+                      <HStack justifyContent="space-between" >
+                        <Text fontSize={'xs'} >High</Text>
+                        <Text fontSize={'xs'} color="#31c451" >{parseFloat(dataCoin.highPrice).toFixed(2)}</Text>
+                      </HStack>
+                      <HStack justifyContent="space-between">
+                        <Text fontSize={'xs'}>Low</Text>
+                        <Text fontSize={'xs'} color="#FF6666">{parseFloat(dataCoin.lowPrice).toFixed(2)}</Text>
+                      </HStack>
+                      <HStack justifyContent='space-between'>
+                        <Text fontSize={'xs'}>Open</Text>
+                        <Text fontSize={'xs'}>{parseFloat(dataCoin.openPrice).toFixed(2)}</Text>
+                      </HStack>
+                    </Box>
+                    <Box width={'49%'}>
+                      <HStack justifyContent="space-between">
+                        <Text fontSize={'xs'}>Mkt Cap</Text>
+                        <Text fontSize={'xs'}>-</Text>
+                      </HStack>
+                      <HStack justifyContent="space-between">
+                        <Text fontSize={'xs'}>Vol 24h</Text>
+                        <Text fontSize={'xs'}>{parseFloat(dataCoin.volume).toFixed(2)}</Text>
+                      </HStack>
+                      <HStack justifyContent="space-between">
+                        <Text fontSize={'xs'}>Mkt Dominance</Text>
+                        <Text fontSize={'xs'}>-</Text>
+                      </HStack>
+                    </Box>
+                  </Stack>
+                </VStack>
+              </ScrollView>
             </Box>
-
-            {/* <Box style={styles.container}> */}
-            <ScrollView>
-              <VStack
-                space="2"
-                m="1"
-                px="2"
-                width="auto"
-              >
-                <Heading size="md">Overview</Heading>
-                <Stack direction="row" mb="2" mt="1" justifyContent={'space-between'} >
-                  <Box width={'49%'}>
-                    <HStack justifyContent="space-between" >
-                      <Text fontSize={'xs'} >High</Text>
-                      <Text fontSize={'xs'} color="#31c451" >{parseFloat(dataCoin.highPrice).toFixed(2)}</Text>
-                    </HStack>
-                    <HStack justifyContent="space-between">
-                      <Text fontSize={'xs'}>Low</Text>
-                      <Text fontSize={'xs'} color="#FF6666">{parseFloat(dataCoin.lowPrice).toFixed(2)}</Text>
-                    </HStack>
-                    <HStack justifyContent='space-between'>
-                      <Text fontSize={'xs'}>Open</Text>
-                      <Text fontSize={'xs'}>{parseFloat(dataCoin.openPrice).toFixed(2)}</Text>
-                    </HStack>
-                  </Box>
-                  <Box width={'49%'}>
-                    <HStack justifyContent="space-between">
-                      <Text fontSize={'xs'}>Mkt Cap</Text>
-                      <Text fontSize={'xs'}>IDR 15,133.7 T</Text>
-                    </HStack>
-                    <HStack justifyContent="space-between">
-                      <Text fontSize={'xs'}>Vol 24h</Text>
-                      <Text fontSize={'xs'}>{parseFloat(dataCoin.volume).toFixed(2)}</Text>
-                    </HStack>
-                    <HStack justifyContent="space-between">
-                      <Text fontSize={'xs'}>Mkt Dominance</Text>
-                      <Text fontSize={'xs'}>46%</Text>
-                    </HStack>
-                  </Box>
-                </Stack>
-              </VStack>
-            </ScrollView>
-          </Box>
-          <Box>
-            <Divider mt={5} mb={2} />
-            <Heading size="sm" m={2}>Order Book</Heading>
-            <Stack direction="row" mb="2" mt="1" mr="2" ml="2" justifyContent={'space-between'} >
-              <Text>Amount</Text>
-            </Stack>
-          </Box>
-          <Box style={styles.container}>
-            {loading ? (<Text>Loading ...</Text>) : (
-              <>
-                <Box width={'50%'}>
-                  {dataBids.map((bids) => (
-                    <HStack key={bids[0]} justifyContent={'space-between'}>
-                      <Text fontSize={"sm"} color="#31c451" ml={2}>{parseFloat(bids[0]).toFixed(4)}</Text>
-                      <Text fontSize={"sm"} color="#31c451">{parseFloat(bids[1]).toFixed(4)}</Text>
-                    </HStack>
-                  ))}
+            <Box>
+              <Divider mt={5} mb={2} />
+              <Heading size="sm" m={2}>Order Book</Heading>
+              <Stack direction="row" mb="0" mt="0" mr={1} ml={1} justifyContent={'space-between'}>
+                <Box flexBasis={'49%'}>
+                  <Text textAlign={'center'}>Bids</Text>
+                  <HStack mb="2" mt="1" justifyContent={'space-between'} >
+                    <Text >Price (USDT)</Text>
+                    <Text >Amount</Text>
+                  </HStack>
                 </Box>
-                <Box width={'50%'}>
-                  {dataAsks.map((asks) => (
-                    <HStack ml={1} key={asks[0]} justifyContent={'space-between'}>
-                      <Text fontSize={"sm"} color="#FF6666">{parseFloat(asks[0]).toFixed(4)}</Text>
-                      <Text textAlign={'right'} mr={2} color="#FF6666">{parseFloat(asks[1]).toFixed(4)}</Text>
-                    </HStack>
-                  ))}
+                <Box flexBasis={'49%'}>
+                  <Text textAlign={'center'}>Asks</Text>
+                  <HStack mb="1" mt="1" justifyContent={'space-between'}>
+                    <Text >Price (USDT)</Text>
+                    <Text>Amount</Text>
+                  </HStack>
                 </Box>
-              </>
-            )}
+              </Stack>
+              <Divider />
+            </Box>
+            <Box style={styles.container}>
+              {loading ? (<Text>Loading ...</Text>) : (
+                <>
+                  <Box width={'50%'}>
+                    {dataBids.map((bids) => (
+                      <HStack key={bids[0]} justifyContent={'space-between'}>
+                        <Text fontSize={"sm"} color="#31c451" ml={2}>{parseFloat(bids[0]).toFixed(4)}</Text>
+                        <Text fontSize={"sm"} color="#31c451">{parseFloat(bids[1]).toFixed(4)}</Text>
+                      </HStack>
+                    ))}
+                  </Box>
+                  <Box width={'50%'}>
+                    {dataAsks.map((asks) => (
+                      <HStack ml={1} key={asks[0]} justifyContent={'space-between'}>
+                        <Text fontSize={"sm"} color="#FF6666">{parseFloat(asks[0]).toFixed(4)}</Text>
+                        <Text textAlign={'right'} mr={2} color="#FF6666">{parseFloat(asks[1]).toFixed(4)}</Text>
+                      </HStack>
+                    ))}
+                  </Box>
+                </>
+              )}
+            </Box>
           </Box>
         </VStack>
-        <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker })}>BuyAndSell</Button>
+        <Box>
+          <HStack justifyContent={'space-between'} mt={5}>
+            <Button w={"49%"} alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker })}>Buy</Button>
+            <Button w={"49%"} backgroundColor={'secondary.red'} alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker })}>Sell</Button>
+          </HStack>
+        </Box>
       </ScrollView>
 
     </>
