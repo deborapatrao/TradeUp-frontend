@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Box,
     HStack,
@@ -9,21 +9,28 @@ import {
 } from "native-base";
 import { getWalletData } from '../../utils/requests';
 import { StyleSheet } from 'react-native';
+import { useSelector, useDispatch } from "react-redux";
 
 
 
 const OverviewScreen = ({ navigation }) => {
     const [walletData, setWalletData] = useState('');
 
-    useEffect(() => {
+    const { user } = useSelector((state) => state.auth);
 
-         const unsubscribe = navigation.addListener('focus', async () => {
+    useEffect(() => {
+        // console.log('check');
+        // if (user) {
+        // } else {
+        //     console.log('not authenticated');
+        // }
+        const unsubscribe = navigation.addListener('focus', async () => {
             const data = await getWalletData('/wallet');
             console.log(data);
             setWalletData(data);
         });
-        
-       
+
+
         return unsubscribe;
 
     }, [navigation]);
@@ -40,12 +47,12 @@ const OverviewScreen = ({ navigation }) => {
                     <Text style={styles.rowText} color={'secondary.white'}>Performance</Text>
                     <Text style={styles.rowText} color={'secondary.white'}>$500</Text>
                 </HStack>
-                
+
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Total Trades</Text>
                     <Text style={styles.rowText} color={'secondary.white'}>6</Text>
                 </HStack>
-                
+
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Average Performance</Text>
                     <Text style={styles.rowText} color={'secondary.white'}>50%</Text>
@@ -53,18 +60,18 @@ const OverviewScreen = ({ navigation }) => {
 
                 <HStack style={styles.heading} justifyContent={'space-between'} >
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Total Asset Value</Heading>
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${walletData.totalBalance}</Heading>
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${walletData?.totalBalance}</Heading>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>USDT Coin</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>${walletData.usdtBalance}</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>${walletData?.usdtBalance}</Text>
                 </HStack>
 
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Other Assets</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>${walletData.assetsBalance}</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>${walletData?.assetsBalance}</Text>
                 </HStack>
 
                 <VStack space={4} mt={5}>
@@ -72,7 +79,7 @@ const OverviewScreen = ({ navigation }) => {
                     <Button bg={'secondary.darkGray'} isDisabled>Reset</Button>
                 </VStack>
             </VStack>
-                
+
             {/* <VStack>
                 <HStack>
                     <Heading><Text>Performance</Text></Heading>;
@@ -85,14 +92,14 @@ const OverviewScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     row: {
-       marginVertical: 7,
+        marginVertical: 7,
     },
     rowText: {
         fontSize: 16
     },
     heading: {
         marginVertical: 17,
-        
+
     },
     headingText: {
         fontSize: 20
