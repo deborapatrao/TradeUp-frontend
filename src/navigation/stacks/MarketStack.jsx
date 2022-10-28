@@ -19,13 +19,13 @@ const HomeStack = createStackNavigator();
 const MarketStackScreen = () => {
     return (
         <HomeStack.Navigator>
-            <HomeStack.Screen name="CryptoList" component={MarketScreen} options={{
-                headerTitle: (props) => <HomeHeader {...props} />,
+            <HomeStack.Screen name="CryptoList" component={MarketScreen} options={({ navigation }) => ({
+                headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
                 headerShown: true, // hide header
                 headerStyle: {
                     backgroundColor: '#171122',
                 }
-            }} />
+            })} />
             <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation, route }) => ({
                 headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route} />,
                 navigationBarColor: 'gray.400',

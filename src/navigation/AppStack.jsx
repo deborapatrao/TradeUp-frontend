@@ -117,34 +117,38 @@ const AppStack = () => {
 						headerShown: true, // hide header
 					})}
 				/>
-				<Tab.Screen name="Market" component={MarketStack} />
+				<Tab.Screen name="Market" component={MarketStack} 
+					// options={({ navigation }) => ({
+					// 	headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
+					// })}
+				/>
 				<Tab.Screen
 					name="Resources"
 					component={Test}
-					options={{
+					options={({ navigation }) => ({
 						headerShown: true,
-						headerTitle: (props) => <HomeHeader {...props} />,
+						headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
 						headerStyle: {
 							backgroundColor: "#171122",
 						},
 						headerTitleStyle: {
 							color: "#F2F2F2",
 						},
-					}}
+					})}
 				/>
 				<Tab.Screen
 					name="Wallet"
 					component={WalletTabNavigator}
-					options={{
+					options={({ navigation }) => ({
 						headerShown: true,
-						headerTitle: (props) => <HomeHeader {...props} />,
+						headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
 						headerStyle: {
 							backgroundColor: "#171122",
 						},
 						headerTitleStyle: {
 							color: "#F2F2F2",
 						},
-					}}
+					})}
 				/>
 			</Tab.Navigator>
 		</NavigationContainer>
