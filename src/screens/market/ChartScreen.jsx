@@ -131,13 +131,22 @@ const ChartScreen = ({ navigation, route}) => {
               </Box>
             <Box>
             <Divider mt={5} mb={2}/>
-            <Heading size="sm" m={2}>Order Book</Heading>
-            <Stack direction="row" mb="2" mt="1" mr="2" ml="2" justifyContent={'center'} >
-              <Text>Price (USDT)</Text>
-            </Stack>    
-            <Stack direction="row" mb="0" mt="0" mr="2" ml="2" justifyContent={'space-around'} >
-              <Text>Bids</Text>
-              <Text>Asks</Text>
+            <Heading size="sm" m={2}>Order Book</Heading>   
+            <Stack direction="row" mb="0" mt="0" mr={1} ml={1} justifyContent={'space-between'}>
+              <Box flexBasis={'49%'}>
+                <Text textAlign={'center'}>Bids</Text>
+                <HStack  mb="2" mt="1" justifyContent={'space-between'} >
+                  <Text >Price (USDT)</Text>
+                  <Text >Amount</Text>
+                </HStack> 
+              </Box>
+              <Box flexBasis={'49%'}>
+                <Text textAlign={'center'}>Asks</Text>
+                <HStack mb="1" mt="1" justifyContent={'space-between'}>
+                  <Text >Price (USDT)</Text>
+                  <Text>Amount</Text>
+                </HStack> 
+              </Box>
             </Stack>          
             <Divider/> 
             </Box>
