@@ -4,16 +4,31 @@ import { StyleSheet } from "react-native";
 import { getTradeHistoryData } from "../../utils/requests";
 import HistoryItem from "../../components/listItems/HistoryItem";
 
-const TradesScreen = () => {
-	const [tradeHistoryData, setTradeHistoryData] = useState();
+const TradesScreen = ({ navigation }) => {
+	const [tradeHistoryData, setTradeHistoryData] = useState([]);
 
 	useEffect(() => {
-		loadTradeHistory();
-	}, []);
+        const checkedFocus = navigation.addListener('focus', async () => {
+            // await loadTradeHistory();
+            try {
+                const data = await getTradeHistoryData("/wallet/history");
+                setTradeHistoryData(data.tradeInfo);  
+            } catch (error) {
+                console.log(error);
+            }
+            console.log('TradesScreen focused');
+        });
+
+        return checkedFocus;
+	}, [navigation]);
 
 	const loadTradeHistory = async () => {
-		const data = await getTradeHistoryData("/wallet/history");
-		setTradeHistoryData(data.tradeInfo);
+        try {
+            const data = await getTradeHistoryData("/wallet/history");
+            setTradeHistoryData(data.tradeInfo);  
+        } catch (error) {
+            console.log(error);
+        }
 	};
 
 	return (

@@ -1,17 +1,22 @@
 import React from 'react'
-import { View, Text, HStack, Pressable } from 'native-base'
+import { View, Text, HStack, Pressable, Image } from 'native-base'
 import { StyleSheet } from 'react-native';
+import { cryptoImages } from '../utils/assets';
 
 const CryptoItem = ({ coin, navigation }) => {
-    
+  const assetImage = cryptoImages.find(imgItem => imgItem.ticker === coin.symbol).image;
+
   return (
     // Passing params to the nested screens ....
     <Pressable onPress={() => navigation.navigate('CryptoDetail', {
       screen: 'Chart',
       params: { ticker: coin.symbol },
     })}>
-          <HStack onPress style={[styles.column, styles.tableLine]}>
-            <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
+          <HStack onPress style={[styles.column, styles.tableLine]} alignItems={'center'}>
+            <HStack space={4} alignItems={'center'}>
+              <Image source={assetImage} alt={coin.symbol} style={{ width: 30, height: 30 }} />
+              <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
+            </HStack>
             <HStack justifyContent={'space-between'} w={'60%'}>
             <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
             <Text style={[styles.text, styles.percentage, coin.priceChangePercent >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
@@ -45,7 +50,8 @@ const styles = StyleSheet.create({
       borderRadius: 3,
       overflow: "hidden",
       paddingLeft: 4,
-      paddingRight: 4
+      paddingRight: 4,
+      height: 22,
     },
   
     percentagePositive: {
