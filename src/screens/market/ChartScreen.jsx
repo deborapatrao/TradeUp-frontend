@@ -65,8 +65,8 @@ const ChartScreen = ({ navigation, route }) => {
 
   return (
     <>
-      <ScrollView>
-        <VStack w="100%" backgroundColor='#171122' safeArea>
+      <ScrollView bg={'red'}>
+        <VStack w="100%" backgroundColor='#171122' pt={2}>
           <Box >
             {/* <Box m={2}>
                   {dataCoin.priceChangePercent > 0 ? 
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    m: 2,
+    // m: 2,
   },
   text: {
     fontSize: 10

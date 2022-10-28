@@ -161,6 +161,13 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
         }
     }
 
+    const handlePercentBtnClick = (percent) => {
+        if (sellActive) {
+
+        } else {
+
+        }
+    }
 
 
     return (

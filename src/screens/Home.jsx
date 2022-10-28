@@ -8,6 +8,8 @@ import { color } from "react-native-reanimated";
 import Constants from "expo-constants";
 import * as IntentLauncher from "expo-intent-launcher";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getWalletData } from "../utils/requests";
+
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -57,6 +59,8 @@ const Home = () => {
 			// await AsyncStorage.clear();
 			console.log('Token: ', token);
 			console.log('userId: ', userToken);
+			const response = await getWalletData('/wallet/history')
+
 		})();
 	}, []);
 
