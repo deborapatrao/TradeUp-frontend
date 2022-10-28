@@ -72,7 +72,7 @@ const OverviewScreen = ({ navigation }) => {
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Other Assets</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData.assetsBalance)}</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData?.assetsBalance)}</Text>
                 </HStack>
 
                 <VStack space={4} mt={5}>

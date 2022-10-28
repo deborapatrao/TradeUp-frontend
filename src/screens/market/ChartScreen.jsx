@@ -16,13 +16,12 @@ import ChartComponent from '../../components/containers/market/chart';
 import { useSelector, useDispatch } from "react-redux";
 
 
-const ChartScreen = ({ navigation, route }) => {
+const ChartScreen = ({ navigation, route}) => {
   const {ticker} = route.params;
 
   // const dispatch = useDispatch();
 	// const { user } = useSelector((state) => state.auth);
   // console.log(user);
-
   const [dataBids, setDataBids] = useState([])
   const [dataAsks, setDataAsks] = useState([])
   const [dataCoin, setDataCoin] = useState([])
@@ -115,7 +114,7 @@ const ChartScreen = ({ navigation, route }) => {
                         <Box  width={'49%'}>
                           <HStack justifyContent="space-between">
                             <Text fontSize={'xs'}>Mkt Cap</Text>
-                            <Text fontSize={'xs'}>IDR 15,133.7 T</Text>
+                            <Text fontSize={'xs'}>-</Text>
                           </HStack>
                           <HStack justifyContent="space-between">
                             <Text fontSize={'xs'}>Vol 24h</Text>
@@ -123,7 +122,7 @@ const ChartScreen = ({ navigation, route }) => {
                           </HStack>
                           <HStack justifyContent="space-between">
                             <Text fontSize={'xs'}>Mkt Dominance</Text>
-                            <Text fontSize={'xs'}>46%</Text>
+                            <Text fontSize={'xs'}>-</Text>
                           </HStack>
                         </Box>
                       </Stack>    
@@ -132,10 +131,24 @@ const ChartScreen = ({ navigation, route }) => {
               </Box>
             <Box>
             <Divider mt={5} mb={2}/>
-            <Heading size="sm" m={2}>Order Book</Heading>
-            <Stack direction="row" mb="2" mt="1" mr="2" ml="2" justifyContent={'space-between'} >
-              <Text>Amount</Text>
-            </Stack>              
+            <Heading size="sm" m={2}>Order Book</Heading>   
+            <Stack direction="row" mb="0" mt="0" mr={1} ml={1} justifyContent={'space-between'}>
+              <Box flexBasis={'49%'}>
+                <Text textAlign={'center'}>Bids</Text>
+                <HStack  mb="2" mt="1" justifyContent={'space-between'} >
+                  <Text >Price (USDT)</Text>
+                  <Text >Amount</Text>
+                </HStack> 
+              </Box>
+              <Box flexBasis={'49%'}>
+                <Text textAlign={'center'}>Asks</Text>
+                <HStack mb="1" mt="1" justifyContent={'space-between'}>
+                  <Text >Price (USDT)</Text>
+                  <Text>Amount</Text>
+                </HStack> 
+              </Box>
+            </Stack>          
+            <Divider/> 
             </Box>
             <Box style={styles.container}>
             {loading ? (<Text>Loading ...</Text>) : (
@@ -160,7 +173,12 @@ const ChartScreen = ({ navigation, route }) => {
             )}
             </Box>
           </VStack>
-        <Button alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker })}>BuyAndSell</Button>
+          <Box>
+            <HStack justifyContent={'space-between'} mt={5}>
+              <Button w={"49%"} alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker})}>Buy</Button>
+              <Button w={"49%"} backgroundColor={'secondary.red'} alignSelf={'flex-start'} onPress={() => navigation.navigate('BuyAndSell', { ticker: ticker})}>Sell</Button>
+            </HStack>
+        </Box>
         </ScrollView>
 
         </>
