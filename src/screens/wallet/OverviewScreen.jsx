@@ -11,6 +11,7 @@ import { getWalletData } from '../../utils/requests';
 import { StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 
+import { priceFormatter } from '../../components/utils/numberFormats';
 
 
 const OverviewScreen = ({ navigation }) => {
@@ -40,11 +41,11 @@ const OverviewScreen = ({ navigation }) => {
             <VStack>
                 <HStack style={styles.heading} justifyContent={'space-between'}>
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Performance</Heading>
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>18%</Heading>
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>{((parseFloat(walletData?.totalBalance) - 1000) / 1000 * 100).toFixed(4)}%</Heading>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
-                    <Text style={styles.rowText} color={'secondary.white'}>Performance</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>Total Gain (Loss)</Text>
                     <Text style={styles.rowText} color={'secondary.white'}>$500</Text>
                 </HStack>
 
@@ -60,18 +61,18 @@ const OverviewScreen = ({ navigation }) => {
 
                 <HStack style={styles.heading} justifyContent={'space-between'} >
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Total Asset Value</Heading>
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${walletData?.totalBalance}</Heading>
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${priceFormatter(walletData?.totalBalance)}</Heading>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>USDT Coin</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>${walletData?.usdtBalance}</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData?.usdtBalance)}</Text>
                 </HStack>
 
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Other Assets</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>${walletData?.assetsBalance}</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData.assetsBalance)}</Text>
                 </HStack>
 
                 <VStack space={4} mt={5}>

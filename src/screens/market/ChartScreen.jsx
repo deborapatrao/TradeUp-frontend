@@ -46,6 +46,7 @@ const ChartScreen = ({ navigation, route }) => {
       fetch(url)
       .then((response) => response.json())
       .then((json)=>{
+        // console.log(json.bids);
         setDataBids(json.bids) 
         setDataAsks(json.asks)})
       .catch((error)=>console.error(error))
