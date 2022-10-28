@@ -6,3 +6,9 @@ export const priceFormatter = (value) => {
         return '0.00';
     }
 }
+
+export const coinPriceFormatter = (value) => {
+    // switch(value) {
+    //     case 
+    // }
+}

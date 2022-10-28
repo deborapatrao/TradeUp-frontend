@@ -16,19 +16,20 @@ const AssetsScreen = ({ navigation }) => {
     const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        console.log('check2');
-        if (user) {
-            const unsubscribe = navigation.addListener('focus', async () => {
-                console.log('AssetsScreen focused');
-                const data = await getWalletData('/wallet/assets');
-                console.log('Data: ', data);
-                setAssetData(data.assets);
-            });
+        console.log(user);
+        // console.log('check2');
+        // if (user) {
+        // } else {
+        //     console.log('not authenticated 2');
+        // }
+        const unsubscribe = navigation.addListener('focus', async () => {
+            console.log('AssetsScreen focused');
+            const data = await getWalletData('/wallet/assets');
+            console.log('Data: ', data);
+            setAssetData(data.assets);
+        });
 
-            return unsubscribe;
-        } else {
-            console.log('not authenticated 2');
-        }
+        return unsubscribe;
 
     }, [navigation]);
 
