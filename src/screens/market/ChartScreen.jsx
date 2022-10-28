@@ -79,7 +79,6 @@ const ChartScreen = ({ navigation, route }) => {
 
             {/* CHART BOX */}
             <Box>
-<<<<<<< HEAD
               {/* <ChartContainer navigation={navigation} /> */}
               <ScrollView bg={'primary.bg'} paddingX={4}>
                 <Box>
@@ -150,27 +149,6 @@ const ChartScreen = ({ navigation, route }) => {
                 </Box>
               </Stack>
               <Divider />
-=======
-            <Divider mt={5} mb={2}/>
-            <Heading size="sm" m={2}>Order Book</Heading>   
-            <Stack direction="row" mb="0" mt="0" mr={1} ml={1} justifyContent={'space-between'}>
-              <Box flexBasis={'49%'}>
-                <Text textAlign={'center'}>Bids</Text>
-                <HStack  mb="2" mt="1" justifyContent={'space-between'} >
-                  <Text >Price (USDT)</Text>
-                  <Text >Amount</Text>
-                </HStack> 
-              </Box>
-              <Box flexBasis={'49%'}>
-                <Text textAlign={'center'}>Asks</Text>
-                <HStack mb="1" mt="1" justifyContent={'space-between'}>
-                  <Text >Price (USDT)</Text>
-                  <Text>Amount</Text>
-                </HStack> 
-              </Box>
-            </Stack>          
-            <Divider/> 
->>>>>>> ec6527a (orderbook  titles fixed)
             </Box>
             <Box style={styles.container}>
               {loading ? (<Text>Loading ...</Text>) : (
