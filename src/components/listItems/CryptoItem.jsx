@@ -12,10 +12,12 @@ const CryptoItem = ({ coin, navigation }) => {
     })}>
           <HStack onPress style={[styles.column, styles.tableLine]}>
             <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
-            <Text style={styles.text}>{parseFloat(coin.prevClosePrice).toFixed(4)} </Text>
+            <HStack justifyContent={'space-between'} w={'60%'}>
+            <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
             <Text style={[styles.text, styles.percentage, coin.priceChangePercent >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
               {Number.parseFloat(coin.priceChangePercent).toFixed(2)} %
               </Text>
+            </HStack>
           </HStack>
     </Pressable>
   )
