@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Platform, Linking } from "react-native";
-import { Box, Text, Button, Heading } from "native-base";
+import { Box, Text, Button, Heading, ScrollView } from "native-base";
 import { loadUser } from "../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import * as Location from "expo-location";
@@ -9,6 +9,8 @@ import Constants from "expo-constants";
 import * as IntentLauncher from "expo-intent-launcher";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData } from "../utils/requests";
+
+import TrendingCoinsList from "../components/lists/TrendingCoinsList";
 
 
 const Home = () => {
@@ -110,15 +112,26 @@ const Home = () => {
 
 	return (
 		<>
-			<Heading>
-				Top Traders
-			</Heading>
-			<Text>{user ? user.email : "Not logged in"}</Text>
-			{!location ? (
-				<Button onPress={requestPermissions}>Allow Location</Button>
-			) : (
-				<Text>Location Allowed</Text>
-			)}
+			<ScrollView marginTop={5} px={3}>
+				<Box marginBottom={5}>
+					<Heading>
+						Trending Coins
+					</Heading>
+					<TrendingCoinsList />
+				</Box>
+
+				<Box>
+					<Heading>
+						Top Traders
+					</Heading>
+					<Text>{user ? user.email : "Not logged in"}</Text>
+					{!location ? (
+						<Button onPress={requestPermissions}>Allow Location</Button>
+					) : (
+						<Text>Location Allowed</Text>
+					)}
+				</Box>
+			</ScrollView>
 		</>
 	);
 };

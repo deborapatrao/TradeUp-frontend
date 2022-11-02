@@ -71,3 +71,18 @@ export const getTradeHistoryData = async (url) => {
     }
     return data;
 }
+
+export const getTrendingCoinsData = async (url) => {
+    let data = null;
+    try {
+
+        const response = await axios.post(`${BASE_URL}${url}`)
+
+        console.log('RESPONSE: ', response.data);
+        data = response.data;
+
+    } catch (error) {
+        console.log(error);
+    }
+    return data;
+}
