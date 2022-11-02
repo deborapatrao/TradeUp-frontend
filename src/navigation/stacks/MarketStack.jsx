@@ -42,10 +42,21 @@ const MarketStackScreen = () => {
                 }
                 //    headerBackImageSource:'src image'
             })} />
-            <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={{
-                headerTitle: 'Ticker and icon here',
-                headerBackTitleVisible: false
-            }} />
+            <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={({ navigation, route }) => ({
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route}/>,
+                navigationBarColor:'gray.400',
+                headerTitleAlign:'center',
+                headerStyle: {
+                    backgroundColor: '#171122',
+                },
+                headerTitleStyle: {
+                    color: '#fff'
+                },
+                headerBackTitleVisible: false,
+                headerBackTitleStyle: {
+                    color: '#fff'
+                }                
+            })}/>
             <HomeStack.Screen name="PriceAlert" component={PriceAlertScreen} options={{
                 headerTitle: 'Price Alert',
                 headerTitleAlign: 'center'
