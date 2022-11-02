@@ -7,19 +7,23 @@ import {
 const axios = require("axios");
 
 const CoinInfoScreen = () => {
+const [coin, setCoin] = useState()
+const coinSymbol = 'BTC';
 
     useEffect(() => {
         loadCoinInfo();
     }, [])
     async function loadCoinInfo() {
         try {
-            const response = await axios.get('https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
+            const response = await axios.get(`https://pro-api.coinmarketcap.com/v2/cryptocurrency/info?symbol=${coinSymbol}`, {
                 headers: {
-                  'X-CMC_PRO_API_KEY': 'b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c',
-                },
-              });
-
-            console.log(response.data)
+                    'X-CMC_PRO_API_KEY': '593e142c-aed0-473d-8fa3-d0a941367982',
+                    
+                }
+            })
+            setCoin(response.data.data[coinSymbol][0])
+            console.log(coin)
+            
         } catch (error) {
             console.log(error)
         }
@@ -27,7 +31,10 @@ const CoinInfoScreen = () => {
 
     return (
         <Box bgColor={'primary.bg'} flex={1}>
-            <Text>CoinInfoScreen</Text>
+            <Text>{coin?.name}({coin?.symbol})</Text>
+
+            <Text>What is {coin?.name}({coin?.symbol})</Text>
+            <Text>{coin?.description}</Text>
         </Box>
     );
 };
