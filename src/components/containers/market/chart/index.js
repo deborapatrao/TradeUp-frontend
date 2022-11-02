@@ -59,15 +59,15 @@ const ChartComponent = ({ ticker }) => {
         asks: [],
         bids: []
     });
-    const intervals = ['1s', '1m', '5m', '1h', '1d'];
-    const [timeframe, setTimeframe] = useState(0);
+    const intervals = ['1m', '5m', '15m', '1h', '1d'];
+    const [timeframe, setTimeframe] = useState(1);
 
 
     useEffect(() => {
         getChartData();
-        // const intervalId = setInterval(getChartData, 10000);
+        const intervalId = setInterval(getChartData, 10000);
 
-        // return () => clearInterval(intervalId);
+        return () => clearInterval(intervalId);
 
     }, [timeframe]);
 

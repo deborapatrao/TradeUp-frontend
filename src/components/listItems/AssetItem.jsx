@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, HStack, Pressable, Image, VStack, Box } from 'native-base'
 import { StyleSheet } from 'react-native';
 import { cryptoImages } from '../utils/assets';
+import { priceFormatter } from '../utils/numberFormats';
 
 
 const AssetItem = ({ asset }) => {
@@ -20,8 +21,8 @@ const AssetItem = ({ asset }) => {
 
         <HStack justifyContent={'space-between'} w={'55%'} alignItems={'center'}>
             <VStack>
-                <Text style={styles.text}>{asset.quantity}</Text>
-                <Text style={styles.textSecondary} color={'secondary.darkGray'}>$0</Text>
+                <Text style={styles.text}>{parseFloat(asset.quantity).toFixed(4)}</Text>
+                <Text style={styles.textSecondary} color={'secondary.darkGray'}>${priceFormatter(asset.usdtBalance)}</Text>
                 {/* <Text style={[styles.text, styles.percentage, asset.priceChangePercent >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
                     {Number.parseFloat(asset.priceChangePercent).toFixed(2)} %
                 </Text> */}

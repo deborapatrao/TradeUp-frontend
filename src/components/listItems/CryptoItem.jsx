@@ -13,14 +13,20 @@ const CryptoItem = ({ coin, navigation }) => {
           <HStack onPress style={[styles.column, styles.tableLine]}>
 <<<<<<< HEAD
             <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
+<<<<<<< HEAD
             <Text style={styles.text}>{parseFloat(coin.prevClosePrice).toFixed(4)} </Text>
 =======
             <Text style={styles.text}>{coin.symbol} </Text>
             <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
 >>>>>>> 8941541 (CAP-30 images added, new token for auth added, overview and assets screen added)
+=======
+            <HStack justifyContent={'space-between'} w={'60%'}>
+            <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
+>>>>>>> af5b61c (small fixes + numer formatters)
             <Text style={[styles.text, styles.percentage, coin.priceChangePercent >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
               {Number.parseFloat(coin.priceChangePercent).toFixed(2)} %
               </Text>
+            </HStack>
           </HStack>
     </Pressable>
   )

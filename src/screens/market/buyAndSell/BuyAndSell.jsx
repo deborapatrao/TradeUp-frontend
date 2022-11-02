@@ -256,7 +256,7 @@ return (
                         variant={'unstyled'}
                         flexBasis={'70%'}    
                         textAlign={'center'}                
-                        keyboardType={'number-pad'}
+                        keyboardType={'numeric'}
                         onChangeText={text => handleAmountChange(text)} 
                         value={`${amountValue}`}
                         placeholder={'Amount Coin'}
@@ -296,7 +296,7 @@ return (
                         variant={'unstyled'}
                         flexBasis={'70%'} 
                         textAlign={'center'}
-                        keyboardType={'number-pad'}
+                        keyboardType={'numeric'}
                         onChangeText={text => handleTotalChange(text)} 
                         value={`${totalValue}`}
                         placeholder={'Total USDT'}
