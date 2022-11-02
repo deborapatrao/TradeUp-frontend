@@ -7,7 +7,7 @@ import { Avatar,
     InfoIcon, 
     Input,
     Image} from 'native-base'
-import { StyleSheet} from "react-native";
+import { Pressable, StyleSheet} from "react-native";
 import NotificationIcon from '../../assets/images/icons/notif-icon.png'
 import React from 'react';
 
@@ -15,8 +15,10 @@ const HomeHeader = ({navigation}) => {
     return (
         <Stack>
             <HStack justifyContent={'space-between'} w='100%' justifyItems={'center'} mb={4} >
-                {/* <Avatar size={8} alignSelf={'flex-start'} onPress={() => navigation.navigate('Menu')}/>                 */}
-                <Avatar size={8} mt={1}/>
+                {/* <Avatar size={8} alignSelf={'flex-start'} onPress={() => navigation.navigate('Menu')}/> */}
+                <Pressable onPress={() => navigation.navigate('Menu')}>
+                    <Avatar size={8} mt={1}/>
+                </Pressable>
                 <Input 
                     placeholder='Looking for a coin?'
                     placeholderTextColor={'secondary.darkGray'}

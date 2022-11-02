@@ -7,13 +7,14 @@ import * as Location from "expo-location";
 import { color } from "react-native-reanimated";
 import Constants from "expo-constants";
 import * as IntentLauncher from "expo-intent-launcher";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 	const [location, setLocation] = useState(null);
 	const [errorMsg, setErrorMsg] = useState(null);
-
+	console.log(token);
 	// Check if user is authenticated and token is received from server then load user
 	useEffect(() => {
 		if (!user && token && isAuthenticated) {
@@ -44,6 +45,18 @@ const Home = () => {
 				);
 				setLocation(address[0].city);
 			}
+		})();
+	}, []);
+
+	// Testing
+	useEffect(() => {
+		(async () => {
+			// const token = await AsyncStorage.getAllKeys();
+			const token = await AsyncStorage.getItem('userIdToken');
+			const userToken = await AsyncStorage.getItem('userId');
+			// await AsyncStorage.clear();
+			console.log('Token: ', token);
+			console.log('userId: ', userToken);
 		})();
 	}, []);
 

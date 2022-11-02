@@ -93,8 +93,18 @@ const AppStack = () => {
 				<Tab.Screen
 					name="Home"
 					component={MainStack}
-					options={{
-						headerTitle: (props) => <HomeHeader {...props} />,
+					// options={{
+					// 	headerTitle: (props) => <HomeHeader {...props} />,
+					// 	headerBackgroundContainerStyle: {
+					// 		backgroundColor: "#171122",
+					// 	},
+					// 	headerStyle: {
+					// 		backgroundColor: "#171122",
+					// 	},
+					// 	headerShown: true, // hide header
+					// }}
+					options={({ navigation, route }) => ({
+						headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
 						headerBackgroundContainerStyle: {
 							backgroundColor: "#171122",
 						},
@@ -102,7 +112,7 @@ const AppStack = () => {
 							backgroundColor: "#171122",
 						},
 						headerShown: true, // hide header
-					}}
+					})}
 				/>
 				<Tab.Screen name="Market" component={MarketStack} />
 				<Tab.Screen
