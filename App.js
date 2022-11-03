@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store from "./src/redux/store";
 import { Text } from 'react-native';
 import { useFonts } from 'expo-font';
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context";
 import { NativeBaseProvider } from "native-base";
 import { customTheme } from "./src/theme";
 
@@ -21,7 +21,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NativeBaseProvider theme={customTheme}>
-                <SafeAreaProvider>
+                <SafeAreaProvider initialMetrics={initialWindowMetrics}>
                     <RootNavigation />
                 </SafeAreaProvider>
             </NativeBaseProvider>
