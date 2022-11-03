@@ -31,19 +31,20 @@ const TrendingCoinsList = () => {
 	const [type, setType] = useState("standard");
 
 	useEffect(() => {
-		const checkedFocus = navigation.addListener("focus", async () => {
-			await loadCoins();
-			console.log("TrendingCoinsList focused");
-		});
+        // console.log("useeffect triggered")
+		// const checkedFocus = navigation.addListener("focus", async () => {
+			loadTrendingCoins();
+		// 	console.log("TrendingCoinsList focused");
+		// });
 
-		return checkedFocus;
+		// return checkedFocus;
+
 	}, [type, toggle]);
 
-	const loadCoins = async () => {
+	const loadTrendingCoins = async () => {
 		try {
 			const data = await getTrendingCoinsData("/crypto/trending");
 
-			console.log(data);
 			let sortedData = [];
 
 			switch (type) {
@@ -56,7 +57,7 @@ const TrendingCoinsList = () => {
 
 					break;
 				case "alphabetical":
-					sortedData = data.sort((a, b) => {
+					sortedData = data.listSortedCoins.sort((a, b) => {
 						return toggle
 							? a.symbol.localeCompare(b.symbol)
 							: b.symbol.localeCompare(a.symbol);
@@ -67,8 +68,6 @@ const TrendingCoinsList = () => {
 			}
 
 			setData([...sortedData]);
-
-			setData(data.listSortedCoins);
 		} catch (error) {
 			console.log(error);
 		}
@@ -77,6 +76,8 @@ const TrendingCoinsList = () => {
 	const handleTypeChange = (selectedType) => {
 		setType(selectedType);
 		setToggle(!toggle);
+
+
 	};
 
 	return (
