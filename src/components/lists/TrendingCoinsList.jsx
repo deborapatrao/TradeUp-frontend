@@ -14,53 +14,41 @@ import {
 	View,
 	Row,
 } from "native-base";
-import { StyleSheet, ScrollView } from "react-native";
+import { StyleSheet } from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
+import { getTrendingCoinsData } from "../../utils/requests";
+import { useNavigation } from "@react-navigation/native";
+import CoinListHeader from "../layout/CoinListHeader";
+import TopTradersContainer from "../containers/home/TopTradersContainer";
 
 const axios = require("axios");
 
-const CryptoList = ({ navigation }) => {
-	// const [isLoading, setLoading] = useState(true);
+const TrendingCoinsList = () => {
+	const navigation = useNavigation();
 
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
 
-	//coins supported by our app
-	const symbols = [
-		"BTCUSDT",
-		"ETHUSDT",
-		"BNBUSDT",
-		"XRPUSDT",
-		"ADAUSDT",
-		"SOLUSDT",
-		"DOGEUSDT",
-		"TRXUSDT",
-	];
-
-	//create string to use on fetch with the coins we will use on our project
-	const symbolsString = `symbols=[${symbols.map((symbol) => `"${symbol}"`)}]`;
-
 	useEffect(() => {
-		loadCoins();
+		const checkedFocus = navigation.addListener("focus", async () => {
+			await loadCoins();
+			console.log("TrendingCoinsList focused");
+		});
 
-		const intervalId = setInterval(loadCoins, 5000);
-
-		return () => clearInterval(intervalId);
+		return checkedFocus;
 	}, [type, toggle]);
 
-	async function loadCoins() {
+	const loadCoins = async () => {
 		try {
-			const reponse = await axios.get(
-				`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`
-			);
-			// console.log(JSON.stringify(reponse.data, null ,2));
+			const data = await getTrendingCoinsData("/crypto/trending");
 
+			console.log(data);
 			let sortedData = [];
 
 			switch (type) {
 				case "24":
-					sortedData = reponse.data.sort((a, b) => {
+					sortedData = data.listSortedCoins.sort((a, b) => {
 						return toggle
 							? a.priceChangePercent - b.priceChangePercent
 							: b.priceChangePercent - a.priceChangePercent;
@@ -75,14 +63,16 @@ const CryptoList = ({ navigation }) => {
 					});
 					break;
 				default:
-					sortedData = reponse.data;
+					sortedData = data.listSortedCoins;
 			}
 
 			setData([...sortedData]);
+
+			setData(data.listSortedCoins);
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	const handleTypeChange = (selectedType) => {
 		setType(selectedType);
@@ -91,51 +81,16 @@ const CryptoList = ({ navigation }) => {
 
 	return (
 		<>
-			<View>
-				<HStack style={styles.column}>
-					<Button
-						style={styles.background}
-						onPress={() => handleTypeChange("alphabetical")}
-					>
-						<Text style={styles.text}>Pair</Text>
-						<Text style={styles.text}>USDT</Text>
-					</Button>
-
-					<Button style={styles.background}>
-						<Text style={styles.text}>Last</Text>
-						<Text style={styles.text}>price</Text>
-					</Button>
-
-					<Button
-						style={styles.background}
-						onPress={() => handleTypeChange("24")}
-					>
-						<Text
-							style={{
-								...styles.text,
-								width: 60,
-								textAlign: "center",
-							}}
-						>
-							24H Change
-						</Text>
-						{/* <Text style={styles.text}>Change</Text> */}
-					</Button>
-				</HStack>
-
-				<Divider />
-
-				<FlatList
-					data={data}
-					style={{ paddingHorizontal: 5 }}
-					renderItem={({ item }) => {
-						return (
-							<CryptoItem navigation={navigation} coin={item} />
-						);
-					}}
-					keyExtractor={(item) => item.symbol}
-				/>
-			</View>
+			<FlatList
+                ListHeaderComponent={() => <><Heading>Trending Coins</Heading><CoinListHeader handleTypeChange={handleTypeChange} /></>}
+				data={data}
+				style={{ paddingHorizontal: 5 }}
+				renderItem={({ item }) => {
+					return <CryptoItem navigation={navigation} coin={item} />;
+				}}
+				keyExtractor={(item) => item.symbol}
+                ListFooterComponent={() => <><TopTradersContainer /></>}
+			/>
 		</>
 	);
 };
@@ -182,4 +137,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default CryptoList;
+export default TrendingCoinsList;
