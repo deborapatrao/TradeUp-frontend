@@ -65,7 +65,7 @@ const ChartScreen = ({ navigation, route }) => {
 
   return (
     <>
-       <ScrollView bg={'red'}>
+      <ScrollView bg={'red'}>
         <VStack w="100%" backgroundColor='#171122' pt={2}>
           <Box >
             {/* <Box m={2}>

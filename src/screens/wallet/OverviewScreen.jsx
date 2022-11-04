@@ -9,6 +9,8 @@ import {
 } from "native-base";
 import { getWalletData } from '../../utils/requests';
 import { StyleSheet } from 'react-native';
+import { useSelector, useDispatch } from "react-redux";
+
 import { priceFormatter } from '../../components/utils/numberFormats';
 
 
@@ -39,7 +41,7 @@ const OverviewScreen = ({ navigation }) => {
             <VStack>
                 <HStack style={styles.heading} justifyContent={'space-between'}>
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Performance</Heading>
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>{((parseFloat(walletData.totalBalance)-1000)/1000*100).toFixed(4)}%</Heading>
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>{((parseFloat(walletData?.totalBalance) - 1000) / 1000 * 100).toFixed(4)}%</Heading>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
@@ -59,12 +61,12 @@ const OverviewScreen = ({ navigation }) => {
 
                 <HStack style={styles.heading} justifyContent={'space-between'} >
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Total Asset Value</Heading>
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${priceFormatter(walletData.totalBalance)}</Heading>
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>${priceFormatter(walletData?.totalBalance)}</Heading>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>USDT Coin</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData.usdtBalance)}</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>${priceFormatter(walletData?.usdtBalance)}</Text>
                 </HStack>
 
 

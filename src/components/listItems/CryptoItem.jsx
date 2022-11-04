@@ -19,7 +19,6 @@ const CryptoItem = ({ coin, navigation }) => {
             </HStack>
             <HStack justifyContent={'space-between'} w={'60%'}>
             <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
-
             <Text style={[styles.text, styles.percentage, coin.priceChangePercent >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
               {Number.parseFloat(coin.priceChangePercent).toFixed(2)} %
               </Text>

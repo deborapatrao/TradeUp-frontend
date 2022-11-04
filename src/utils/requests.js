@@ -25,7 +25,7 @@ export const getWalletData = async (url) => {
             userId: userId
         })
 
-        console.log('RESPONSE: ', response.data);
+        console.log('RESPONSE wallet: ', response.data);
         data = response.data;
 
     } catch (error) {
@@ -44,7 +44,7 @@ export const getBuyAndSellData = async (url, ticker) => {
             coinTicker: ticker
         })
 
-        console.log('RESPONSE: ', response.data);
+        console.log('RESPONSE buysell: ', response.data);
         data = response.data;
 
     } catch (error) {
@@ -62,9 +62,22 @@ export const getTradeHistoryData = async (url) => {
             userId: userId,
         })
 
-        console.log('RESPONSE: ', response.data);
+        console.log('RESPONSE trade: ', response.data);
         data = response.data;
 
+
+    } catch (error) {
+        console.log(error);
+    }
+    return data;
+}
+
+export const getTrendingCoinsData = async (url) => {
+    let data = null;
+
+    try {
+        const response = await axios.get(`${BASE_URL}${url}`)
+        data = response.data;
 
     } catch (error) {
         console.log(error);
