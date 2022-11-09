@@ -12,7 +12,7 @@ const axios = require("axios");
 
 const CoinInfoScreen = () => {
     const [coin, setCoin] = useState()
-    const coinSymbol = 'BTC';
+    const coinSymbol = 'ETH';
 
     const coinInfo = {
         BTC: {
@@ -26,7 +26,7 @@ const CoinInfoScreen = () => {
         ETH: {
             ranking: 2,
             marketCap: 193237395002,
-            maxSupply: "no data",
+            maxSupply: "NO DATA",
             circulatingSupply: 122373863,
             high: 1586.37227307,
         },
@@ -58,7 +58,7 @@ const CoinInfoScreen = () => {
         SOL: {
             ranking: 10,
             marketCap: 11627748334,
-            maxSupply: "no data",
+            maxSupply: "NO DATA",
             circulatingSupply: 359080876.08,
             high: 32.57455317,
         },
@@ -66,7 +66,7 @@ const CoinInfoScreen = () => {
         DOGE: {
             ranking: 8,
             marketCap: 16810203313,
-            maxSupply: "no data",
+            maxSupply: "NO DATA",
             circulatingSupply: 132670000000,
             high: 0.12420019,
         },
@@ -74,7 +74,7 @@ const CoinInfoScreen = () => {
         TRX: {
             ranking: 15,
             marketCap: 5762033361,
-            maxSupply: "no data",
+            maxSupply: "NO DATA",
             circulatingSupply: 92250000000,
             high: 0.062418747,
         }
@@ -99,18 +99,59 @@ const CoinInfoScreen = () => {
         }
     }
 
+    //Abbreviation of numbers for Millions and Billions
+// function numberAbbreviation(number){
+//     const unit = ['', '', ' M', ' B', ''];
+//     const numIndex = Math.floor((''+number).length/3);
+//     console.log(numIndex)
+//     let abbreviatedValue = 0;
+
+//     if(numIndex>0 && numIndex<4) {
+//         abbreviatedValue = parseFloat(number/Math.pow(1000, numIndex))
+//         if (abbreviatedValue % 1 != 0) {
+//             abbreviatedValue = abbreviatedValue.toFixed(1);
+//         }
+//     }else {
+//         abbreviatedValue = number;
+//     }
+
+//     return abbreviatedValue + unit[numIndex];
+
+// }
+
     return (
         <Box bgColor={'primary.bg'} flex={1} px={4} pt={6}>
-            <Heading style={styles.headingText} color={'supporting.lightGreen'}>{coin?.name}({coin?.symbol})</Heading>
-                
+            
             <VStack>
-                <HStack>
-                    <Text>Ranking</Text>
+            <Heading style={styles.headingText} color={'supporting.lightGreen'}>{coin?.name}({coin?.symbol})</Heading>
+
+                <HStack style={styles.row}>
+                    <Text style={styles.bold}>Ranking</Text>
                     <Text>#{coinInfo[coinSymbol].ranking}</Text>
+                </HStack>
+
+                <HStack style={styles.row}>
+                    <Text style={styles.bold}>Market Cap</Text>
+                    <Text>{coinInfo[coinSymbol].marketCap}</Text>
+                </HStack>
+
+                <HStack style={styles.row}>
+                    <Text style={styles.bold}>Max Supply</Text>
+                    <Text>{coinInfo[coinSymbol].maxSupply}</Text>
+                </HStack>
+
+                <HStack style={styles.row}>
+                    <Text style={styles.bold}>Circulating Supply</Text>
+                    <Text>{coinInfo[coinSymbol].circulatingSupply}</Text>
+                </HStack>
+
+                <HStack style={styles.row}>
+                    <Text style={styles.bold}>All-Time High</Text>
+                    <Text>{coinInfo[coinSymbol].high}</Text>
                 </HStack>
             </VStack>
                 
-            <VStack>
+            <VStack marginVertical={30}>
                 <Heading style={styles.headingText} color={'supporting.lightGreen'}>What is {coin?.name}({coin?.symbol})</Heading>
                 <Text style={styles.rowText} color={'secondary.white'}>{coin?.description}</Text>
             </VStack>
@@ -126,8 +167,19 @@ const styles = StyleSheet.create({
         marginVertical: 17,
 
     },
+
     headingText: {
-        fontSize: 20
+        fontSize: 20,
+        marginBottom: 10,
+    },
+
+    row: {
+        justifyContent: 'space-between',
+    }, 
+
+    bold: {
+        fontWeight: 'bold',
+        marginVertical: 5,
     }
 })
 
