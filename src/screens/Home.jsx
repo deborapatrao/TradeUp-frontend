@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData } from "../utils/requests";
 import TrendingCoinsList from "../components/lists/TrendingCoinsList";
-
+import { Text } from "native-base";
 const Home = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
 	}, []);
 
 	return (
-		<>
+		<>	
 			<TrendingCoinsList user={user} />
 		</>
 	);
