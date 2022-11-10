@@ -1,18 +1,11 @@
 import React, { useState, useEffect} from "react";
 import {
-    Box,
-    VStack,
-    Center,
     Text,
     HStack,
     Divider,
     FlatList,
     Button,
-    NativeBaseProvider,
-    Heading,
-    Stack,
     View,
-    Row,
 } from "native-base";
 import { StyleSheet, ScrollView} from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
