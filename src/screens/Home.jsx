@@ -10,6 +10,7 @@ const Home = ({ navigation }) => {
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
 	// Check if user is authenticated and token is received from server then load user
+	// AsyncStorage.clear();
 	useEffect(() => {
 		if (!user && token && isAuthenticated) {
 			dispatch(loadUser(token));

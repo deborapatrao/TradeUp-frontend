@@ -16,6 +16,20 @@ export const marketOrder = async (url, data) => {
     }
 }
 
+export const postData = async (url, data) => {
+
+    try {
+        const userId = await AsyncStorage.getItem("userId");
+
+        const response = await axios.post(`${BASE_URL}${url}`, { ...data, userId });
+
+        console.log('RESPONSE: ', response.data);
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getWalletData = async (url) => {
     let data = null;
     try {

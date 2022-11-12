@@ -11,16 +11,24 @@ import OrdersScreen from '../../screens/market/OrdersScreen';
 const Tab = createMaterialTopTabNavigator();
 
 
-const CryptoDetailTabNavigator = () => {
+const CryptoDetailTabNavigator = ({ route }) => {
+    const { ticker } = route.params;
+
     return (
         <Tab.Navigator screenOptions={{
             tabBarLabelStyle: { fontSize: 12, color: '#fff' },
             // tabBarItemStyle: { width: 100 },
             tabBarStyle: { backgroundColor: '#171122' },
         }}>
-            <Tab.Screen name="Chart" component={ChartScreen} />
-            <Tab.Screen name="Orders" component={OrdersScreen} />
-            <Tab.Screen name="Coin Info" component={CoinInfoScreen} />
+            <Tab.Screen name="Chart" component={ChartScreen} initialParams={{
+                ticker: ticker
+            }} />
+            <Tab.Screen name="Orders" component={OrdersScreen} initialParams={{
+                ticker: ticker
+            }} />
+            <Tab.Screen name="Coin Info" component={CoinInfoScreen} initialParams={{
+                ticker: ticker
+            }} />
         </Tab.Navigator>
     )
 }

@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const ChartScreen = ({ navigation, route }) => {
   const { ticker } = route.params;
+  // console.log('chart', ticker);
 
   // const dispatch = useDispatch();
   // const { user } = useSelector((state) => state.auth);
