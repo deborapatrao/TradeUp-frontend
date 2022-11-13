@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, Heading } from "native-base";
+import { FlatList, Heading, ScrollView, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
 import { getTrendingCoinsData } from "../../utils/requests";
 import { useNavigation } from "@react-navigation/native";
 import CoinListHeader from "../layout/CoinListHeader";
 import TopTradersContainer from "../containers/home/TopTradersContainer";
-import {
-	TourGuideZone, // Main wrapper of highlight component
-	TourGuideZoneByPosition, // Component to use mask on overlay (ie, position absolute)
-	useTourGuideController, // hook to start, etc.
-} from "rn-tourguide";
+// import {
+// 	TourGuideZone, // Main wrapper of highlight component
+// 	TourGuideZoneByPosition, // Component to use mask on overlay (ie, position absolute)
+// 	useTourGuideController, // hook to start, etc.
+// } from "rn-tourguide";
 
 const TrendingCoinsList = () => {
 	const navigation = useNavigation();
@@ -18,6 +18,7 @@ const TrendingCoinsList = () => {
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
+	// const [canTour, setCanTour] = useState(true);
 
 	useEffect(() => {
 		// console.log("useeffect triggered")
@@ -67,46 +68,46 @@ const TrendingCoinsList = () => {
 	};
 
 	// Use Hooks to control!
-	const {
-		canStart, // a boolean indicate if you can start tour guide
-		start, // a function to start the tourguide
-		stop, // a function  to stopping it
-		eventEmitter, // an object for listening some events
-	} = useTourGuideController();
+	// const {
+	// 	canStart, // a boolean indicate if you can start tour guide
+	// 	start, // a function to start the tourguide
+	// 	stop, // a function  to stopping it
+	// 	eventEmitter, // an object for listening some events
+	// } = useTourGuideController();
 
-	// Can start at mount 🎉
-	// you need to wait until everything is registered 😁
-	useEffect(() => {
-		canStart && start();
-	}, [canStart,]);
+	// // Can start at mount 🎉
+	// // you need to wait until everything is registered 😁
+	// useEffect(() => {
+	// 	canStart && start();
+	// }, [canStart]);
 
-	const handleOnStart = () => console.log("start");
-	const handleOnStop = () => console.log("stop");
-	const handleOnStepChange = () => console.log(`stepChange`);
+	// const handleOnStart = () => { console.log("start"); setCanTour(true); };
+	// const handleOnStop = () => { console.log("stop"); setCanTour(false); };
+	// const handleOnStepChange = () => console.log(`stepChange`);
 
-	// Listen to some events
-	useEffect(() => {
-		eventEmitter.on("start", handleOnStart);
-		eventEmitter.on("stop", handleOnStop);
-		eventEmitter.on("stepChange", handleOnStepChange);
+	// // Listen to some events
+	// useEffect(() => {
+	// 	eventEmitter.on("start", handleOnStart);
+	// 	eventEmitter.on("stop", handleOnStop);
+	// 	eventEmitter.on("stepChange", handleOnStepChange);
 
-		return () => {
-			eventEmitter.off("start", handleOnStart);
-			eventEmitter.off("stop", handleOnStop);
-			eventEmitter.off("stepChange", handleOnStepChange);
-		};
-	}, []);
+	// 	return () => {
+	// 		eventEmitter.off("start", handleOnStart);
+	// 		eventEmitter.off("stop", handleOnStop);
+	// 		eventEmitter.off("stepChange", handleOnStepChange);
+	// 	};
+	// }, []);
 
 	return (
 		<>
-			<TourGuideZone
+			{/* <TourGuideZone
 				zone={1}
 				text={"Find coins with the most movement in price."}
 				borderRadius={0}
 				keepTooltipPosition={true}
 				// shape={"rectangle"}
 				top={0}
-			>
+			> */}
 				<FlatList
 					ListHeaderComponent={() => (
 						<>
@@ -130,18 +131,7 @@ const TrendingCoinsList = () => {
 						</>
 					)}
 				/>
-			</TourGuideZone>
-			{/* <TourGuideZoneByPosition
-				zone={2}
-				text={"To see the list of coins to buy or sell, go to Market."}
-				shape={"circle"}
-				isTourGuide
-				bottom={-65}
-				left={130}
-				width={60}
-				height={60}
-			/> */}
-			
+			{/* </TourGuideZone> */}
 		</>
 	);
 };
