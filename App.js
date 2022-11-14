@@ -31,7 +31,7 @@ export default function App() {
 		<Provider store={store}>
 			<NativeBaseProvider theme={customTheme}>
 				<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-					<TourGuideProvider preventOutsideInteraction {...{ borderRadius: 16, tooltipStyle: style, backdropColor: 'rgba(23, 17, 34, 0.95)' }}>
+					<TourGuideProvider preventOutsideInteraction {...{ borderRadius: 16, androidStatusBarVisible: true, tooltipStyle: style, backdropColor: 'rgba(23, 17, 34, 0.95)' }}>
 						<RootNavigation />
 					</TourGuideProvider>
 				</SafeAreaProvider>
