@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData } from "../utils/requests";
 import TrendingCoinsList from "../components/lists/TrendingCoinsList";
+import Leaderboard from "./leaderboard/Leaderboard";
 
 const Home = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Home = ({ navigation }) => {
 	return (
 		<>
 			<TrendingCoinsList user={user} />
+			<Leaderboard />
 		</>
 	);
 };
