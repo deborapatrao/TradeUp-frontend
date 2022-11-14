@@ -5,6 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Test from "../screens/Test";
+import ArticleList from "../components/lists/ArticleList";
 
 import MarketStack from "./stacks/MarketStack";
 import MainStack from "./stacks/MainStack";
@@ -124,7 +125,7 @@ const AppStack = () => {
 				/>
 				<Tab.Screen
 					name="Resources"
-					component={Test}
+					component={ArticleList}
 					options={({ navigation }) => ({
 						headerShown: true,
 						headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
