@@ -15,33 +15,35 @@ import {
 	Image,
 	Box,
 	Center,
+    Divider,
+	Button
 } from "native-base";
 import HomeHeader from "../../components/layout/HomeHeader";
 import TopTradersContainer from "../../components/containers/home/TopTradersContainer";
 import CoinListHeader from "../../components/layout/CoinListHeader";
 import { getTrendingCoinsData } from "../../utils/requests";
 import { cryptoImages } from "../../components/utils/assets";
-
+import TourTooltip from "../../components/utils/TourTooltip";
 import MarketIconInactive from "../../assets/images/bottom-tabs-icons/inactive/market.png";
 import ResourceIconInactive from "../../assets/images/bottom-tabs-icons/inactive/resource.png";
 import WalletIconInactive from "../../assets/images/bottom-tabs-icons/inactive/wallet.png";
 import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.png";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
+import Carousel from "../resources/Carousel";
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableImage = walkthroughable(Image);
 const WalkthroughableView = walkthroughable(View);
 const WalkthroughableScrollView = walkthroughable(ScrollView);
 
-function HomeTour({ start, copilotEvents }) {
+function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 	const refScrollView = useRef();
 
 	const [secondStepActive, setSecondStepActive] = useState(true);
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
-	const [canTour, setCanTour] = useState(true);
 
 	useEffect(() => {
 		loadTrendingCoins();
@@ -92,7 +94,10 @@ function HomeTour({ start, copilotEvents }) {
 		copilotEvents.on("stepChange", (step) =>
 			console.log(`Step is ${step.name}`)
 		);
-		copilotEvents.on("stop", () => console.log("Tour ended"));
+		copilotEvents.on("stop", () => {
+            console.log("Tour ended")
+            setCanTour(false)
+        });
 
 		return () => {
 			clearTimeout(tourTimeout);
@@ -101,18 +106,11 @@ function HomeTour({ start, copilotEvents }) {
 		};
 	}, []);
 
-	// useEffect(() => {
-	// 	copilotEvents.on("stepChange", handleStepChange);
-	// 	start();
-	// }, []);
-
-	// const handleStepChange = (step) => {
-	// 	console.log(`Current step is: ${step.name}`);
-	// };
-
 	return (
 		<>
 			<HomeHeader />
+
+            <Carousel />
 
 			<ScrollView ref={refScrollView}>
 				<CopilotStep
@@ -185,6 +183,8 @@ function HomeTour({ start, copilotEvents }) {
 						</View>
 					</WalkthroughableView>
 				</CopilotStep>
+
+                <Divider my={6} />
 
 				<View>
 					<CopilotStep
@@ -314,9 +314,19 @@ HomeTour.propTypes = {
 	}).isRequired,
 };
 
+const style = {
+	backgroundColor: "#386AF5",
+	color: "#fff",
+};
+
+
 export default copilot({
 	// verticalOffset: 25,
+	tooltipComponent: TourTooltip,
+	arrowColor: '#386AF5',
+	tooltipStyle: style,
 	backdropColor: "rgba(23, 17, 34, 0.95)",
 	animated: true, // Can be true or false
 	overlay: "svg", // Can be either view or svg
+	stepNumberComponent: () => (<></>),
 })(HomeTour);

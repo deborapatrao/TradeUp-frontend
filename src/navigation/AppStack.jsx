@@ -36,6 +36,8 @@ const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
 
+	const [canTour, setCanTour] = useState(true);
+
 	const { colorMode } = useColorMode();
 
 	const MyTheme = {
@@ -82,14 +84,27 @@ const AppStack = () => {
 	console.log(user)
 	return (
 		<>
-		{user && user.isTutorial ? (
+		{user && user.isTutorial && canTour ? (
 			<NavigationContainer theme={MyTheme}>
 				<Stack.Navigator
 					screenOptions={{
 						headerShown: false,
 					}}
 				>
-					<Stack.Screen name="Home" component={HomeTour} />
+					<Stack.Screen
+						name="Home"
+						options={{
+							headerShown: false, // hide header
+						}}
+					>
+						{(props) => (
+							<HomeTour
+								{...props}
+								setCanTour={setCanTour}
+							/>
+						)}
+					</Stack.Screen>
+					{/* <Stack.Screen name="Home" component={HomeTour} /> */}
 				</Stack.Navigator>
 			</NavigationContainer>
 		) : (

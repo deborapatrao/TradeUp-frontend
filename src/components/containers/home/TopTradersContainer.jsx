@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Button, Heading, Divider } from "native-base";
+import { Box, Text, Button, Heading } from "native-base";
 import * as Location from "expo-location";
 import { color } from "react-native-reanimated";
 import Constants from "expo-constants";
@@ -78,8 +78,6 @@ const TopTradersContainer = () => {
 
 	return (
 		<>
-			<Divider my={6} />
-
 			<Heading>Top Traders</Heading>
 
 			<Text>{user ? user.email : "Not logged in"}</Text>
