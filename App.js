@@ -11,7 +11,7 @@ import {
 } from "react-native-safe-area-context";
 import { NativeBaseProvider } from "native-base";
 import { customTheme } from "./src/theme";
-import { TourGuideProvider } from "rn-tourguide";
+// import { TourGuideProvider } from "rn-tourguide";
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -31,9 +31,9 @@ export default function App() {
 		<Provider store={store}>
 			<NativeBaseProvider theme={customTheme}>
 				<SafeAreaProvider initialMetrics={initialWindowMetrics}>
-					<TourGuideProvider preventOutsideInteraction {...{ borderRadius: 16, androidStatusBarVisible: true, tooltipStyle: style, backdropColor: 'rgba(23, 17, 34, 0.95)' }}>
+					{/* <TourGuideProvider preventOutsideInteraction {...{ borderRadius: 16, androidStatusBarVisible: true, tooltipStyle: style, backdropColor: 'rgba(23, 17, 34, 0.95)' }}> */}
 						<RootNavigation />
-					</TourGuideProvider>
+					{/* </TourGuideProvider> */}
 				</SafeAreaProvider>
 			</NativeBaseProvider>
 		</Provider>

@@ -81,7 +81,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         const auth = getAuth();
         const getTok = await signInWithCustomToken(auth, userIdToken);
 
-        console.log("getTok", getTok);
+        // console.log("getTok", getTok);
 
         const { data } = await axios.get(`${serverUrl}/me`, {
             headers: {
