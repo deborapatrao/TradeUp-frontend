@@ -4,23 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData } from "../utils/requests";
 import TrendingCoinsList from "../components/lists/TrendingCoinsList";
+import { Text, Button } from "native-base";
 
 const Home = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
-
-	// Check if user is authenticated and token is received from server then load user
-	// useEffect(() => {
-	// 	if (!user && token && isAuthenticated) {
-	// 		dispatch(loadUser(token));
-
-	// 		if (user) {
-	// 			user.location.city
-	// 				? setLocation(user.location.city)
-	// 				: setLocation(null);
-	// 		}
-	// 	}
-	// }, [dispatch, user]);
 
 	// Testing
 	useEffect(() => {
@@ -34,13 +22,14 @@ const Home = ({ navigation }) => {
 			const response = await getWalletData("/wallet/history");
 		})();
 	}, []);
-
-	// console.log("Token: ", token);
-	// console.log("user: ", user);
-	// console.log("isAuthenticated: ", isAuthenticated);
+	
+	const goToMarket = () => {
+		navigation.navigate("Market");
+	}
 
 	return (
 		<>
+			{/* <Button onPress={goToMarket}><Text>Test</Text></Button> */}
 			<TrendingCoinsList />
 		</>
 	);

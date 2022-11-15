@@ -60,12 +60,12 @@ const AppStack = () => {
 		const tokenStorage = await AsyncStorage.getItem("userIdToken");
 		const userId = await AsyncStorage.getItem("userId");
 
-		console.log("Storage: ", tokenStorage);
-		console.log("userId: ", userId);
+		// console.log("Storage: ", tokenStorage);
+		// console.log("userId: ", userId);
 	})();
 
-	console.log("Token: ", token);
-	console.log("isAuthenticated: ", isAuthenticated);
+	// console.log("Token: ", token);
+	// console.log("isAuthenticated: ", isAuthenticated);
 
 	// Check if user is authenticated and token is received from server then load user
 	useEffect(() => {
@@ -81,7 +81,7 @@ const AppStack = () => {
 	}, [dispatch, user]);
 
 	// get user from redux store to check if user tour is complete
-	console.log(user)
+	// console.log(user)
 	return (
 		<>
 		{user && user.isTutorial && canTour ? (
@@ -93,9 +93,16 @@ const AppStack = () => {
 				>
 					<Stack.Screen
 						name="Home"
-						options={{
-							headerShown: false, // hide header
-						}}
+						options={({ navigation, route }) => ({
+							headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+							headerBackgroundContainerStyle: {
+								backgroundColor: "#171122",
+							},
+							headerStyle: {
+								backgroundColor: "#171122",
+							},
+							headerShown: true, // hide header     
+						})}
 					>
 						{(props) => (
 							<HomeTour
@@ -104,7 +111,6 @@ const AppStack = () => {
 							/>
 						)}
 					</Stack.Screen>
-					{/* <Stack.Screen name="Home" component={HomeTour} /> */}
 				</Stack.Navigator>
 			</NavigationContainer>
 		) : (
@@ -153,6 +159,7 @@ const AppStack = () => {
 					tabBarHideOnKeyboard: true,
 
 				})}
+				// initialRouteName="Market"
 			>
 				<Tab.Screen
 					name="Home"
@@ -179,9 +186,9 @@ const AppStack = () => {
 					})}
 				/>
 				<Tab.Screen name="Market" component={MarketStack} 
-					// options={({ navigation }) => ({
-					// 	headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
-					// })}
+					options={({ navigation }) => ({
+						headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+					})}
 				/>
 				<Tab.Screen
 					name="Resources"

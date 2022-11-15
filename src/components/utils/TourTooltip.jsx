@@ -12,7 +12,8 @@ const TourTooltip = ({
 	labels,
 }) => (
 	<>
-		<View>
+    {/* {console.log(currentStep.name)} */}
+		<View style={styles.container}>
 			<View>
 				<Text testID="stepDescription" style={styles.description}>{currentStep.text}</Text>
 			</View>
@@ -43,7 +44,7 @@ const TourTooltip = ({
 				) : (
                         <Button onPress={handleStop}>
                             <Text style={styles.navigator}>
-                                {labels.finish || "Finish"}
+                                {currentStep.name === "step3" ? "Next" : labels.finish || "Finish"}
                             </Text>
                         </Button>
 				)}
@@ -56,6 +57,9 @@ const TourTooltip = ({
 export default TourTooltip;
 
 const styles = StyleSheet.create({
+    container: {
+        padding: 5,
+    },
     description: {
         color: "#fff",
     },

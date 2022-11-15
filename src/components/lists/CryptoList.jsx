@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
     Text,
     HStack,
@@ -9,9 +9,12 @@ import {
 } from "native-base";
 import { StyleSheet, ScrollView} from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
+import MarketItemTour from "../../screens/tour/MarketItemTour";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "../../redux/action";
 
 const axios = require("axios");
-
 
 const CryptoList = ({ navigation }) => {
   // const [isLoading, setLoading] = useState(true);
@@ -19,6 +22,9 @@ const CryptoList = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [type, setType] = useState("standard");
+	const [marketTour, setMarketTour] = useState(false);
+
+  const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
   //coins supported by our app
   const symbols = [
@@ -85,6 +91,8 @@ const CryptoList = ({ navigation }) => {
     setToggle(!toggle)
   }
 
+  // console.log(user)
+
   return(
     <>
     
@@ -116,8 +124,8 @@ const CryptoList = ({ navigation }) => {
         <FlatList 
           data={data}
           style={{ paddingHorizontal: 5 }}
-          renderItem={({ item }) => {
-            return <CryptoItem navigation={navigation} coin={item} />
+          renderItem={({ item, index }) => {
+            return user && user.isTutorial && index === 0 ? <MarketItemTour coin={item} setMarketTour={setMarketTour} /> : <CryptoItem navigation={navigation} coin={item} />
           }}
           keyExtractor={item => item.symbol}
         />

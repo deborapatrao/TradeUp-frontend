@@ -17,6 +17,7 @@ const HomeStack = createStackNavigator();
 
 
 const MarketStackScreen = () => {
+
     return (
         <HomeStack.Navigator>
             <HomeStack.Screen name="CryptoList" component={MarketScreen} options={({ navigation }) => ({

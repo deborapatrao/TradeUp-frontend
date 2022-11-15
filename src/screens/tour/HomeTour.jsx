@@ -28,6 +28,7 @@ import MarketIconInactive from "../../assets/images/bottom-tabs-icons/inactive/m
 import ResourceIconInactive from "../../assets/images/bottom-tabs-icons/inactive/resource.png";
 import WalletIconInactive from "../../assets/images/bottom-tabs-icons/inactive/wallet.png";
 import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.png";
+import { useNavigation } from "@react-navigation/native";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import Carousel from "../resources/Carousel";
@@ -91,12 +92,13 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 			start(false, refScrollView.current);
 		}, 300);
 
-		copilotEvents.on("stepChange", (step) =>
+		copilotEvents.on("stepChange", (step) => {
 			console.log(`Step is ${step.name}`)
-		);
+		});
+
 		copilotEvents.on("stop", () => {
-            console.log("Tour ended")
             setCanTour(false)
+			// navigation.navigate("Market", "CryptoList");
         });
 
 		return () => {
@@ -108,7 +110,7 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 
 	return (
 		<>
-			<HomeHeader />
+			{/* <HomeHeader /> */}
 
             <Carousel />
 
@@ -116,7 +118,7 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 				<CopilotStep
 					text="Find coins with the most movement in price."
 					order={1}
-					name="openApp"
+					name="step1"
 				>
 					<WalkthroughableView>
 						<View>
@@ -190,7 +192,7 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 					<CopilotStep
 						text="Become a top trader based on consistent learning."
 						order={2}
-						name="secondText"
+						name="step2"
 					>
 						<WalkthroughableView>
 							<TopTradersContainer />
@@ -223,7 +225,9 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 							<CopilotStep
 								text="To see the list of coins to buy or sell, go to Market."
 								order={3}
-								name="thirdText"
+								name="step3"
+								navigation={navigation}
+								setCanTour={setCanTour}
 							>
 								<WalkthroughableView>
 									<View>
