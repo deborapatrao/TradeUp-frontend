@@ -29,6 +29,7 @@ import ResourceIconInactive from "../../assets/images/bottom-tabs-icons/inactive
 import WalletIconInactive from "../../assets/images/bottom-tabs-icons/inactive/wallet.png";
 import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.png";
 import { useNavigation } from "@react-navigation/native";
+import Leaderboard from "../leaderboard/Leaderboard";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import Carousel from "../resources/Carousel";
