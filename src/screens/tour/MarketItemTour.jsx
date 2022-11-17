@@ -10,7 +10,7 @@ const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableImage = walkthroughable(Image);
 const WalkthroughableView = walkthroughable(View);
 
-const MarketItemTour = ({ coin, navigation, start, copilotEvents }) => {
+const MarketItemTour = ({ coin, navigation, start, copilotEvents, setMarketTour }) => {
 	useEffect(() => {
 		const tourTimeout = setTimeout(() => {
 			start();
@@ -26,7 +26,7 @@ const MarketItemTour = ({ coin, navigation, start, copilotEvents }) => {
 		});
 
 		copilotEvents.on("stop", () => {
-			// setCanTour(false);
+			setMarketTour(false);
 			// navigation.navigate("Market", "CryptoList");
 		});
 

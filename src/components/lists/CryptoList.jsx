@@ -22,7 +22,7 @@ const CryptoList = ({ navigation }) => {
   const [data, setData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [type, setType] = useState("standard");
-	const [marketTour, setMarketTour] = useState(false);
+	const [marketTour, setMarketTour] = useState(true);
 
   const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
@@ -125,7 +125,7 @@ const CryptoList = ({ navigation }) => {
           data={data}
           style={{ paddingHorizontal: 5 }}
           renderItem={({ item, index }) => {
-            return user && user.isTutorial && index === 0 ? <MarketItemTour coin={item} setMarketTour={setMarketTour} /> : <CryptoItem navigation={navigation} coin={item} />
+            return user && user.isTutorial && marketTour && index === 0 ? <MarketItemTour coin={item} setMarketTour={setMarketTour} /> : <CryptoItem navigation={navigation} coin={item} />
           }}
           keyExtractor={item => item.symbol}
         />
