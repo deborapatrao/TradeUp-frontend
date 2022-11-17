@@ -20,10 +20,11 @@ export const login = (email, password) => async (dispatch) => {
                 },
             }
         );
-        console.log('data: ', data);
+        console.log('data Token', data.token);
+        console.log('data User', data.user.firebase_uuid);
 
         await AsyncStorage.setItem("userIdToken", data.token);
-        await AsyncStorage.setItem("userId", data.userId);
+        await AsyncStorage.setItem("userId", data.user.firebase_uuid);
 
         dispatch({ type: "loginSuccess", payload: data });
 
@@ -55,8 +56,12 @@ export const signup = (email, password, location) => async (dispatch) => {
         // await AsyncStorage.multiSet([["userId", "userIdToken"], [data.userId, data.token]], (err) => {
         //     console.log(err);
         // });
+
+        console.log('data Token', data.token);
+        console.log('data User', data.user.firebase_uuid);
+
         await AsyncStorage.setItem("userIdToken", data.token);
-        await AsyncStorage.setItem("userId", data.userId);
+        await AsyncStorage.setItem("userId", data.user.firebase_uuid);
 
         dispatch({ type: "signupSuccess", payload: data });
     } catch (error) {
@@ -77,7 +82,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         const auth = getAuth();
         const getTok = await signInWithCustomToken(auth, userIdToken);
 
-        // console.log("getTok", getTok._tokenResponse.idToken);
+        // console.log("getTok", getTok);
 
         const { data } = await axios.get(`${serverUrl}/me`, {
             headers: {
@@ -87,7 +92,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         // console.log("Load user", data)
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        console.log("Error 2", error);
+        console.log("Error 2", error.response.data.message);
 
         dispatch({
             type: "loadUserFailure",

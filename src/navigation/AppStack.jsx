@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NativeBaseProvider, useColorMode, Icon, Image } from "native-base";
 import { Text } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -6,10 +6,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Test from "../screens/Test";
 import ArticleList from "../components/lists/ArticleList";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import MarketStack from "./stacks/MarketStack";
 import MainStack from "./stacks/MainStack";
-import Home from "../screens/Home";
+import HomeTour from "../screens/tour/HomeTour";
 import HomeHeader from "../components/layout/HomeHeader";
 import WalletTabNavigator from "./stacks/WalletTabNavigator";
 import HomeIconInactive from "../assets/images/bottom-tabs-icons/inactive/home.png";
@@ -27,10 +28,15 @@ import Profile from "../screens/MenuRegistered";
 
 import { navigatorTheme } from "../theme";
 
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser } from "../redux/action";
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
+
+	const [canTour, setCanTour] = useState(true);
 
 	const { colorMode } = useColorMode();
 
@@ -47,7 +53,67 @@ const AppStack = () => {
 		},
 	};
 
+	const dispatch = useDispatch();
+	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
+
+	(async () => {
+		const tokenStorage = await AsyncStorage.getItem("userIdToken");
+		const userId = await AsyncStorage.getItem("userId");
+
+		// console.log("Storage: ", tokenStorage);
+		// console.log("userId: ", userId);
+	})();
+
+	// console.log("Token: ", token);
+	// console.log("isAuthenticated: ", isAuthenticated);
+
+	// Check if user is authenticated and token is received from server then load user
+	useEffect(() => {
+		if (!user && token && isAuthenticated) {
+			dispatch(loadUser(token));
+
+			if (user) {
+				user.location.city
+					? setLocation(user.location.city)
+					: setLocation(null);
+			}
+		}
+	}, [dispatch, user]);
+
+	// get user from redux store to check if user tour is complete
+	// console.log(user)
 	return (
+		<>
+		{user && user.isTutorial && canTour ? (
+			<NavigationContainer theme={MyTheme}>
+				<Stack.Navigator
+					screenOptions={{
+						headerShown: false,
+					}}
+				>
+					<Stack.Screen
+						name="Home"
+						options={({ navigation, route }) => ({
+							headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+							headerBackgroundContainerStyle: {
+								backgroundColor: "#171122",
+							},
+							headerStyle: {
+								backgroundColor: "#171122",
+							},
+							headerShown: true, // hide header     
+						})}
+					>
+						{(props) => (
+							<HomeTour
+								{...props}
+								setCanTour={setCanTour}
+							/>
+						)}
+					</Stack.Screen>
+				</Stack.Navigator>
+			</NavigationContainer>
+		) : (
 		<NavigationContainer theme={MyTheme}>
 			<Tab.Navigator
 				screenOptions={({ route }) => ({
@@ -83,9 +149,9 @@ const AppStack = () => {
 						backgroundColor: "#171122",
 						borderTopColor: "#413556",
 						height: 60,
-						// paddingBottom: 20,
+						paddingBottom: 10,
 						// paddingTop: 10,
-						height: 85
+						// height: 85
 					},
 					tabBarLabelStyle: {
 						fontSize: 12,
@@ -93,6 +159,7 @@ const AppStack = () => {
 					tabBarHideOnKeyboard: true,
 
 				})}
+				// initialRouteName="Market"
 			>
 				<Tab.Screen
 					name="Home"
@@ -119,9 +186,9 @@ const AppStack = () => {
 					})}
 				/>
 				<Tab.Screen name="Market" component={MarketStack} 
-					// options={({ navigation }) => ({
-					// 	headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
-					// })}
+					options={({ navigation }) => ({
+						headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+					})}
 				/>
 				<Tab.Screen
 					name="Resources"
@@ -153,6 +220,8 @@ const AppStack = () => {
 				/>
 			</Tab.Navigator>
 		</NavigationContainer>
+		)}
+		</>
 	);
 };
 

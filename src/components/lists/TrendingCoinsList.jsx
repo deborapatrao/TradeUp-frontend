@@ -1,27 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-	Box,
-	VStack,
-	Center,
-	Text,
-	HStack,
-	Divider,
-	FlatList,
-	Button,
-	NativeBaseProvider,
-	Heading,
-	Stack,
-	View,
-	Row,
-} from "native-base";
+import { FlatList, Heading, ScrollView, Text, View } from "native-base";
 import { StyleSheet } from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
 import { getTrendingCoinsData } from "../../utils/requests";
 import { useNavigation } from "@react-navigation/native";
 import CoinListHeader from "../layout/CoinListHeader";
 import TopTradersContainer from "../containers/home/TopTradersContainer";
-
-const axios = require("axios");
+import Carousel from "../../screens/resources/Carousel";
 
 const TrendingCoinsList = () => {
 	const navigation = useNavigation();
@@ -29,16 +14,16 @@ const TrendingCoinsList = () => {
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
+	// const [canTour, setCanTour] = useState(true);
 
 	useEffect(() => {
-        // console.log("useeffect triggered")
+		// console.log("useeffect triggered")
 		// const checkedFocus = navigation.addListener("focus", async () => {
-			loadTrendingCoins();
+		loadTrendingCoins();
 		// 	console.log("TrendingCoinsList focused");
 		// });
 
 		// return checkedFocus;
-
 	}, [type, toggle]);
 
 	const loadTrendingCoins = async () => {
@@ -76,21 +61,29 @@ const TrendingCoinsList = () => {
 	const handleTypeChange = (selectedType) => {
 		setType(selectedType);
 		setToggle(!toggle);
-
-
 	};
 
 	return (
 		<>
 			<FlatList
-                ListHeaderComponent={() => <><Heading>Trending Coins</Heading><CoinListHeader handleTypeChange={handleTypeChange} /></>}
+				ListHeaderComponent={() => (
+					<>
+						<Carousel />
+						<Heading>Trending Coins</Heading>
+						<CoinListHeader handleTypeChange={handleTypeChange} />
+					</>
+				)}
 				data={data}
 				style={{ paddingHorizontal: 5 }}
 				renderItem={({ item }) => {
 					return <CryptoItem navigation={navigation} coin={item} />;
 				}}
 				keyExtractor={(item) => item.symbol}
-                ListFooterComponent={() => <><TopTradersContainer /></>}
+				ListFooterComponent={() => (
+					<>
+						<TopTradersContainer />
+					</>
+				)}
 			/>
 		</>
 	);

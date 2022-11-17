@@ -17,6 +17,7 @@ const MarketStack = createStackNavigator();
 
 
 const MarketStackScreen = () => {
+
     return (
         <MarketStack.Navigator>
             <MarketStack.Screen name="CryptoList" component={MarketScreen} options={({ navigation }) => ({

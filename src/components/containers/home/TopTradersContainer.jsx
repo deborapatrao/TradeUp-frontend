@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Button, Heading, Divider } from "native-base";
+import { Box, Text, Button, Heading } from "native-base";
 import * as Location from "expo-location";
 import { color } from "react-native-reanimated";
 import Constants from "expo-constants";
 import * as IntentLauncher from "expo-intent-launcher";
 import { Platform, Linking } from "react-native";
+import Leaderboard from "../../../screens/leaderboard/Leaderboard";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -78,11 +79,9 @@ const TopTradersContainer = () => {
 
 	return (
 		<>
-			<Divider my={6} />
-
 			<Heading>Top Traders</Heading>
 
-			<Text>{user ? user.email : "Not logged in"}</Text>
+			{/* <Text>{user ? user.email : "Not logged in"}</Text> */}
 			{!location ? (
 				<>
 					<Text>
@@ -93,8 +92,9 @@ const TopTradersContainer = () => {
 				</>
 			) : (
 				<>
-					<Text>Location Allowed</Text>
-					<Text>Coming Soon</Text>
+					{/* <Text>Location Allowed</Text>
+					<Text>Coming Soon</Text> */}
+					<Leaderboard />
 				</>
 			)}
 		</>
