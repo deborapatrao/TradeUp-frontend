@@ -14,10 +14,11 @@ import React from 'react';
 const HomeHeader = ({navigation}) => {
     return (
         <Stack>
-            <HStack justifyContent={'space-between'} w='100%' justifyItems={'center'} mb={4}  mt={5}>
+            <HStack justifyContent={'space-between'} w='100%' justifyItems={'center'} alignItems={'center'}>
                 {/* <Avatar size={8} alignSelf={'flex-start'} onPress={() => navigation.navigate('Menu')}/> */}
                 <Pressable onPress={() => navigation.navigate('Menu')}>
-                    <Avatar size={8} mt={1}/>
+                    {/* <Avatar size={8} mt={1}/> */}
+                    <Image source={require('../../assets/images/icons/menu.png')} alt="menu" />
                 </Pressable>
                 <Input 
                     placeholder='Looking for a coin?'
@@ -32,7 +33,7 @@ const HomeHeader = ({navigation}) => {
                     InputRightElement={
                         <SearchIcon size={5} ml={2} color={'secondary.darkGray'} mr={2}/>
                     }/> 
-                <Image alt='user' source={NotificationIcon} w={5} h={5} ml={2} mr={2} mt={2}/>  
+                <Image alt='notification' source={NotificationIcon} />  
             </HStack>
         </Stack>
     )

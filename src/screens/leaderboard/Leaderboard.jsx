@@ -96,8 +96,8 @@ const Leaderboard = () => {
         		  <Text>Your Rank: 95th</Text>
         		</HStack>
 
-				{datapt2.map((item) => (
-					<HStack style={[styles.column, styles.tableLine]} alignItems={'center'}>
+				{datapt2.map((item, index) => (
+					<HStack style={[styles.column, styles.tableLine]} alignItems={'center'} key={index}>
 					<HStack space={4} alignItems={'center'}>
 					  <Text style={styles.text}>{item.rank} </Text>
 					  <Image source={Profile} alt={'user-image'} style={styles.imageList} />

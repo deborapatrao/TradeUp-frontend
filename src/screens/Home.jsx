@@ -5,23 +5,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData } from "../utils/requests";
 import TrendingCoinsList from "../components/lists/TrendingCoinsList";
 import Leaderboard from "./leaderboard/Leaderboard";
+import { Text, Button, View } from "native-base";
+import { SvgUri } from 'react-native-svg';
+import HomeIconInactive from "../assets/images/bottom-tabs-icons/inactive/home2.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
-
-	// Check if user is authenticated and token is received from server then load user
-	useEffect(() => {
-		if (!user && token && isAuthenticated) {
-			dispatch(loadUser(token));
-
-			if (user) {
-				user.location.city
-					? setLocation(user.location.city)
-					: setLocation(null);
-			}
-		}
-	}, [dispatch, user]);
 
 	// Testing
 	useEffect(() => {
@@ -30,16 +21,22 @@ const Home = ({ navigation }) => {
 			const token = await AsyncStorage.getItem("userIdToken");
 			const userToken = await AsyncStorage.getItem("userId");
 			// await AsyncStorage.clear();
-			console.log("Token: ", token);
-			console.log("userId: ", userToken);
+			// console.log("Token: ", token);
+			// console.log("userId: ", userToken);
 			const response = await getWalletData("/wallet/history");
 		})();
 	}, []);
+	
+	const goToMarket = () => {
+		navigation.navigate("Market");
+	}
 
 	return (
 		<>
-			<TrendingCoinsList user={user} />
-			{/* <Leaderboard /> */}
+		<View mt={5}>
+			<TrendingCoinsList />
+		</View>
+			{/* <Button onPress={goToMarket}><Text>Test</Text></Button> */}
 		</>
 	);
 };
