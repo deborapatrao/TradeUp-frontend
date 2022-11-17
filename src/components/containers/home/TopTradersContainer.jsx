@@ -6,6 +6,7 @@ import Constants from "expo-constants";
 import * as IntentLauncher from "expo-intent-launcher";
 import { Platform, Linking } from "react-native";
 import Leaderboard from "../../../screens/leaderboard/Leaderboard";
+import LeaderboardHome from "../../../screens/leaderboard/LeaderboardHome";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -92,9 +93,7 @@ const TopTradersContainer = () => {
 				</>
 			) : (
 				<>
-					{/* <Text>Location Allowed</Text>
-					<Text>Coming Soon</Text> */}
-					<Leaderboard />
+					<LeaderboardHome />
 				</>
 			)}
 		</>

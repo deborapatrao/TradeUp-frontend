@@ -30,6 +30,7 @@ import WalletIconInactive from "../../assets/images/bottom-tabs-icons/inactive/w
 import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.png";
 import { useNavigation } from "@react-navigation/native";
 import Leaderboard from "../leaderboard/Leaderboard";
+import LeaderboardHome from "../leaderboard/LeaderboardHome";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import Carousel from "../resources/Carousel";
@@ -112,10 +113,8 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 	return (
 		<>
 			{/* <HomeHeader /> */}
-
-            <Carousel />
-
 			<ScrollView ref={refScrollView}>
+			<Carousel />
 				<CopilotStep
 					text="Find coins with the most movement in price."
 					order={1}
@@ -196,7 +195,9 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 						name="step2"
 					>
 						<WalkthroughableView>
+							<View>
 							<TopTradersContainer />
+							</View>
 						</WalkthroughableView>
 					</CopilotStep>
 				</View>

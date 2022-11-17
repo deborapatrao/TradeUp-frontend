@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, Heading, ScrollView, Text, View } from "native-base";
+import { FlatList, Heading, ScrollView, Text, View, Divider } from "native-base";
 import { StyleSheet } from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
 import { getTrendingCoinsData } from "../../utils/requests";
@@ -81,6 +81,7 @@ const TrendingCoinsList = () => {
 				keyExtractor={(item) => item.symbol}
 				ListFooterComponent={() => (
 					<>
+						<Divider my={6} />
 						<TopTradersContainer />
 					</>
 				)}

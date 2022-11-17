@@ -19,41 +19,23 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0,
-      "url": "https://u.expo.dev/49097a55-f2c2-4038-af1f-d6c2ad987f69"
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.alextrade432.TradeUp"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/tradeup.png",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/tradeup.png"
-    },
-    "plugins": [
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/tradeup.png",
-          "color": "#ffffff"
-        }
-      ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "49097a55-f2c2-4038-af1f-d6c2ad987f69"
-      }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
+      "favicon": "./assets/favicon.png"
     }
   }
 }
+
