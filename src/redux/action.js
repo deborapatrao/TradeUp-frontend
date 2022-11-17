@@ -78,6 +78,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
 
     try {
         // dispatch({ type: "loadUserRequest" });
+        console.log('userIdToken: ', userIdToken);
         const auth = getAuth();
         const getTok = await signInWithCustomToken(auth, userIdToken);
 
@@ -146,11 +147,11 @@ export const logout = () => async (dispatch) => {
         dispatch({ type: "logoutSuccess" });
 
     } catch (error) {
+        console.log("Error 3", error);
         dispatch({
             type: "logoutFailure",
             payload: error.response.data.message,
         });
 
-        console.log("Error 3", error);
     }
 };
