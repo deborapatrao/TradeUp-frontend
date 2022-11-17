@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData } from "../utils/requests";
 import TrendingCoinsList from "../components/lists/TrendingCoinsList";
-import { Text, Button } from "native-base";
+import { Text, Button, View } from "native-base";
+import { SvgUri } from 'react-native-svg';
+import HomeIconInactive from "../assets/images/bottom-tabs-icons/inactive/home2.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Home = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -29,8 +32,10 @@ const Home = ({ navigation }) => {
 
 	return (
 		<>
-			{/* <Button onPress={goToMarket}><Text>Test</Text></Button> */}
+		<View mt={5}>
 			<TrendingCoinsList />
+		</View>
+			{/* <Button onPress={goToMarket}><Text>Test</Text></Button> */}
 		</>
 	);
 };
