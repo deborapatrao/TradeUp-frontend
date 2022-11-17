@@ -21,26 +21,33 @@ const PriceAlertScreen = ({ navigation, route }) => {
     const { ticker } = route.params;
 
     const handleSetAlert = async () => {
-        const pushToken = await AsyncStorage.getItem("expoPushToken");
-        console.log(pushToken);
-        // const token = (await Notifications.getDevicePushTokenAsync()).data;
-        // console.log(token);
-        // console.log('alert', alertType, alertValue);
-        const data = {
-            ticker: ticker,
-            alertType: alertType,
-            alertValue: alertValue
-        }
+        // const pushToken = await AsyncStorage.getItem("expoPushToken");
+        // console.log(pushToken);
 
-        await Notifications.scheduleNotificationAsync({
-            content: {
-                title: "You've got mail! 📬",
-                body: 'Here is the notification body',
-                data: { data: 'goes here' },
-                launchImageName: 'https://i.stack.imgur.com/YlzsO.png'
-            },
-            trigger: { seconds: 2 },
-        });
+
+        // const dataToken = {
+        //     token: 'ExponentPushToken[ULYivqCKoSg1JqYVNjr_yb]'
+        // }
+        // const response = await postData('/user/token', dataToken);
+        // console.log(response);
+
+        const dataAlert = {
+            coinTicker: ticker,
+            price: 16582.00,
+            alertType: 'up'
+        }
+        const response = await postData('/crypto/alert', dataAlert);
+        console.log(response);
+
+        // await Notifications.scheduleNotificationAsync({
+        //     content: {
+        //         title: "You've got mail! 📬",
+        //         body: 'Here is the notification body',
+        //         data: { data: 'goes here' },
+        //         launchImageName: 'https://i.stack.imgur.com/YlzsO.png'
+        //     },
+        //     trigger: { seconds: 2 },
+        // });
 
         // const registerForPushNotificationsAsync = async () => {
         //     const { status: existingStatus } = await Notifications.getPermissionsAsync();

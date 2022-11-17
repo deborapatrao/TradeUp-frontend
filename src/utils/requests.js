@@ -26,7 +26,7 @@ export const postData = async (url, data) => {
         console.log('RESPONSE: ', response.data);
 
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 }
 

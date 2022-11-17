@@ -33,6 +33,7 @@ export default function App() {
 
     useEffect(() => {
         registerForPushNotificationsAsync().then(token => {
+            console.log(token);
             if (token) {
                 AsyncStorage.setItem("expoPushToken", token);
                 setExpoPushToken(token)
