@@ -16,7 +16,7 @@ import { postData } from '../../utils/requests';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const PriceAlertScreen = ({ navigation, route }) => {
-    const [alertType, setAlertType] = useState('')
+    const [alertType, setAlertType] = useState('up')
     const [alertValue, setAlertValue] = useState('')
     const { ticker } = route.params;
 
@@ -30,11 +30,12 @@ const PriceAlertScreen = ({ navigation, route }) => {
         // }
         // const response = await postData('/user/token', dataToken);
         // console.log(response);
+        // console.log(alertType, parseFloat(alertValue));
 
         const dataAlert = {
             coinTicker: ticker,
-            price: 16582.00,
-            alertType: 'up'
+            price: parseFloat(alertValue),
+            alertType: alertType
         }
         const response = await postData('/crypto/alert', dataAlert);
         console.log(response);
@@ -81,7 +82,7 @@ const PriceAlertScreen = ({ navigation, route }) => {
 
     return (
         <VStack safeArea backgroundColor={'#171122'} h={'100%'}>
-            <Text style={styles.text} ml={2}>ETHUSDT</Text>
+            <Text style={styles.text} ml={2}>{ticker}</Text>
             <PriceStatic ticker={ticker} />
 
             <Box m={2} mt={10}>
@@ -89,9 +90,9 @@ const PriceAlertScreen = ({ navigation, route }) => {
                 <Select selectedValue={alertType} minWidth="200" accessibilityLabel="Choose Service" placeholder="Choose Service" _selectedItem={{
                     bg: "teal.600",
                     endIcon: <CheckIcon size="5" />
-                }} mt={1} onValueChange={itemValue => setAlertType(itemValue)} defaultValue={'rise'}>
-                    <Select.Item label="Price drops to" value="drop" />
-                    <Select.Item label="Price rises to" value="rise" />
+                }} mt={1} onValueChange={itemValue => setAlertType(itemValue)} defaultValue={alertType}>
+                    <Select.Item label="Price rises to" value="up" />
+                    <Select.Item label="Price drops to" value="down" />
                 </Select>
             </Box>
             <Box m={2}>

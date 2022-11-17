@@ -61,7 +61,7 @@ const PriceStatic = ({ ticker }) => {
               style={{ color: "#FF6666", alignItems: 'center' }} />
             {priceFormatter(dataCoin.priceChangePercent) + '%'}
           </Text>}
-        <Text color={'#F2F2F2'} fontSize='4xl'>≈${parseFloat(dataCoin.prevClosePrice).toFixed(2)}</Text>
+        <Text color={'#F2F2F2'} fontSize='4xl'>≈${parseFloat(dataCoin.lastPrice).toFixed(2)}</Text>
       </Box>
     </>
   )

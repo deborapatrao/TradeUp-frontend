@@ -21,6 +21,7 @@ import HomeIconActive from "../assets/images/bottom-tabs-icons/active/home.png";
 import MarketIconActive from "../assets/images/bottom-tabs-icons/active/market.png";
 import ResourceIconActive from "../assets/images/bottom-tabs-icons/active/resource.png";
 import WalletIconActive from "../assets/images/bottom-tabs-icons/active/wallet.png";
+import { SvgUri } from 'react-native-svg';
 // import { useFonts } from 'expo-font';
 // import SfProFont from '../assets/fonts/SF-Pro.ttf';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -30,6 +31,7 @@ import { navigatorTheme } from "../theme";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "../redux/action";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -94,7 +96,7 @@ const AppStack = () => {
 					<Stack.Screen
 						name="Home"
 						options={({ navigation, route }) => ({
-							headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+							header: (props) => <HomeHeader {...props} navigation={navigation} />,
 							headerBackgroundContainerStyle: {
 								backgroundColor: "#171122",
 							},
@@ -140,7 +142,9 @@ const AppStack = () => {
 
 						// You can return any component that you like here!
 						// return <Ionicons name={iconName} size={size} color={color} />;
-						return <Image source={iconName} alt="Alternate Text" />;
+
+						// return <SvgUri  source={HomeIconInactive} width={'100%'} height={'100%'} />;
+						return <Image source={iconName} size={size} alt="Alternate Text" />; 
 					},
 					tabBarActiveTintColor: "#F2F2F2",
 					tabBarInactiveTintColor: "#7F7F7F",
@@ -148,10 +152,6 @@ const AppStack = () => {
 					tabBarStyle: {
 						backgroundColor: "#171122",
 						borderTopColor: "#413556",
-						height: 60,
-						paddingBottom: 10,
-						// paddingTop: 10,
-						// height: 85
 					},
 					tabBarLabelStyle: {
 						fontSize: 12,
@@ -181,8 +181,10 @@ const AppStack = () => {
 						},
 						headerStyle: {
 							backgroundColor: "#171122",
+							height: 110,
 						},
 						headerShown: true, // hide header
+						
 					})}
 				/>
 				<Tab.Screen name="Market" component={MarketStack} 
