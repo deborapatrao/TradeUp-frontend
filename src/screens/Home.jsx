@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
 	return (
 		<>
 			<TrendingCoinsList user={user} />
-			<Leaderboard />
+			{/* <Leaderboard /> */}
 		</>
 	);
 };
