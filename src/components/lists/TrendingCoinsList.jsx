@@ -69,7 +69,7 @@ const TrendingCoinsList = ({ navigation }) => {
 				ListHeaderComponent={() => (
 					<>
 						<Carousel />
-						<Heading>Trending Coins</Heading>
+						<Heading mt={3} ml={2}>Trending Coins</Heading>
 						<CoinListHeader handleTypeChange={handleTypeChange} />
 					</>
 				)}

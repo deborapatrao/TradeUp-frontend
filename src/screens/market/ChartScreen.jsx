@@ -272,64 +272,64 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																	index
 																) => (
 																	<>
-																		<VStack key={bids[0]}>
+																		<VStack key={index}>
 																			{index ==
-																		0 ? (
-																			<>
-																				<CopilotStep
-																					text="So, the top refers to the best price for you to sell a coin"
-																					order={4}
-																					name="cryptostep4"
-																					key={bids[0]}
-																				>
-																					<WalkthroughableView>
-																						<HStack key={bids[0]} style={styles.rowSpacer}>
-																							<Text fontSize={"sm"} color="#31c451" ml={2}>
-																								{parseFloat(
-																									bids[0]
-																								).toFixed(
-																									4
-																								)}
-																							</Text>
+																				0 ? (
+																				<>
+																					<CopilotStep
+																						text="So, the top refers to the best price for you to sell a coin"
+																						order={4}
+																						name="cryptostep4"
+																						key={bids[0]}
+																					>
+																						<WalkthroughableView>
+																							<HStack key={bids[0]} style={styles.rowSpacer}>
+																								<Text fontSize={"sm"} color="#31c451" ml={2}>
+																									{parseFloat(
+																										bids[0]
+																									).toFixed(
+																										4
+																									)}
+																								</Text>
 
-																							<Text fontSize={"sm"} color="#31c451">
-																								{parseFloat(
-																									bids[1]
-																								).toFixed(
-																									4
-																								)}
-																							</Text>
-																						</HStack>
-																					</WalkthroughableView>
-																				</CopilotStep>
-																			</>
-																		) : (
-																			<>
-																				<HStack key={bids[0]} style={styles.rowSpacer}>
-																					<Text
-																						fontSize={"sm"}
-																						color="#31c451"
-																						ml={2}
-																					>
-																						{parseFloat(
-																							bids[0]
-																						).toFixed(
-																							4
-																						)}
-																					</Text>
-																					<Text
-																						fontSize={"sm"}
-																						color="#31c451"
-																					>
-																						{parseFloat(
-																							bids[1]
-																						).toFixed(
-																							4
-																						)}
-																					</Text>
-																				</HStack>
-																			</>
-																		)}
+																								<Text fontSize={"sm"} color="#31c451">
+																									{parseFloat(
+																										bids[1]
+																									).toFixed(
+																										4
+																									)}
+																								</Text>
+																							</HStack>
+																						</WalkthroughableView>
+																					</CopilotStep>
+																				</>
+																			) : (
+																				<>
+																					<HStack key={index} style={styles.rowSpacer}>
+																						<Text
+																							fontSize={"sm"}
+																							color="#31c451"
+																							ml={2}
+																						>
+																							{parseFloat(
+																								bids[0]
+																							).toFixed(
+																								4
+																							)}
+																						</Text>
+																						<Text
+																							fontSize={"sm"}
+																							color="#31c451"
+																						>
+																							{parseFloat(
+																								bids[1]
+																							).toFixed(
+																								4
+																							)}
+																						</Text>
+																					</HStack>
+																				</>
+																			)}
 
 																		</VStack>
 																	</>
@@ -348,65 +348,65 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 													>
 														<WalkthroughableView>
 															{dataAsks.map(
-																(asks,index) => (
+																(asks, index) => (
 																	<>
-																		<VStack key={asks[0]}>
+																		<VStack key={index}>
 																			{index == 0 ? (
-																			<>
-																				<CopilotStep
-																					text="So, the top refers to the best price for you to buy a coin"
-																					order={6}
-																					name="cryptostep6"
-																					key={asks[0]}
-																				>
-																					<WalkthroughableView>
-																						<HStack key={asks[0]} style={styles.rowSpacer}>
-																							<Text fontSize={"sm"} color="#FF6666" ml={2}>
-																								{parseFloat(
-																									asks[0]
-																								).toFixed(
-																									4
-																								)}
-																							</Text>
+																				<>
+																					<CopilotStep
+																						text="So, the top refers to the best price for you to buy a coin"
+																						order={6}
+																						name="cryptostep6"
+																						key={asks[0]}
+																					>
+																						<WalkthroughableView>
+																							<HStack key={asks[0]} style={styles.rowSpacer}>
+																								<Text fontSize={"sm"} color="#FF6666" ml={2}>
+																									{parseFloat(
+																										asks[0]
+																									).toFixed(
+																										4
+																									)}
+																								</Text>
 
-																							<Text fontSize={"sm"} color="#FF6666">
-																								{parseFloat(
-																									asks[1]
-																								).toFixed(
-																									4
-																								)}
-																							</Text>
-																						</HStack>
-																					</WalkthroughableView>
-																				</CopilotStep>
-																			</>
-																		) : (
-																			<>
-																				<HStack key={asks[0]} style={styles.rowSpacer}>
-																					<Text
-																						fontSize={"sm"}
-																						color="#FF6666"
-																						ml={2}
-																					>
-																						{parseFloat(
-																							asks[0]
-																						).toFixed(
-																							4
-																						)}
-																					</Text>
-																					<Text
-																						fontSize={"sm"}
-																						color="#FF6666"
-																					>
-																						{parseFloat(
-																							asks[1]
-																						).toFixed(
-																							4
-																						)}
-																					</Text>
-																				</HStack>
-																			</>
-																		)}
+																								<Text fontSize={"sm"} color="#FF6666">
+																									{parseFloat(
+																										asks[1]
+																									).toFixed(
+																										4
+																									)}
+																								</Text>
+																							</HStack>
+																						</WalkthroughableView>
+																					</CopilotStep>
+																				</>
+																			) : (
+																				<>
+																					<HStack key={asks[0]} style={styles.rowSpacer}>
+																						<Text
+																							fontSize={"sm"}
+																							color="#FF6666"
+																							ml={2}
+																						>
+																							{parseFloat(
+																								asks[0]
+																							).toFixed(
+																								4
+																							)}
+																						</Text>
+																						<Text
+																							fontSize={"sm"}
+																							color="#FF6666"
+																						>
+																							{parseFloat(
+																								asks[1]
+																							).toFixed(
+																								4
+																							)}
+																						</Text>
+																					</HStack>
+																				</>
+																			)}
 
 																		</VStack>
 																	</>
@@ -430,21 +430,21 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 							order={7}
 							name="cryptostep7"
 						>
-						<WalkthroughableView>
-							<View>
-							<Button
-								w={"98%"}
-								alignSelf={"flex-start"}
-								onPress={() =>
-									navigation.navigate("BuyAndSell", {
-										ticker: ticker,
-									})
-								}
-							>
-								Buy
-							</Button>
-							</View>
-						</WalkthroughableView>
+							<WalkthroughableView>
+								<View>
+									<Button
+										w={"98%"}
+										alignSelf={"flex-start"}
+										onPress={() =>
+											navigation.navigate("BuyAndSell", {
+												ticker: ticker,
+											})
+										}
+									>
+										Buy
+									</Button>
+								</View>
+							</WalkthroughableView>
 						</CopilotStep>
 
 						<Button
