@@ -35,7 +35,7 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
     const [loadingBuy, setLoadingBuy] = useState(false);
     const [loadingSell, setLoadingSell] = useState(false);
     const [buySellData, setBuySellData] = useState({})
-    const [percentBtn, setPercentBtn] = useState('25%');
+    const [percentBtn, setPercentBtn] = useState('');
 
 
     const url24 = `https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;

@@ -275,15 +275,16 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																		<VStack key={index}>
 																			{index ==
 																				0 ? (
+																				
 																				<>
 																					<CopilotStep
 																						text="So, the top refers to the best price for you to sell a coin"
 																						order={4}
 																						name="cryptostep4"
-																						key={bids[0]}
+																						
 																					>
 																						<WalkthroughableView>
-																							<HStack key={bids[0]} style={styles.rowSpacer}>
+																							<HStack style={styles.rowSpacer}>
 																								<Text fontSize={"sm"} color="#31c451" ml={2}>
 																									{parseFloat(
 																										bids[0]
@@ -305,7 +306,7 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																				</>
 																			) : (
 																				<>
-																					<HStack key={index} style={styles.rowSpacer}>
+																					<HStack style={styles.rowSpacer}>
 																						<Text
 																							fontSize={"sm"}
 																							color="#31c451"
@@ -357,10 +358,9 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																						text="So, the top refers to the best price for you to buy a coin"
 																						order={6}
 																						name="cryptostep6"
-																						key={asks[0]}
 																					>
 																						<WalkthroughableView>
-																							<HStack key={asks[0]} style={styles.rowSpacer}>
+																							<HStack style={styles.rowSpacer}>
 																								<Text fontSize={"sm"} color="#FF6666" ml={2}>
 																									{parseFloat(
 																										asks[0]
@@ -382,7 +382,7 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																				</>
 																			) : (
 																				<>
-																					<HStack key={asks[0]} style={styles.rowSpacer}>
+																					<HStack style={styles.rowSpacer}>
 																						<Text
 																							fontSize={"sm"}
 																							color="#FF6666"
