@@ -5,7 +5,7 @@ import { cryptoImages } from '../utils/assets';
 
 const CryptoItem = ({ coin, navigation }) => {
   const assetImage = cryptoImages.find(imgItem => imgItem.ticker === coin.symbol).image;
-
+  // navigation.navigate('Market', { screen: 'CryptoDetail', params: { ticker: coin.symbol } })
   return (
     // Passing params to the nested screens ....
     <Pressable onPress={() => navigation.navigate('CryptoDetail', { ticker: coin.symbol })}>
