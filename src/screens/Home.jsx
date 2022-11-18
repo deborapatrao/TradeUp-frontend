@@ -15,6 +15,8 @@ const Home = ({ navigation }) => {
 
 	// Testing
 	useEffect(() => {
+		console.log('User: ', user);
+
 		(async () => {
 			// const token = await AsyncStorage.getAllKeys();
 			const token = await AsyncStorage.getItem("userIdToken");
@@ -22,7 +24,7 @@ const Home = ({ navigation }) => {
 			// await AsyncStorage.clear();
 			// console.log("Token: ", token);
 			// console.log("userId: ", userToken);
-			const response = await getWalletData("/wallet/history");
+			// const response = await getWalletData("/wallet/history");
 		})();
 	}, []);
 	
