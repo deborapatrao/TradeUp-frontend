@@ -1,6 +1,6 @@
 import React,  { useState, useEffect, Component} from "react";
-import {  Image, View,  Box, Text } from "native-base";
-import { StyleSheet, ScrollView, Dimensions} from "react-native";
+import {  Image, View,  Box } from "native-base";
+import { StyleSheet, ScrollView, Dimensions, Text} from "react-native";
 import axios from "axios";
 
 const Carousel = () => { 
@@ -55,16 +55,14 @@ const Carousel = () => {
                         style={styles.Image}
                         height={height}
                         />
+                        <View style={styles.Paginator}>
+                    <Text key={index} style={styles.Dot} numberOfLines={5}>{cont.title}</Text>
+                
+            </View>
                 </Box>
                 )}
                 </ScrollView>
-            {/* <View style={styles.Paginator}>
-                {data.map((cont, index) => (
-                    <Text key={index} style={index==this.state.active ? styles.DotActive : styles.Dot}>⚫</Text>
-                ))
-                }
-                
-            </View> */}
+            
             {/* <View style={styles.Paginator}>
                     <Text style={styles.Dot}>⚫</Text>
             </View> */}
@@ -90,7 +88,13 @@ const Carousel = () => {
 
             },
             Dot:{
-                color: 'gray',
+                color: 'black',
+                backgroundColor: 'rgba(128, 128, 128, 0.90)',
+                width: '95%',
+                borderRadius: 10,
+                padding: 3,
+                fontWeight: 'bold',
+                marginBottom: 2,
             },
             DotActive:{
                 color: 'white',
