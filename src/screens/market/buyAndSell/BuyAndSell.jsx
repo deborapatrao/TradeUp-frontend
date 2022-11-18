@@ -28,13 +28,14 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
     const [priceValue, setPriceValue] = useState(0);
     const [amountValue, setAmountValue] = useState('')
     const [totalValue, setTotalValue] = useState('')
-    const [service, setService] = useState('market');
+    const [orderType, setOrderType] = useState('market');
     const [buyActive, setBuyActive] = useState(true);
     const [sellActive, setSellActive] = useState(false);
     const [alert, setAlert] = useState(false);
     const [loadingBuy, setLoadingBuy] = useState(false);
     const [loadingSell, setLoadingSell] = useState(false);
     const [buySellData, setBuySellData] = useState({})
+    const [percentBtn, setPercentBtn] = useState('25%');
 
 
     const url24 = `https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;
@@ -48,6 +49,7 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
         const data = await getBuyAndSellData('/crypto', ticker);
         setPriceValue(priceFormatter(data.currentPrice))
         setBuySellData(data)
+        console.log(data);
     }
 
 
@@ -127,19 +129,40 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
     }
 
     const handleMarketBuy = async () => {
-        if (totalValue !== '') {
-            const data = {
-                coinTicker: ticker,
-                amount: parseFloat(amountValue),
+        if (orderType == 'market') {
+            //market order
+            if (totalValue !== '') {
+                const data = {
+                    coinTicker: ticker,
+                    amount: parseFloat(amountValue),
+                }
+                console.log('DATA: ', data);
+                setLoadingBuy(true);
+                await marketOrder('/buy', data);
+                setLoadingBuy(false);
+                setTimer();
+            } else {
+                setLoadingBuy(false);
+                console.log('Total Value is empty');
             }
-            console.log('DATA: ', data);
-            setLoadingBuy(true);
-            await marketOrder('/buy', data);
-            setLoadingBuy(false);
-            setTimer();
         } else {
-            setLoadingBuy(false);
-            console.log('Total Value is empty');
+            // limit order
+            if (totalValue !== '') {
+                const data = {
+                    coinTicker: ticker,
+                    coinQuantity: parseFloat(amountValue),
+                    price: parseFloat(priceValue),
+                    typeOrder: 'buy'
+                }
+                console.log('DATA: ', data);
+                setLoadingBuy(true);
+                await marketOrder('/crypto/order', data);
+                setLoadingBuy(false);
+                setTimer();
+            } else {
+                setLoadingBuy(false);
+                console.log('Total Value is empty');
+            }
         }
     }
 
@@ -162,10 +185,19 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
     }
 
     const handlePercentBtnClick = (percent) => {
-        if (sellActive) {
-
+        if (buyActive) {
+            setPercentBtn(percent);
+            const percentObj = {
+                '25%': 0.25,
+                '50%': 0.5,
+                '75%': 0.75,
+                '100%': 1,
+            }
+            const newAmount = parseFloat(buySellData.usdtBalance) * percentObj[percent];
+            console.log(newAmount);
+            handleTotalChange(newAmount);
         } else {
-
+            console.log('sell');
         }
     }
 
@@ -191,13 +223,14 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
                                 <Text>Sell</Text>
                             </Button>
                         </Button.Group>
-                        <Select selectedValue={service} flexBasis={'50%'} accessibilityLabel="Choose Service" placeholder="Order Type"
-                            onValueChange={itemValue => setService(itemValue)}>
+                        <Select selectedValue={orderType} flexBasis={'50%'} accessibilityLabel="Choose Service" placeholder="Order Type"
+                            onValueChange={itemValue => setOrderType(itemValue)}>
                             <Select.Item label="Limit" value="limit" />
                             <Select.Item label="Market" value="market" />
                         </Select>
                     </HStack>
                     <Box>
+                        <Text ml={3}>Price (USDT)</Text>
                         <HStack
                             backgroundColor={'primary.field'}
                             justifyContent={'space-between'}
@@ -235,6 +268,7 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
                                 <Image w={4} h={4} alt={'Add'} source={AddIcon} />
                             </Button>
                         </HStack>
+                        <Text ml={3}>{ticker.replace('USDT', '')}</Text>
                         <HStack
                             backgroundColor={'primary.field'}
                             justifyContent={'space-between'}
@@ -275,6 +309,7 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
                                 <Image w={4} h={4} alt={'Add'} source={AddIcon} />
                             </Button>
                         </HStack>
+                        <Text ml={3}>USDT</Text>
                         <HStack
                             backgroundColor={'primary.field'}
                             justifyContent={'space-between'}
@@ -318,16 +353,16 @@ const BuyAndSellComponent = ({ navigation, ticker }) => {
                     </Box>
                     <Box>
                         <HStack justifyContent={'space-between'} m={3}>
-                            <Button w={"23%"} backgroundColor={'primary.field'}>25%</Button>
-                            <Button w={"23%"} backgroundColor={'primary.field'}>50%</Button>
-                            <Button w={"23%"} backgroundColor={'primary.field'}>75%</Button>
-                            <Button w={"23%"} backgroundColor={'primary.field'}>100%</Button>
+                            <Button w={"23%"} backgroundColor={percentBtn === '25%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('25%')}>25%</Button>
+                            <Button w={"23%"} backgroundColor={percentBtn === '50%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('50%')}>50%</Button>
+                            <Button w={"23%"} backgroundColor={percentBtn === '75%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('75%')}>75%</Button>
+                            <Button w={"23%"} backgroundColor={percentBtn === '100%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('100%')}>100%</Button>
                         </HStack>
                     </Box>
                     <Box>
                         <HStack justifyContent={'space-between'} m={3}>
                             <Text>Available</Text>
-                            {sellActive === true ? <Text>{buySellData?.coinQuantity}</Text> : <Text>{priceFormatter(buySellData?.usdtBalance)}</Text>}
+                            {sellActive ? <Text>{priceFormatter(buySellData?.coinQuantity)} {!buyActive ? ticker.replace('USDT', '') : 'USDT'}</Text> : <Text>{priceFormatter(buySellData?.usdtBalance)} {!buyActive ? ticker.replace('USDT', '') : 'USDT'}</Text>}
                         </HStack>
                     </Box>
                 </VStack>

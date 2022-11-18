@@ -39,7 +39,7 @@ const AssetsScreen = ({ navigation }) => {
 
     async function loadCoins(){
         try {
-        //   const reponse = await axios.get(`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`);
+          const reponse = await axios.get(`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`);
           
 
     let sortedData = [];

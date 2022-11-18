@@ -98,9 +98,9 @@ const Chart = ({ candles, domain }) => {
         </Svg >
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          {new Array(10).fill('abc').map((item, index) => {
+          {/* {new Array(10).fill('abc').map((item, index) => {
             return <Text key={index} style={{ color: 'white' }}>{item}</Text>
-          })}
+          })} */}
         </View>
       </View>
     </View>

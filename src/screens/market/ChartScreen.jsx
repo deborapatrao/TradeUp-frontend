@@ -222,7 +222,7 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 										>
 											<Box flexBasis={"49%"}>
 												<Text textAlign={"center"}>
-													Bids
+													Bid
 												</Text>
 												<HStack
 													mb="2"
@@ -238,7 +238,7 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 
 											<Box flexBasis={"49%"}>
 												<Text textAlign={"center"}>
-													Asks
+													Ask
 												</Text>
 												<HStack
 													mb="1"

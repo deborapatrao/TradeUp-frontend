@@ -23,15 +23,15 @@ import AppStack from './src/navigation/AppStack';
 
 // const Tab = createBottomTabNavigator();
 
-// const Main = ({ route }) => {
+const Main = ({ route }) => {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   // useEffect(() => {
   //     dispatch(loadUser())
   // }, [dispatch])
 
-  const { isAuthenticated, loading } = useSelector(state => state.auth)
+  // const { isAuthenticated, loading } = useSelector(state => state.auth)
 
   return <>
     {/* Uncomment me if you want to see Bottom Tabs */}
@@ -53,7 +53,7 @@ import AppStack from './src/navigation/AppStack';
         {isAuthenticated}
       </NavigationContainer>}
     </NativeBaseProvider> */}
-  </>
+  </>;
 }
 
 //   return <>
@@ -79,4 +79,4 @@ import AppStack from './src/navigation/AppStack';
 //   </>
 // }
 
-// export default Main
+export default Main

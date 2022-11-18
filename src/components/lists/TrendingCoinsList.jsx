@@ -8,8 +8,8 @@ import CoinListHeader from "../layout/CoinListHeader";
 import TopTradersContainer from "../containers/home/TopTradersContainer";
 import Carousel from "../../screens/resources/Carousel";
 
-const TrendingCoinsList = () => {
-	const navigation = useNavigation();
+const TrendingCoinsList = ({ navigation }) => {
+	// const navigation = useNavigation();
 
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
