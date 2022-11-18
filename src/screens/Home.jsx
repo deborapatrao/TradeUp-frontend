@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getWalletData, postData } from "../utils/requests";
 import TrendingCoinsList from "../components/lists/TrendingCoinsList";
+import Leaderboard from "./leaderboard/Leaderboard";
 import { Text, Button, View } from "native-base";
 import { SvgUri } from 'react-native-svg';
 import HomeIconInactive from "../assets/images/bottom-tabs-icons/inactive/home2.svg";
