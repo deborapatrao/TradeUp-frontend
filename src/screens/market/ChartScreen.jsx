@@ -271,12 +271,12 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																	bids,
 																	index
 																) => (
-																	<>
+																	
 																		<VStack key={index}>
 																			{index ==
 																				0 ? (
 																				
-																				<>
+																				
 																					<CopilotStep
 																						text="So, the top refers to the best price for you to sell a coin"
 																						order={4}
@@ -303,9 +303,9 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																							</HStack>
 																						</WalkthroughableView>
 																					</CopilotStep>
-																				</>
+																				
 																			) : (
-																				<>
+																				
 																					<HStack style={styles.rowSpacer}>
 																						<Text
 																							fontSize={"sm"}
@@ -329,11 +329,11 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																							)}
 																						</Text>
 																					</HStack>
-																				</>
+																				
 																			)}
 
 																		</VStack>
-																	</>
+																	
 																)
 															)}
 														</WalkthroughableView>
@@ -350,10 +350,10 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 														<WalkthroughableView>
 															{dataAsks.map(
 																(asks, index) => (
-																	<>
+																	
 																		<VStack key={index}>
 																			{index == 0 ? (
-																				<>
+																				
 																					<CopilotStep
 																						text="So, the top refers to the best price for you to buy a coin"
 																						order={6}
@@ -379,9 +379,9 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																							</HStack>
 																						</WalkthroughableView>
 																					</CopilotStep>
-																				</>
+																				
 																			) : (
-																				<>
+																				
 																					<HStack style={styles.rowSpacer}>
 																						<Text
 																							fontSize={"sm"}
@@ -405,11 +405,11 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 																							)}
 																						</Text>
 																					</HStack>
-																				</>
+																				
 																			)}
 
 																		</VStack>
-																	</>
+																	
 																)
 															)}
 														</WalkthroughableView>
