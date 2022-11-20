@@ -74,18 +74,33 @@ const Leaderboard = () => {
 		{/* <Box style={[styles.trapezoid]}> */}
 			<HStack style={styles.leaders}>
 				<VStack style={styles.laterals}>
-					<Image source={Profile} alt={'user-image'} style={styles.imageLaterals}  />
+					<View>
+						<Image source={Profile} alt={'user-image'} style={styles.imageLaterals}  />
+						<View style={styles.viewContainerLateral} backgroundColor={'#A7A7AD'}>
+                    	        <Text  style={styles.leads} >2</Text>
+                    	</View>
+					</View>
+					{/* <Image source={Profile} alt={'user-image'} style={styles.imageLaterals}  /> */}
 					<Text>{data[0].name}</Text>
 					<Text>{data[0].percentage}</Text>
 				</VStack>
 				<VStack  style={styles.central}>
+					<View>
 					<Image source={Profile} alt={'user-image'} style={styles.imageCentral} />
+					<View style={styles.viewContainerCentral}  >
+                    	        <Text  style={styles.leads} >1</Text>
+                    	</View>
+					</View>
 					<Text>{data[1].name}</Text>
 					<Text>{data[1].percentage}</Text>
 				</VStack>
 				<VStack style={styles.laterals}>
-				<Image source={Profile} alt={'user-image'}  style={styles.imageLaterals} />	
-					<Text>{data[2].name}</Text>
+				<View>
+					<Image source={Profile} alt={'user-image'}  style={styles.imageLaterals} />	
+					<View style={styles.viewContainerLateral} backgroundColor={'#A77044'}>
+                    	        <Text  style={styles.leads} >3</Text>
+                    	</View>
+					</View><Text>{data[2].name}</Text>
 					<Text>{data[2].percentage}</Text>
 				</VStack>
 			</HStack>
@@ -203,7 +218,39 @@ const styles = StyleSheet.create({
 		marginRigh: 3, 
 		maargBottom: 3, 
 		marginTop: 4,
-	}
+	},
+	viewContainerLateral: {
+        flexDirection: 'row',
+        position: 'absolute',
+		right: 0,
+		top: 0,
+        alignSelf: 'center',
+		padding: 0,
+		borderRadius: 50,
+		width: 23,
+		height: 23,
+    },
+	
+	viewContainerCentral: {
+        flexDirection: 'row',
+        position: 'absolute',
+		right: 0,
+		top: 10,
+        alignSelf: 'center',
+		padding: 0,
+		borderRadius: 50,
+		width: 23,
+		height: 23,
+		backgroundColor: '#D6AF36',
+    },
+    leads: {
+        color: 'black',
+        width: '100%',
+        fontWeight: 'bold',
+		textAlign: 'center',
+		padding: 0,
+		margin: 0,
+    }
   
   });
 
