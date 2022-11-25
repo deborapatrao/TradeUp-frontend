@@ -21,6 +21,7 @@ import HomeIconActive from "../assets/images/bottom-tabs-icons/active/home.png";
 import MarketIconActive from "../assets/images/bottom-tabs-icons/active/market.png";
 import ResourceIconActive from "../assets/images/bottom-tabs-icons/active/resource.png";
 import WalletIconActive from "../assets/images/bottom-tabs-icons/active/wallet.png";
+import ResourcesStackScreen from "./stacks/ResourcesStack";
 import { SvgUri } from 'react-native-svg';
 // import { useFonts } from 'expo-font';
 // import SfProFont from '../assets/fonts/SF-Pro.ttf';
@@ -194,7 +195,7 @@ const AppStack = () => {
 				/>
 				<Tab.Screen
 					name="Resources"
-					component={ArticleList}
+					component={ResourcesStackScreen}
 					options={({ navigation }) => ({
 						headerShown: true,
 						headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
