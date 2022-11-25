@@ -56,7 +56,10 @@ const Home = ({ navigation }) => {
 				try {
 					await AsyncStorage.setItem("expoPushToken", token);
 					setExpoPushToken(token)
-					// await postData("/user/token", { token });
+					if(!user.fcm_token){
+						await postData("/user/token", { token });
+
+					}
 				} catch (error) {
 					console.log(error);
 				}

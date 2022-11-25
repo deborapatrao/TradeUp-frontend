@@ -1,0 +1,40 @@
+import React from 'react'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
+//screens
+import ArticleList from '../../components/lists/ArticleList';
+import ArticleSingle from '../../screens/resources/ArticleSingle';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeHeader from '../../components/layout/HomeHeader';
+
+const ResourcesStack = createStackNavigator();
+
+const ResourcesStackScreen = () => {
+
+    return(
+        <ResourcesStack.Navigator>
+            <ResourcesStack.Screen name='ArticleList' component={ArticleList} options={{
+                headerShown: false
+            }} />
+        < ResourcesStack.Screen name='ArticleSingle' component={ArticleSingle} options={({ navigation, route }) => ({
+            readerTitle: (props) => <ArticleHeader {...props} navigation={navigation} route={route} />,
+            navigationBarColor: 'gray.400',
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor: '#171122',
+                },
+                headerTitleStyle: {
+                    color: '#fff'
+                },
+                headerBackTitleVisible: false,
+                headerBackTitleStyle: {
+                    color: '#fff'
+                }
+        })
+    }/>
+
+        </ResourcesStack.Navigator>
+    )
+}
+
+export default ResourcesStackScreen
