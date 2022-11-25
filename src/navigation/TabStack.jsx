@@ -37,10 +37,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const AppStack = () => {
+const TabStack = () => {
 
-	const [canTour, setCanTour] = useState(true);
-	const [goToMarket, setGoToMarket] = useState(false);
+	// const [canTour, setCanTour] = useState(true);
 
 	const { colorMode } = useColorMode();
 
@@ -88,7 +87,7 @@ const AppStack = () => {
 	// console.log(user)
 	return (
 		<>
-		{user && user.isTutorial && canTour ? (
+		{/* {user && user.isTutorial && canTour ? (
 			<NavigationContainer theme={MyTheme}>
 				<Stack.Navigator
 					screenOptions={{
@@ -112,13 +111,12 @@ const AppStack = () => {
 							<HomeTour
 								{...props}
 								setCanTour={setCanTour}
-								setGoToMarket={setGoToMarket}
 							/>
 						)}
 					</Stack.Screen>
 				</Stack.Navigator>
 			</NavigationContainer>
-		) : (
+		) : ( */}
 		<NavigationContainer theme={MyTheme}>
 			<Tab.Navigator
 				screenOptions={({ route }) => ({
@@ -166,8 +164,7 @@ const AppStack = () => {
 			>
 				<Tab.Screen
 					name="Home"
-					children={() => <MainStack goToMarket={goToMarket} />}
-					// component={MainStack}
+					component={MainStack}
 					// options={{
 					// 	headerTitle: (props) => <HomeHeader {...props} />,
 					// 	headerBackgroundContainerStyle: {
@@ -226,9 +223,9 @@ const AppStack = () => {
 				/>
 			</Tab.Navigator>
 		</NavigationContainer>
-		)}
+		{/* )} */}
 		</>
 	);
 };
 
-export default AppStack;
+export default TabStack;

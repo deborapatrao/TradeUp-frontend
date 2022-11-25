@@ -78,6 +78,13 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 
 		copilotEvents.on("stepChange", (step) => {
 			console.log(`Step is ${step.name}`);
+			if(step.name == "cryptostep7"){
+				copilotEvents.on("stop", () => {
+					navigation.navigate("BuyAndSell", {
+						ticker: ticker,
+					})
+				});
+			}
 		});
 
 		copilotEvents.on("stop", () => {
