@@ -34,9 +34,9 @@ const Home = ({ navigation }) => {
 	const notificationListener = useRef();
 	const responseListener = useRef();
 
+		console.log('User: ', user);
 	// Testing
 	// useEffect(() => {
-	// 	console.log('User: ', user);
 
 	// 	(async () => {
 	// 		// const token = await AsyncStorage.getAllKeys();
@@ -56,7 +56,10 @@ const Home = ({ navigation }) => {
 				try {
 					await AsyncStorage.setItem("expoPushToken", token);
 					setExpoPushToken(token)
-					// await postData("/user/token", { token });
+					if(!user.fcm_token) {
+						await postData("/user/token", { token });
+						
+					}
 				} catch (error) {
 					console.log(error);
 				}

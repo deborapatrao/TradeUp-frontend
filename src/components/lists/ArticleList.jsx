@@ -8,6 +8,7 @@ import {
 } from "native-base";
 import { StyleSheet } from "react-native";
 import axios from "axios";
+// import ResourcesList from "../utils/resources.json";
 
 const ArticleList = () => {
 const [data, setData] = useState([])
@@ -23,7 +24,7 @@ async function loadArticles(){
         const response = await axios.get(`https://newsapi.org/v2/top-headlines?q=crypto+currency&pageSize=5&apiKey=${apiKey}`);
 
         setData(response.data.articles);
-console.log(data);
+        console.log(data);
 
     }catch (error) {
         console.log(error)

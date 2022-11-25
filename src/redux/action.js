@@ -29,11 +29,11 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({ type: "loginSuccess", payload: data });
 
     } catch (error) {
-        console.log("Error 1", error.response.data.message);
+        console.log("Error 1", error.message);
 
         dispatch({
             type: "loginFailure",
-            payload: error.response.data.message,
+            payload: error.message,
         });
 
     }
@@ -68,7 +68,7 @@ export const signup = (email, password, location) => async (dispatch) => {
         console.log("Error 1", error);
         dispatch({
             type: "signupFailure",
-            payload: error.response.data.message,
+            payload: error.message,
         });
 
     }
@@ -92,11 +92,11 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         // console.log("Load user", data)
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        console.log("Error 2", error.response.data.message);
+        console.log("Error 2", error.message);
 
         dispatch({
             type: "loadUserFailure",
-            payload: error.response.data.message,
+            payload: error.message,
         });
 
     }
@@ -123,11 +123,11 @@ export const saveLocation = (userIdToken, location) => async (dispatch) => {
 
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        console.log("Error 2", error.response.data.message);
+        console.log("Error 2", error.message);
 
         dispatch({
             type: "loadUserFailure",
-            payload: error.response.data.message,
+            payload: error.message,
         });
 
     }
@@ -150,7 +150,7 @@ export const logout = () => async (dispatch) => {
         console.log("Error 3", error);
         dispatch({
             type: "logoutFailure",
-            payload: error.response.data.message,
+            payload: error.message,
         });
 
     }
