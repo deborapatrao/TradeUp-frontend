@@ -338,7 +338,7 @@ const style = {
 
 
 export default copilot({
-	// verticalOffset: 25,
+	verticalOffset: 5,
 	tooltipComponent: TourTooltip,
 	arrowColor: '#386AF5',
 	tooltipStyle: style,

@@ -11,7 +11,7 @@ import BuyAndSellComponent from './buyAndSell/BuyAndSell';
 
 
 const BuyAndSellScreen = ({ navigation, route }) => {
-    const { ticker } = route.params;
+    const { ticker, onTour } = route.params;
 
     useEffect(() => {
         navigation.setOptions({ headerTitle: ticker })
@@ -20,7 +20,7 @@ const BuyAndSellScreen = ({ navigation, route }) => {
     return (
         <Box bgColor={'primary.bg'} flex={1}>
             <PriceStatic ticker={ticker} />
-            <BuyAndSellComponent navigation={navigation} ticker={ticker} />
+            <BuyAndSellComponent navigation={navigation} ticker={ticker} onTour={onTour} />
         </Box>
     );
 };

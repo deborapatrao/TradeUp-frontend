@@ -13,6 +13,7 @@ const WalkthroughableView = walkthroughable(View);
 
 const MarketItemTour = ({ coin, start, copilotEvents, setMarketTour }) => {
 	const navigation = useNavigation();
+	
 	useEffect(() => {
 		const tourTimeout = setTimeout(() => {
 			start();
