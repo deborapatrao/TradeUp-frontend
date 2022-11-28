@@ -44,7 +44,7 @@ const TourTooltip = ({
 				) : (
                         <Button onPress={handleStop}>
                             <Text style={styles.navigator}>
-                                {currentStep.name === "step3" ? "Next" : labels.finish || "Finish"}
+                                {currentStep.name === "step3" || currentStep.name === "marketstep4" || currentStep.name === "cryptostep7" ? "Next" : labels.finish || "Finish"}
                             </Text>
                         </Button>
 				)}

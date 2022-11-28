@@ -125,7 +125,7 @@ const CryptoList = ({ navigation }) => {
           data={data}
           style={{ paddingHorizontal: 5 }}
           renderItem={({ item, index }) => {
-            return user && user.isTutorial && marketTour && index === 0 ? <MarketItemTour coin={item} setMarketTour={setMarketTour} /> : <CryptoItem navigation={navigation} coin={item} />
+            return user && user.isTutorial && marketTour && index === 0 ? <MarketItemTour key={index} coin={item} setMarketTour={setMarketTour} /> : <CryptoItem key={index} navigation={navigation} coin={item} />
           }}
           keyExtractor={item => item.symbol}
         />

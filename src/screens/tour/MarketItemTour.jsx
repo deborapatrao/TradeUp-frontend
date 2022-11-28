@@ -5,30 +5,33 @@ import { StyleSheet } from "react-native";
 import { cryptoImages } from "../../components/utils/assets";
 import TourTooltip from "../../components/utils/TourTooltip";
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
+import { useNavigation } from '@react-navigation/native';
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableImage = walkthroughable(Image);
 const WalkthroughableView = walkthroughable(View);
 
-const MarketItemTour = ({ coin, navigation, start, copilotEvents, setMarketTour }) => {
+const MarketItemTour = ({ coin, start, copilotEvents, setMarketTour }) => {
+	const navigation = useNavigation();
+	
 	useEffect(() => {
 		const tourTimeout = setTimeout(() => {
 			start();
 		}, 300);
 
 		copilotEvents.on("stepChange", (step) => {
-			// if (step.name === "marketstep3") {
-			// 	setStep4Active(true);
-			// } else {
-			// 	setStep4Active(false);
-			// }
+			if(step.name == "marketstep4"){
+				copilotEvents.on("stop", () => {
+					navigation.navigate('CryptoDetail', { ticker: coin.symbol })
+				});
+			}
 			console.log(`Step is ${step.name}`);
 		});
 
-		copilotEvents.on("stop", () => {
-			setMarketTour(false);
-			// navigation.navigate("Market", "CryptoList");
-		});
+		// copilotEvents.on("stop", () => {
+		// 	setMarketTour(false);
+		// 	// navigation.navigate("Market", "CryptoList");
+		// });
 
 		return () => {
 			clearTimeout(tourTimeout);

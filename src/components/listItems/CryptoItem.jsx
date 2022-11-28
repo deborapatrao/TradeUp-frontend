@@ -8,11 +8,11 @@ const CryptoItem = ({ coin, navigation }) => {
   // navigation.navigate('Market', { screen: 'CryptoDetail', params: { ticker: coin.symbol } })
   return (
     // Passing params to the nested screens ....
-    <Pressable onPress={() => navigation.navigate('CryptoDetail', { ticker: coin.symbol })}>
+    <Pressable onPress={() => navigation.navigate('CryptoDetail', { ticker: "BTCUSDT" })}>
       <HStack onPress style={[styles.column, styles.tableLine]} alignItems={'center'}>
         <HStack space={4} alignItems={'center'}>
-          <Image source={assetImage} alt={coin.symbol} style={{ width: 30, height: 30 }} />
-          <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
+          <Image source={assetImage} alt={"BTCUSDT"} style={{ width: 30, height: 30 }} />
+          <Text style={styles.text}>{"BTCUSDT".slice(0, -4)} </Text>
         </HStack>
         <HStack justifyContent={'space-between'} w={'60%'}>
           <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>

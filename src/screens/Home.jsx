@@ -12,7 +12,7 @@ import HomeIconInactive from "../assets/images/bottom-tabs-icons/inactive/home2.
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 Notifications.setNotificationHandler({
@@ -25,7 +25,8 @@ Notifications.setNotificationHandler({
 });
 
 
-const Home = ({ navigation }) => {
+const Home = ({goToMarket}) => {
+	const navigation = useNavigation();
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
@@ -83,9 +84,16 @@ const Home = ({ navigation }) => {
 		};
 	}, []);
 
-	const goToMarket = () => {
-		navigation.navigate("Market");
-	}
+	console.log("goToMarket: ", goToMarket);
+	
+	useEffect(() => {
+		if(goToMarket){
+			navigation.navigate("Market");
+		}
+	}, [goToMarket]);
+	// const goToMarket = () => {
+	// 	navigation.navigate("Market");
+	// }
 
 	return (
 		<>

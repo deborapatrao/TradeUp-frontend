@@ -40,7 +40,8 @@ const WalkthroughableImage = walkthroughable(Image);
 const WalkthroughableView = walkthroughable(View);
 const WalkthroughableScrollView = walkthroughable(ScrollView);
 
-function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
+function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToMarket }) {
+	// navigation.navigate("Market", "CryptoList");
 	const refScrollView = useRef();
 
 	const [secondStepActive, setSecondStepActive] = useState(true);
@@ -95,13 +96,23 @@ function HomeTour({ navigation, start, copilotEvents, setCanTour }) {
 		}, 300);
 
 		copilotEvents.on("stepChange", (step) => {
-			console.log(`Step is ${step.name}`)
+			// console.log(`Step is ${step.name}`)
+			// console.log(step.name)
+			if(step.name == "step3"){
+				copilotEvents.on("stop", () => {
+					setGoToMarket(true)
+				});
+			} else {
+				copilotEvents.on("stop", () => {
+					setCanTour(false)
+				});
+			}
 		});
 
 		copilotEvents.on("stop", () => {
-            setCanTour(false)
-			// navigation.navigate("Market", "CryptoList");
-        });
+			// setCanTour(false)
+		});
+
 
 		return () => {
 			clearTimeout(tourTimeout);
@@ -327,7 +338,7 @@ const style = {
 
 
 export default copilot({
-	// verticalOffset: 25,
+	verticalOffset: 5,
 	tooltipComponent: TourTooltip,
 	arrowColor: '#386AF5',
 	tooltipStyle: style,
