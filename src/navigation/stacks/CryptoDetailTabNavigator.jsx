@@ -13,7 +13,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const CryptoDetailTabNavigator = ({ route }) => {
     const { ticker } = route.params;
-
+    console.log('ticker cryptodetail', ticker)
     return (
         <Tab.Navigator screenOptions={{
             tabBarLabelStyle: { fontSize: 12, color: '#fff' },
