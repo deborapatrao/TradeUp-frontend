@@ -6,25 +6,23 @@ import {
     View,
 } from "native-base";
 import { getActiveOrderHistoryData } from '../../utils/requests';
-import { SafeAreaView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { SafeAreaView, Dimensions, StyleSheet } from 'react-native';
 
 
-const OrdersScreen = () => {
+const OrdersScreen = ({route}) => {
     const [data, setData] = useState()
-
+    
+	const { ticker } = route.params;
 
     useEffect(() => {
-		loadHistory();
+		loadActiveOrders();
         
 	}, []);
 
-	const loadHistory = async () => {
+	const loadActiveOrders = async () => {
 		try {
-			const res = await getActiveOrderHistoryData("/crypto/order/actives");
-            if(res.ordersActives.ticker === ticker){
-                setData(res.ordersActives);
-                console.log(ticker);
-            }
+			const res = await getActiveOrderHistoryData("/crypto/order/active");
+            setData(res.ordersActives);
             
 		} catch (error) {
 			console.log(error);
