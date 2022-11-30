@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 
 const MarketHeader = ({ navigation, route }) => {
     const { ticker } = route.params;
-    console.log('ticker', ticker);
+    // console.log('ticker', ticker);
     return (
         <HStack w='100%' >
             <Text fontSize={'md'} ml={'40%'} color={'white'}>{ticker}</Text>
