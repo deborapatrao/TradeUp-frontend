@@ -111,3 +111,16 @@ export const getOrderHistoryData = async (url) => {
         connsole.log(`testHistory: ${e}`)
     }
 }
+export const getActiveOrderHistoryData = async (url) => {
+    try {
+        const userId = await AsyncStorage.getItem(`userId`);
+        const response = await axios.post(`http://192.168.1.76:8080/api/crypto/order/active`, {
+            userId: userId
+        })
+        const data = response.data
+        console.log('RESPONSE Active Order', response.data);
+        return data;
+    } catch (e) {
+        connsole.log(e)
+    }
+}
