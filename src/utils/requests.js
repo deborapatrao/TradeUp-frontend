@@ -98,3 +98,16 @@ export const getTrendingCoinsData = async (url) => {
     }
     return data;
 }
+export const getOrderHistoryData = async (url) => {
+    try {
+        const userId = await AsyncStorage.getItem(`userId`);
+        const response = await axios.post(`${BASE_URL}${url}`, {
+            userId: userId
+        })
+        const data = response.data
+        console.log('RESPONSE History Order', response.data);
+        return data;
+    } catch (e) {
+        connsole.log(`testHistory: ${e}`)
+    }
+}
