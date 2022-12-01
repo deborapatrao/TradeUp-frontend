@@ -73,7 +73,12 @@ const OrdersScreen = () => {
                 </Box>
                 <Box alignItems={'flex-end'}>
                     <Text style={styles.date}>{(item.createdAt).slice(0,10)}</Text>
-                    <Text style={[ item.status === false ? styles.statusActive : styles.statusFilled]}>{item.status === false ? 'Active' : 'Filled'}</Text>
+                    {item.status === false ? 
+                    <Box style={styles.statusContainer}>
+                        <Text style={styles.statusCancel}>Cancel</Text>
+                        <Text style={styles.statusActive}>Active</Text>
+                    </Box>
+                    : <Text style={styles.statusFilled}>Filled</Text>}
                     <Text>${item.price}</Text>
                     <Text style={styles.quantity}>{(item.quantity).toFixed(7)}</Text>
                 </Box>
@@ -185,6 +190,15 @@ const styles = StyleSheet.create({
         width: 60,
         marginTop: 7,
         marginBottom: 7,
+        marginLeft: 5,
+    },
+    statusCancel:{
+        backgroundColor: '#FF6666',
+        textAlign: 'center',
+        borderRadius: 5,
+        width: 60,
+        marginTop: 7,
+        marginBottom: 7,
     },
     statusFilled:{
         backgroundColor: '#386AF5',
@@ -199,6 +213,9 @@ const styles = StyleSheet.create({
     quantity:{
         marginTop: 7,
         marginBottom: 7,
+    },
+    statusContainer:{
+        flexDirection: 'row',
     }
 });
 
