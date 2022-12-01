@@ -114,7 +114,7 @@ export const getOrderHistoryData = async (url) => {
 export const getActiveOrderHistoryData = async (url) => {
     try {
         const userId = await AsyncStorage.getItem(`userId`);
-        const response = await axios.post(`http://192.168.1.76:8080/api${url}`, {
+        const response = await axios.post(`${BASE_URL}${url}`, {
             userId: userId
         })
         const data = response.data

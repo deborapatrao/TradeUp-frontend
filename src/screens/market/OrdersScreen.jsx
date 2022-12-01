@@ -9,15 +9,20 @@ import { getActiveOrderHistoryData } from '../../utils/requests';
 import { SafeAreaView, Dimensions, StyleSheet } from 'react-native';
 
 
-const OrdersScreen = ({route}) => {
+const OrdersScreen = ({navigation, route}) => {
     const [data, setData] = useState()
     
 	const { ticker } = route.params;
 
     useEffect(() => {
-		loadActiveOrders();
-        
-	}, []);
+        const unsubscribe = navigation.addListener('focus', async () => {
+            loadActiveOrders();
+        });
+
+
+        return unsubscribe;
+	}, [navigation]);
+
 
 	const loadActiveOrders = async () => {
 		try {

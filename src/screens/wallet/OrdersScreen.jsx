@@ -22,7 +22,7 @@ const listTab = [
 
 
 
-const OrdersScreen = () => {
+const OrdersScreen = ({ navigation }) => {
 
     const [status, setStatus] = useState('All Orders')
     const [datalist, setDatalist] = useState(data)
@@ -30,9 +30,15 @@ const OrdersScreen = () => {
 
 
     useEffect(() => {
-		loadHistory();
-        setStatusFilter(status);
-	}, []);
+		
+        const unsubscribe = navigation.addListener('focus', async () => {
+            loadHistory();
+            setStatusFilter(status);
+        });
+
+
+        return unsubscribe;
+	}, [navigation]);
 
 	const loadHistory = async () => {
 		try {
@@ -48,7 +54,7 @@ const OrdersScreen = () => {
 
     const setStatusFilter = status => {
         if(status === 'Active'){
-            setDatalist([...data.filter(e => e.status === false)])
+            setDatalist([...data.reverse().filter(e => e.status === false)])
         }else if(status === 'Filled'){
             setDatalist([...data.filter(e => e.status === true)])
         }else{

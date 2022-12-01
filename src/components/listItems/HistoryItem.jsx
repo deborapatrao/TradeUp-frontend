@@ -57,12 +57,12 @@ const styles = StyleSheet.create({
 	},
 
     date: {
-        fontSize: '12sp',
+        fontSize: 12,
     },
 
 	text: {
 		color: "#fff",
-        fontSize: '16sp',
+        fontSize: 16
 	},
 
     rowSpacer: {
