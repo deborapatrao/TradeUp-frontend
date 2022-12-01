@@ -155,3 +155,31 @@ export const logout = () => async (dispatch) => {
 
     }
 };
+
+export const skipTutorial = (userId, tutorialStatus) => async (dispatch) => {
+
+    try {
+        dispatch({ type: "tutorialRequest" });
+
+        // console.log("skip dispatch running")
+        const { data } = await axios.post(
+            `${serverUrl}/user/tutorial`,
+            { userId, tutorialStatus },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        dispatch({ type: "loadUserSuccess", payload: data });
+    } catch (error) {
+        console.log("Error skip", error.message);
+
+        dispatch({
+            type: "loadUserFailure",
+            payload: error.message,
+        });
+
+    }
+};

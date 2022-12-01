@@ -6,7 +6,7 @@ import { cryptoImages } from '../utils/assets';
 import TourTooltip from "../../components/utils/TourTooltip";
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import { useDispatch, useSelector } from "react-redux";
-import { loadUser } from "../../redux/action";
+import { skipTutorial } from "../../redux/action";
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableView = walkthroughable(View);
@@ -15,24 +15,36 @@ const CryptoItem = ({ coin, navigation, start, copilotEvents }) => {
   // console.log("coin",coin)
 	const [marketTour, setMarketTour] = useState(true);
 
+  const dispatch = useDispatch();
   const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
+  // console.log("user", user);
 	useEffect(() => {
-		const tourTimeout = setTimeout(() => {
-			start();
-		}, 300);
+		// const tourTimeout = setTimeout(() => {
+      if(user.isTutorial){
+        // console.log(user.isTutorial)
+        // start();
+      }
+		// }, 300);
 
 		copilotEvents.on("stepChange", (step) => {
-			if(step.name == "marketstep4"){
+			if(step.order < 4){
 				copilotEvents.on("stop", () => {
+					if(step.order == 1){
+						dispatch(skipTutorial(user.firebase_uuid, false))
+					}
+				});
+
+			} else {
+				copilotEvents.on("stop", () => {
+					dispatch(skipTutorial(user.firebase_uuid, true))
 					navigation.navigate('CryptoDetail', { ticker: coin.symbol })
 				});
 			}
-			console.log(`Step is ${step.name}`);
 		});
 
 		return () => {
-			clearTimeout(tourTimeout);
+			// clearTimeout(tourTimeout);
 			copilotEvents.off("stepChange");
 			copilotEvents.off("stop");
 		};

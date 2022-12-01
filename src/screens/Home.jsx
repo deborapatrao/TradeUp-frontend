@@ -34,8 +34,7 @@ const Home = ({goToMarket}) => {
 	const [notification, setNotification] = useState(false);
 	const notificationListener = useRef();
 	const responseListener = useRef();
-
-		console.log('User: ', user);
+	
 	// Testing
 	// useEffect(() => {
 
@@ -83,8 +82,6 @@ const Home = ({goToMarket}) => {
 			Notifications.removeNotificationSubscription(responseListener.current);
 		};
 	}, []);
-
-	console.log("goToMarket: ", goToMarket);
 	
 	useEffect(() => {
 		if(goToMarket){

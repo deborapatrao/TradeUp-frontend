@@ -27,7 +27,7 @@ export default function RootNavigation() {
 			const value = await AsyncStorage.getItem("userIdToken");
 			if (userId && tokenStorage) {
 				// value previously stored
-				console.log("value", value);
+				// console.log("value", value);
 				dispatch(loadUser(tokenStorage));
 			}
 		} catch (e) {
