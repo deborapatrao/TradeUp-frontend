@@ -134,9 +134,9 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     const setTimer = () => {
         setAlert(true)
 
-        setTimeout(() => {
-            setAlert(false)
-        }, 1000);
+        // setTimeout(() => {
+        //     setAlert(false)
+        // }, 1000);
     }
 
     const handleMarketBuy = async () => {
