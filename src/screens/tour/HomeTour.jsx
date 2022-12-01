@@ -31,6 +31,8 @@ import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.pn
 import { useNavigation } from "@react-navigation/native";
 import Leaderboard from "../leaderboard/Leaderboard";
 import LeaderboardHome from "../leaderboard/LeaderboardHome";
+import { skipTutorial } from "../../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import Carousel from "../resources/Carousel";
@@ -41,13 +43,17 @@ const WalkthroughableView = walkthroughable(View);
 const WalkthroughableScrollView = walkthroughable(ScrollView);
 
 function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToMarket }) {
-	// navigation.navigate("Market", "CryptoList");
+
+	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const refScrollView = useRef();
 
 	const [secondStepActive, setSecondStepActive] = useState(true);
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
+	const [currentStep, setCurrentStep] = useState("win");
+	const [canRequest, setCanRequest] = useState(true);
 
 	useEffect(() => {
 		loadTrendingCoins();
@@ -90,36 +96,48 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 		setToggle(!toggle);
 	};
 
+
 	useEffect(() => {
+
 		const tourTimeout = setTimeout(() => {
 			start(false, refScrollView.current);
 		}, 300);
 
 		copilotEvents.on("stepChange", (step) => {
-			// console.log(`Step is ${step.name}`)
-			// console.log(step.name)
-			if(step.name == "step3"){
+			if(step.order < 3){
 				copilotEvents.on("stop", () => {
-					setGoToMarket(true)
+					// if(step.order == 1){
+						dispatch(skipTutorial(user.firebase_uuid, false))
+						setCanTour(false)
+					// }
 				});
+
 			} else {
 				copilotEvents.on("stop", () => {
-					setCanTour(false)
+					dispatch(skipTutorial(user.firebase_uuid, true))
+					setGoToMarket(true)
 				});
 			}
 		});
-
-		copilotEvents.on("stop", () => {
-			// setCanTour(false)
-		});
-
 
 		return () => {
 			clearTimeout(tourTimeout);
 			copilotEvents.off("stepChange");
 			copilotEvents.off("stop");
 		};
-	}, []);
+	}, [user]);
+
+	
+
+	// useEffect(() => {
+
+	// 	copilotEvents.on("stop", () => {
+	// 		if(currentStep == "step1" || currentStep == "step2"){
+	// 			console.log(`stop at step1: ${currentStep}`)
+	// 		}
+	// 	});
+
+	// }, [currentStep]);
 
 	return (
 		<>
