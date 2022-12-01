@@ -220,29 +220,20 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 	useEffect(() => {
 		const tourTimeout = setTimeout(() => {
             if(user && tourStatus && user.isTutorial) {
-
-                // const defAmount = parseFloat(buySellData.usdtBalance) * 0.01;
-
-                // handleTotalChange(defAmount);
-
-                // console.log(`price from amount is ${amountValue}`);
-                // console.log(`price from total is ${totalValue}`);
-                // console.log(`price from value is ${priceValue}`);
-
                 start(false, refScrollView.current);
             }
 		}, 300);
 
-		copilotEvents.on("stepChange", (step) => {
-			// console.log(`Step is ${step.name}`);
-			if(step.name == "buystep8"){
-				copilotEvents.on("stop", () => {
-                    // dispatch(skipTutorial(user.firebase_uuid, false));
-                    // amountValue ? handleMarketBuy() : ""
-                    // setTourStatus(false);
-				});
-			}
-		});
+		// copilotEvents.on("stepChange", (step) => {
+		// 	// console.log(`Step is ${step.name}`);
+		// 	if(step.name == "buystep8"){
+		// 		copilotEvents.on("stop", () => {
+        //             // dispatch(skipTutorial(user.firebase_uuid, false));
+        //             // amountValue ? handleMarketBuy() : ""
+        //             // setTourStatus(false);
+		// 		});
+		// 	}
+		// });
 
 		copilotEvents.on("stop", () => {
             setTourStatus(false)
