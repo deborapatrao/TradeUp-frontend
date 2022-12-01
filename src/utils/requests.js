@@ -98,3 +98,29 @@ export const getTrendingCoinsData = async (url) => {
     }
     return data;
 }
+export const getOrderHistoryData = async (url) => {
+    try {
+        const userId = await AsyncStorage.getItem(`userId`);
+        const response = await axios.post(`${BASE_URL}${url}`, {
+            userId: userId
+        })
+        const data = response.data
+        //console.log('RESPONSE History Order', response.data);
+        return data;
+    } catch (e) {
+        console.log(e)
+    }
+}
+export const getActiveOrderHistoryData = async (url) => {
+    try {
+        const userId = await AsyncStorage.getItem(`userId`);
+        const response = await axios.post(`http://192.168.1.76:8080/api${url}`, {
+            userId: userId
+        })
+        const data = response.data
+       // console.log('RESPONSE Active Order', response.data);
+        return data;
+    } catch (e) {
+        console.log(e)
+    }
+}

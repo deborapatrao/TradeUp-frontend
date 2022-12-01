@@ -1,10 +1,11 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import {
     Box,
     Text,
     FlatList,
     View,
 } from "native-base";
+import { getOrderHistoryData } from '../../utils/requests';
 import { SafeAreaView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 
 const listTab = [
@@ -19,64 +20,51 @@ const listTab = [
     }
 ]
 
-const data = [
-{
-    ticker: 'TRX',
-    quantity: '0.00058',
-    price: '19,537.12',
-    typeOrder: 'Limit Buy',
-    status: 0,
-    Date: '2021-08-01',
-},
-{
-    ticker: 'BTC',
-    quantity: '0.008',
-    price: '23,537.12',
-    typeOrder: 'Limit Buy',
-    status: 1,
-    Date: '2021-10-21',
-},
-{
-    ticker: 'ETH',
-    quantity: '0.00578',
-    price: '14,554.78',
-    typeOrder: 'Limit Buy',
-    status: 0,
-    Date: '2022-05-15',
-},
-{
-    ticker: 'BTC',
-    quantity: '0.0019',
-    price: '19,319.81',
-    typeOrder: 'Limit Buy',
-    status: 1,
-    Date: '2022-03-28',
-}
-]
+
 
 const OrdersScreen = () => {
 
     const [status, setStatus] = useState('All Orders')
     const [datalist, setDatalist] = useState(data)
+    const [data, setData] = useState()
+
+
+    useEffect(() => {
+		loadHistory();
+        setStatusFilter(status);
+	}, []);
+
+	const loadHistory = async () => {
+		try {
+			const res = await getOrderHistoryData("/crypto/order/history");
+            setData(res.orderHistory);
+            setDatalist(res.orderHistory);
+
+            
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
     const setStatusFilter = status => {
         if(status === 'Active'){
-           /* Filtering the data array and returning a new array with the filtered data. */
-            setDatalist([...data.filter(e => e.status === 1)])
+            setDatalist([...data.filter(e => e.status === false)])
         }else if(status === 'Filled'){
-            setDatalist([...data.filter(e => e.status === 0)])
+            setDatalist([...data.filter(e => e.status === true)])
         }else{
             setDatalist(data)
+            // console.log(`datalist: ${datalist}`);
         }
             setStatus(status)
     }
+
 
     const renderItem = ({item, index}) => {
         return (
             <Box key={index} style={styles.itemContainer}>
                 <Box>
                     <Box style={styles.tickerPriceContainer}>
-                        <Text>{item.ticker}</Text>
+                        <Text>{item.name}</Text>
                         <Text style={styles.price}> USDT</Text>
                     </Box>                    
                     <Text style={styles.orderType}>{item.typeOrder}</Text>
@@ -84,10 +72,10 @@ const OrdersScreen = () => {
                     <Text style={styles.quantity}>Quantity ({item.ticker})</Text>
                 </Box>
                 <Box alignItems={'flex-end'}>
-                    <Text style={styles.date}>{item.Date}</Text>
-                    <Text style={[ item.status === 1 ? styles.statusActive : styles.statusFilled]}>{item.status === 1 ? 'Active' : 'Filled'}</Text>
-                    <Text>{item.price}</Text>
-                    <Text style={styles.quantity}>{item.quantity}</Text>
+                    <Text style={styles.date}>{(item.createdAt).slice(0,10)}</Text>
+                    <Text style={[ item.status === false ? styles.statusActive : styles.statusFilled]}>{item.status === false ? 'Active' : 'Filled'}</Text>
+                    <Text>${item.price}</Text>
+                    <Text style={styles.quantity}>{(item.quantity).toFixed(7)}</Text>
                 </Box>
                     
             </Box>
