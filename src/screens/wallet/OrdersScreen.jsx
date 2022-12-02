@@ -56,9 +56,9 @@ const OrdersScreen = ({ navigation }) => {
         if(status === 'Active'){
             setDatalist([...data.reverse().filter(e => e.status === false)])
         }else if(status === 'Filled'){
-            setDatalist([...data.filter(e => e.status === true)])
+            setDatalist([...data.reverse().filter(e => e.status === true)])
         }else{
-            setDatalist(data)
+            setDatalist(data.reverse())
             // console.log(`datalist: ${datalist}`);
         }
             setStatus(status)
@@ -73,7 +73,7 @@ const OrdersScreen = ({ navigation }) => {
                         <Text>{item.name}</Text>
                         <Text style={styles.price}> USDT</Text>
                     </Box>                    
-                    <Text style={styles.orderType}>{item.typeOrder}</Text>
+                    <Text style={styles.orderType}>Limit Order</Text>
                     <Text>Price (USDT)</Text>
                     <Text style={styles.quantity}>Quantity ({item.ticker})</Text>
                 </Box>
@@ -145,8 +145,8 @@ const styles = StyleSheet.create({
         height: 33,
         marginRight: 10,
         backgroundColor: 'rgba(204, 204, 204, 0.05)',
-        borderRadius: 8,
         textAlign: 'center',
+        overflow: 'hidden',
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -160,7 +160,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: '#386AF5',
         textAlign: 'center',
-        textAlignVertical: 'center',
+        overflow: 'hidden',
+        paddingTop: 5,
+        paddingBottom: 2,
     },
     texTabActive: {
         color: 'white',
@@ -192,6 +194,7 @@ const styles = StyleSheet.create({
     statusActive:{
         backgroundColor: '#29A343',
         textAlign: 'center',
+        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         marginTop: 7,
@@ -201,6 +204,7 @@ const styles = StyleSheet.create({
     statusCancel:{
         backgroundColor: '#FF6666',
         textAlign: 'center',
+        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         marginTop: 7,
@@ -209,6 +213,7 @@ const styles = StyleSheet.create({
     statusFilled:{
         backgroundColor: '#386AF5',
         textAlign: 'center',
+        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         paddingTop: 2,

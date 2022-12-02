@@ -49,23 +49,25 @@ const PriceStatic = ({ ticker }) => {
   return (
     <>
       <Box mx={2}>
-        {dataCoin.priceChangePercent > 0 ?
-          <HStack space={1} alignItems={'center'}>
+      {dataCoin.priceChangePercent > 0 ?
+          <HStack space={2} alignItems={'center'}>
             <Text style={styles.text}>Price Per Unit</Text>
-            <HStack space={0.5} alignItems={'center'}>
+            <HStack space={2} alignItems={'center'}>
               <ChevronUpIcon
                 style={{ ml: 2, color: "#31c451", alignItems: 'center' }} />
               <Text style={styles.text}>{Math.floor(parseFloat(dataCoin.priceChangePercent)) + '%'}</Text>
             </HStack>
           </HStack>
           :
-          <HStack space={1} alignItems={'center'}>
+          <HStack space={2} alignItems={'center'}>
             <Text style={styles.text}>Price Per Unit</Text>
+            <HStack space={2} alignItems={'center'}>
             <Box>
               <ChevronDownIcon
                 style={{ color: "#FF6666", alignItems: 'center' }} />
-              {priceFormatter(dataCoin.priceChangePercent) + '%'}
             </Box>
+                <Text style={styles.text}>{priceFormatter(dataCoin.priceChangePercent) + '%'}</Text>
+            </HStack>
           </HStack>
         }
         <Text color={'#F2F2F2'} fontSize='4xl'>≈${parseFloat(dataCoin.lastPrice).toFixed(2)}</Text>

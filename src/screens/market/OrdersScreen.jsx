@@ -84,39 +84,7 @@ const styles = StyleSheet.create({
     container:{
         flex: 1, 
     },
-    listTab: {
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        marginLeft: 10,
-        marginTop: 25,
-        marginBottom: 20,
-    },
-    btnTab:{
-        width: Dimensions.get('window').width / 4.5,
-        flexDirection: 'row',
-        height: 33,
-        marginRight: 10,
-        backgroundColor: 'rgba(204, 204, 204, 0.05)',
-        borderRadius: 8,
-        textAlign: 'center',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    textTab:{
-        fontSize:16,
-    },
-    btnTabActive:{
-        width: Dimensions.get('window').width / 4,
-        height: 33,
-        borderRadius: 8,
-        backgroundColor: '#386AF5',
-        textAlign: 'center',
-        textAlignVertical: 'center',
-    },
-    texTabActive: {
-        color: 'white',
-    },
+    
     itemContainer:{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -144,6 +112,7 @@ const styles = StyleSheet.create({
     statusActive:{
         backgroundColor: '#29A343',
         textAlign: 'center',
+        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         marginTop: 7,
@@ -153,18 +122,9 @@ const styles = StyleSheet.create({
     statusCancel:{
         backgroundColor: '#FF6666',
         textAlign: 'center',
+        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
-        marginTop: 7,
-        marginBottom: 7,
-    },
-    statusFilled:{
-        backgroundColor: '#386AF5',
-        textAlign: 'center',
-        borderRadius: 5,
-        width: 60,
-        paddingTop: 2,
-        paddingBottom: 2,
         marginTop: 7,
         marginBottom: 7,
     },

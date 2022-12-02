@@ -46,7 +46,7 @@ const AlertDialogComponent = ({ alert, setAlert }) => {
                     <AlertDialog.Header backgroundColor={'secondary.lightGray'}>
                         <Text color={'supporting.darkGreen'} fontWeight={'bold'}>Order Sucessfull</Text>
                     </AlertDialog.Header>
-                    <AlertDialog.CloseButton />
+                    <AlertDialog.CloseButton onPress={onClose} />
                     <AlertDialog.Body backgroundColor={'secondary.lightGray'} mt={2} mb={2}>
                         <Image height={140} source={{uri:data.urlToImage}} alt={data.title} borderRadius={5}/>
                         <Text mt={2} mb={2} color={'supporting.darkGreen'} fontWeight={'bold'}>{data.title}</Text>

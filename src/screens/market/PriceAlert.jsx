@@ -14,13 +14,17 @@ import PriceStatic from '../../components/containers/market/PriceStatic';
 import * as Notifications from 'expo-notifications';
 import { postData } from '../../utils/requests';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PriceAlertDialogComponent from '../../components/utils/PriceAlertDialogComponent';
 
 const PriceAlertScreen = ({ navigation, route }) => {
     const [alertType, setAlertType] = useState('up')
     const [alertValue, setAlertValue] = useState('')
     const { ticker } = route.params;
+    const [alert, setAlert] = useState(false);
 
     const handleSetAlert = async () => {
+
+        
         // const pushToken = await AsyncStorage.getItem("expoPushToken");
         // console.log(pushToken);
 
@@ -39,6 +43,8 @@ const PriceAlertScreen = ({ navigation, route }) => {
         }
         const response = await postData('/crypto/alert', dataAlert);
         console.log(response);
+        
+        setAlert(true);
 
         // await Notifications.scheduleNotificationAsync({
         //     content: {
@@ -81,6 +87,7 @@ const PriceAlertScreen = ({ navigation, route }) => {
     }
 
     return (
+        <>
         <VStack safeArea backgroundColor={'#171122'} h={'100%'}>
             <Text style={styles.text} ml={2}>{ticker}</Text>
             <PriceStatic ticker={ticker} />
@@ -101,6 +108,9 @@ const PriceAlertScreen = ({ navigation, route }) => {
             </Box>
             <Button m={2} backgroundColor={'#386AF5'} onPress={handleSetAlert}>Create Alert</Button>
         </VStack>
+        <PriceAlertDialogComponent alert={alert} setAlert={setAlert} />
+        </>
+        // <PriAlertDialogComponent alert={alert} setAlert={setAlert} />
     );
 };
 
