@@ -82,7 +82,7 @@ const AppStack = () => {
 					: setLocation(null);
 			}
 		}
-	}, [dispatch, user]);
+	}, [dispatch, user, canTour]);
 
 	// get user from redux store to check if user tour is complete
 	// console.log(user)

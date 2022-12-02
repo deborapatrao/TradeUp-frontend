@@ -29,11 +29,13 @@ import ResourceIconInactive from "../../assets/images/bottom-tabs-icons/inactive
 import WalletIconInactive from "../../assets/images/bottom-tabs-icons/inactive/wallet.png";
 import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.png";
 import { useNavigation } from "@react-navigation/native";
-import Leaderboard from "../leaderboard/Leaderboard";
-import LeaderboardHome from "../leaderboard/LeaderboardHome";
+import { skipTutorial } from "../../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import Carousel from "../resources/Carousel";
+
+import { getTopTraders } from "../../utils/requests";
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableImage = walkthroughable(Image);
@@ -41,13 +43,18 @@ const WalkthroughableView = walkthroughable(View);
 const WalkthroughableScrollView = walkthroughable(ScrollView);
 
 function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToMarket }) {
-	// navigation.navigate("Market", "CryptoList");
+
+	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const refScrollView = useRef();
 
 	const [secondStepActive, setSecondStepActive] = useState(true);
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
+	const [currentStep, setCurrentStep] = useState("win");
+	const [canRequest, setCanRequest] = useState(true);
+	const [topTraders, setTopTraders] = useState([]);
 
 	useEffect(() => {
 		loadTrendingCoins();
@@ -91,35 +98,63 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 	};
 
 	useEffect(() => {
-		const tourTimeout = setTimeout(() => {
-			start(false, refScrollView.current);
-		}, 300);
+		loadTopTraders();
+	}, []);
+
+	const loadTopTraders = async () => {
+        try {
+            const traderdata = await getTopTraders("/leaderboard", user.location.city);
+            setTopTraders(traderdata);  
+        } catch (error) {
+            console.log(error);
+        }
+	};
+
+
+
+	useEffect(() => {
+
+		// const tourTimeout = setTimeout(() => {
+			if(topTraders.length > 0) {
+				start(false, refScrollView.current);
+			}
+		// }, 300);
 
 		copilotEvents.on("stepChange", (step) => {
-			// console.log(`Step is ${step.name}`)
-			// console.log(step.name)
-			if(step.name == "step3"){
+			if(step.order < 3){
 				copilotEvents.on("stop", () => {
-					setGoToMarket(true)
+					// if(step.order == 1){
+						dispatch(skipTutorial(user.firebase_uuid, false))
+						setCanTour(false)
+					// }
 				});
+
 			} else {
 				copilotEvents.on("stop", () => {
-					setCanTour(false)
+					dispatch(skipTutorial(user.firebase_uuid, true))
+					setGoToMarket(true)
 				});
 			}
 		});
 
-		copilotEvents.on("stop", () => {
-			// setCanTour(false)
-		});
-
-
 		return () => {
-			clearTimeout(tourTimeout);
+			// clearTimeout(tourTimeout);
 			copilotEvents.off("stepChange");
 			copilotEvents.off("stop");
 		};
-	}, []);
+	}, [user, topTraders]);
+
+	
+
+	// useEffect(() => {
+
+	// 	copilotEvents.on("stop", () => {
+	// 		if(currentStep == "step1" || currentStep == "step2"){
+	// 			console.log(`stop at step1: ${currentStep}`)
+	// 		}
+	// 	});
+
+	// }, [currentStep]);
 
 	return (
 		<>
@@ -207,7 +242,7 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 					>
 						<WalkthroughableView>
 							<View>
-							<TopTradersContainer />
+							<TopTradersContainer topTraders={topTraders} />
 							</View>
 						</WalkthroughableView>
 					</CopilotStep>

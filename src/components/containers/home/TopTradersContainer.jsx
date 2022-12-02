@@ -10,7 +10,7 @@ import LeaderboardHome from "../../../screens/leaderboard/LeaderboardHome";
 
 import { useDispatch, useSelector } from "react-redux";
 
-const TopTradersContainer = () => {
+const TopTradersContainer = ({ navigation, topTraders }) => {
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
@@ -93,7 +93,7 @@ const TopTradersContainer = () => {
 				</>
 			) : (
 				<>
-					<LeaderboardHome />
+					<LeaderboardHome navigation={navigation} topTraders={topTraders} />
 				</>
 			)}
 		</>

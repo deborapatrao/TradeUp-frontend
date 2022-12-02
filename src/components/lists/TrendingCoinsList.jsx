@@ -7,14 +7,32 @@ import { useNavigation } from "@react-navigation/native";
 import CoinListHeader from "../layout/CoinListHeader";
 import TopTradersContainer from "../containers/home/TopTradersContainer";
 import Carousel from "../../screens/resources/Carousel";
+import { useDispatch, useSelector } from "react-redux";
+import { getTopTraders } from "../../utils/requests";
 
 const TrendingCoinsList = ({ navigation }) => {
 	// const navigation = useNavigation();
 
+	const dispatch = useDispatch();
+	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
+
 	const [data, setData] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
-	// const [canTour, setCanTour] = useState(true);
+	const [topTraders, setTopTraders] = useState([]);
+
+	useEffect(() => {
+		loadTopTraders();
+	}, []);
+
+	const loadTopTraders = async () => {
+        try {
+            const traderdata = await getTopTraders("/leaderboard", user.location.city);
+            setTopTraders(traderdata);  
+        } catch (error) {
+            console.log(error);
+        }
+	};
 
 	useEffect(() => {
 		// console.log("useeffect triggered")
@@ -82,7 +100,7 @@ const TrendingCoinsList = ({ navigation }) => {
 				ListFooterComponent={() => (
 					<>
 						<Divider my={6} />
-						<TopTradersContainer />
+						<TopTradersContainer navigation={navigation} topTraders={topTraders} />
 					</>
 				)}
 			/>

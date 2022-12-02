@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import TourTooltip from "../../components/utils/TourTooltip";
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
+import { skipTutorial } from "../../redux/action";
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableView = walkthroughable(View);
@@ -29,9 +30,9 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 
 	const { ticker } = route.params;
 
-	// const dispatch = useDispatch();
-	// const { user } = useSelector((state) => state.auth);
-	// console.log(user);
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.auth);
+
 	const [dataBids, setDataBids] = useState([]);
 	const [dataAsks, setDataAsks] = useState([]);
 	const [dataCoin, setDataCoin] = useState([]);
@@ -73,25 +74,29 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 
 	useEffect(() => {
 		const tourTimeout = setTimeout(() => {
-			start(false, refScrollView.current);
+			if(user && user.isTutorial){
+				// console.log(user.isTutorial)
+				start(false, refScrollView.current);
+			}
 		}, 300);
 
 		copilotEvents.on("stepChange", (step) => {
-			// console.log(`Step is ${step.name}`);
-			if(step.name == "cryptostep7"){
+			if(step.order < 7){
 				copilotEvents.on("stop", () => {
+					// if(step.order == 1){
+						dispatch(skipTutorial(user.firebase_uuid, false))
+					// }
+				});
 
+			} else {
+				copilotEvents.on("stop", () => {
+					dispatch(skipTutorial(user.firebase_uuid, true))
 					navigation.navigate("BuyAndSell", {
 						ticker: ticker,
 						onTour: true,
 					})
 				});
 			}
-		});
-
-		copilotEvents.on("stop", () => {
-			// setCanTour(false)
-			// navigation.navigate("Market", "CryptoList");
 		});
 
 		return () => {

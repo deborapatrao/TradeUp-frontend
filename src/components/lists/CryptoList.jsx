@@ -125,8 +125,8 @@ const CryptoList = ({ navigation, route }) => {
           data={data}
           style={{ paddingHorizontal: 5 }}
           renderItem={({ item, index }) => {
-            // return user && user.isTutorial && marketTour && item.symbol == "ETHUSDT" ? <MarketItemTour key={index} navigation={navigation} ticker={item.symbol} coin={item} setMarketTour={setMarketTour} /> : <CryptoItem key={index} navigation={navigation} coin={item} />
-            return <CryptoItem key={index} navigation={navigation} coin={item} />
+            return user && user.isTutorial && marketTour && item.symbol == "BTCUSDT" ? <MarketItemTour key={index} navigation={navigation} ticker={item.symbol} coin={item} setMarketTour={setMarketTour} /> : <CryptoItem key={index} navigation={navigation} coin={item} />
+            // return <CryptoItem key={index} navigation={navigation} coin={item} />
           }}
           keyExtractor={item => item.symbol}
         />

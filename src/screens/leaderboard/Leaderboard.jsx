@@ -118,7 +118,7 @@ const Leaderboard = () => {
 					  <Image source={Profile} alt={'user-image'} style={styles.imageList} />
 					  <Text style={styles.text}>{item.name} </Text>
 					</HStack>
-					<HStack justifyContent={'flex-end'} w={'60%'}>
+					<HStack justifyContent={'flex-end'} w={'50%'}>
 					<Text style={styles.percentage}>{item.percentage}</Text>
 					</HStack>
 				  </HStack>
