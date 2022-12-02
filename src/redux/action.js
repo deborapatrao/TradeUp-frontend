@@ -161,7 +161,7 @@ export const skipTutorial = (userId, tutorialStatus) => async (dispatch) => {
     try {
         dispatch({ type: "tutorialRequest" });
 
-        // console.log("skip dispatch running")
+        console.log("skip dispatch running")
         const { data } = await axios.post(
             `${serverUrl}/user/tutorial`,
             { userId, tutorialStatus },

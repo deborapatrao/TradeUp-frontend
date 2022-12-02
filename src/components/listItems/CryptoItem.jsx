@@ -31,13 +31,13 @@ const CryptoItem = ({ coin, navigation, start, copilotEvents }) => {
       if (step.order < 4) {
         copilotEvents.on("stop", () => {
           if (step.order == 1) {
-            dispatch(skipTutorial(user.firebase_uuid, false))
+            // dispatch(skipTutorial(user.firebase_uuid, false))
           }
         });
 
       } else {
         copilotEvents.on("stop", () => {
-          dispatch(skipTutorial(user.firebase_uuid, true))
+          // dispatch(skipTutorial(user.firebase_uuid, true))
           navigation.navigate('CryptoDetail', { ticker: coin.symbol })
         });
       }

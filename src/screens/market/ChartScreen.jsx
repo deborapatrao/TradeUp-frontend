@@ -84,13 +84,13 @@ const ChartScreen = ({ navigation, route, start, copilotEvents }) => {
 			if(step.order < 7){
 				copilotEvents.on("stop", () => {
 					// if(step.order == 1){
-						dispatch(skipTutorial(user.firebase_uuid, false))
+						// dispatch(skipTutorial(user.firebase_uuid, false))
 					// }
 				});
 
 			} else {
 				copilotEvents.on("stop", () => {
-					dispatch(skipTutorial(user.firebase_uuid, true))
+					// dispatch(skipTutorial(user.firebase_uuid, true))
 					navigation.navigate("BuyAndSell", {
 						ticker: ticker,
 						onTour: true,
