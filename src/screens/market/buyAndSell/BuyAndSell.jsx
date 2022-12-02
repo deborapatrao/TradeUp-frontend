@@ -101,14 +101,14 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     const handleAmountChange = (txt) => {
         const newPrice = parseFloat(txt)
         if (!isNaN(newPrice)) {
-            setAmountValue(newPrice)
+            setAmountValue(newPrice.toFixed(5))
         } else {
             console.log('nope');
             setAmountValue('')
         }
         if (txt !== '') {
             const newTotalValue = parseFloat(priceValue) * newPrice
-            setTotalValue(newTotalValue)
+            setTotalValue(newTotalValue.toFixed(2))
         } else {
             setTotalValue('')
         }
@@ -117,7 +117,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     const handleTotalChange = (txt) => {
         const newPrice = parseFloat(txt)
         if (!isNaN(newPrice)) {
-            setTotalValue(newPrice)
+            setTotalValue(newPrice.toFixed(2))
         } else {
             console.log('nope');
             setTotalValue('')
@@ -125,7 +125,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
         if (txt !== '') {
             const newAmountValue = newPrice / parseFloat(priceValue)
-            setAmountValue(newAmountValue)
+            setAmountValue(newAmountValue.toFixed(5))
         } else {
             setAmountValue('')
         }
@@ -213,33 +213,33 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     }
 
 
-	useEffect(() => {
+    useEffect(() => {
 
 
-		const tourTimeout = setTimeout(() => {
-			start(false, refScrollView.current);
-		}, 300);
+        const tourTimeout = setTimeout(() => {
+            start(false, refScrollView.current);
+        }, 300);
 
-		copilotEvents.on("stepChange", (step) => {
-			console.log(`Step is ${step.name}`);
-			if(step.name == "buystep8"){
-				copilotEvents.on("stop", () => {
+        copilotEvents.on("stepChange", (step) => {
+            console.log(`Step is ${step.name}`);
+            if (step.name == "buystep8") {
+                copilotEvents.on("stop", () => {
                     // handleMarketBuy()
                     setTourStatus(false);
-				});
-			}
-		});
+                });
+            }
+        });
 
-		copilotEvents.on("stop", () => {
+        copilotEvents.on("stop", () => {
             setTourStatus(false)
-		});
+        });
 
-		return () => {
-			clearTimeout(tourTimeout);
-			copilotEvents.off("stepChange");
-			copilotEvents.off("stop");
-		};
-	}, []);
+        return () => {
+            clearTimeout(tourTimeout);
+            copilotEvents.off("stepChange");
+            copilotEvents.off("stop");
+        };
+    }, []);
 
 
     return (
@@ -283,18 +283,18 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                             >
                                 <WalkthroughableView>
                                     <View>
-                                        <Button variant="outline" _text={{color: "white",}} style={{with: "3dp"}} endIcon={<Icon as={Ionicons} color="white" name="chevron-down" size="xs" />}>
+                                        <Button variant="outline" _text={{ color: "white", }} style={{ with: "3dp" }} endIcon={<Icon as={Ionicons} color="white" name="chevron-down" size="xs" />}>
                                             Market
                                         </Button>
                                     </View>
                                 </WalkthroughableView>
                             </CopilotStep>
                         ) : (
-                        <Select selectedValue={orderType} flexBasis={'50%'} accessibilityLabel="Choose Service" placeholder="Order Type"
-                            onValueChange={itemValue => setOrderType(itemValue)}>
-                            <Select.Item label="Limit" value="limit" />
-                            <Select.Item label="Market" value="market" />
-                        </Select>
+                            <Select selectedValue={orderType} flexBasis={'50%'} accessibilityLabel="Choose Service" placeholder="Order Type"
+                                onValueChange={itemValue => setOrderType(itemValue)}>
+                                <Select.Item label="Limit" value="limit" />
+                                <Select.Item label="Market" value="market" />
+                            </Select>
                         )}
                     </HStack>
                     <Box>
@@ -306,52 +306,52 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         >
                             <WalkthroughableView>
                                 <CopilotStep
-                                text="1. Enter the USDT price you want to pay per coin. Market price is shown by default."
-                                order={4}
-                                name="buystep4"
+                                    text="1. Enter the USDT price you want to pay per coin. Market price is shown by default."
+                                    order={4}
+                                    name="buystep4"
                                 >
-                                <WalkthroughableView>
-                                    <View>
-                                        <Text ml={3}>Price (USDT)</Text>
-                                        <HStack
-                                            backgroundColor={'primary.field'}
-                                            justifyContent={'space-between'}
-                                            m={3}
-                                            mt={1}
-                                            pt={1.5}
-                                            pb={1.5}
-                                            borderRadius={5}>
-                                            <Button
+                                    <WalkthroughableView>
+                                        <View>
+                                            <Text ml={3}>Price (USDT)</Text>
+                                            <HStack
                                                 backgroundColor={'primary.field'}
-                                                borderRightColor={'secondary.lightGray'}
-                                                borderRightWidth={1}
-                                                borderRadius={0}
-                                                flexBasis={'15%'}
-                                            ><Image alt={'Substract'} source={SubIcon} /></Button>
-                                            <Input
-                                                color={'secondary.white'}
-                                                variant={'unstyled'}
-                                                flexBasis={'70%'}
-                                                onChangeText={text => handlePriceValueChange(text)}
-                                                value={`${priceValue}`}
-                                                keyboardType={'numeric'}
-                                                // defaultValue={`${priceValue}`}
-                                                // keyboardType={'number-pad'}
-                                                textAlign={'center'}
-                                            />
-                                            <Button backgroundColor={'primary.field'}
-                                                borderLeftColor={'secondary.lightGray'}
-                                                borderLeftWidth={1}
-                                                borderRadius={0}
-                                                pt={1}
-                                                pb={1}
-                                                flexBasis={'15%'}
-                                                onPress={() => handleAddBtn()}>
-                                                <Image w={4} h={4} alt={'Add'} source={AddIcon} />
-                                            </Button>
-                                        </HStack>
-                                    </View>
-                                </WalkthroughableView>
+                                                justifyContent={'space-between'}
+                                                m={3}
+                                                mt={1}
+                                                pt={1.5}
+                                                pb={1.5}
+                                                borderRadius={5}>
+                                                <Button
+                                                    backgroundColor={'primary.field'}
+                                                    borderRightColor={'secondary.lightGray'}
+                                                    borderRightWidth={1}
+                                                    borderRadius={0}
+                                                    flexBasis={'15%'}
+                                                ><Image alt={'Substract'} source={SubIcon} /></Button>
+                                                <Input
+                                                    color={'secondary.white'}
+                                                    variant={'unstyled'}
+                                                    flexBasis={'70%'}
+                                                    onChangeText={text => handlePriceValueChange(text)}
+                                                    value={`${priceValue}`}
+                                                    keyboardType={'numeric'}
+                                                    // defaultValue={`${priceValue}`}
+                                                    // keyboardType={'number-pad'}
+                                                    textAlign={'center'}
+                                                />
+                                                <Button backgroundColor={'primary.field'}
+                                                    borderLeftColor={'secondary.lightGray'}
+                                                    borderLeftWidth={1}
+                                                    borderRadius={0}
+                                                    pt={1}
+                                                    pb={1}
+                                                    flexBasis={'15%'}
+                                                    onPress={() => handleAddBtn()}>
+                                                    <Image w={4} h={4} alt={'Add'} source={AddIcon} />
+                                                </Button>
+                                            </HStack>
+                                        </View>
+                                    </WalkthroughableView>
                                 </CopilotStep>
                             </WalkthroughableView>
                         </CopilotStep>
@@ -363,50 +363,50 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                             order={5}
                             name="buystep5"
                         >
-                                <WalkthroughableView>
-                                    <View>
-                                        <Text ml={3}>{ticker.replace('USDT', '')}</Text>
-                                        <HStack
+                            <WalkthroughableView>
+                                <View>
+                                    <Text ml={3}>{ticker.replace('USDT', '')}</Text>
+                                    <HStack
+                                        backgroundColor={'primary.field'}
+                                        justifyContent={'space-between'}
+                                        m={3}
+                                        mt={1}
+                                        pt={1.5}
+                                        pb={1.5}
+                                        borderRadius={5}
+                                    >
+                                        <Button
                                             backgroundColor={'primary.field'}
-                                            justifyContent={'space-between'}
-                                            m={3}
-                                            mt={1}
-                                            pt={1.5}
-                                            pb={1.5}
-                                            borderRadius={5}
-                                        >
-                                            <Button
-                                                backgroundColor={'primary.field'}
-                                                borderRightColor={'secondary.lightGray'}
-                                                borderRightWidth={1}
-                                                borderRadius={0}
-                                                pt={1}
-                                                pb={1}
-                                                flexBasis={'15%'}>
-                                                <Image alt={'Substract'} source={SubIcon} />
-                                            </Button>
-                                            <Input
-                                                color={'secondary.white'}
-                                                variant={'unstyled'}
-                                                flexBasis={'70%'}
-                                                textAlign={'center'}
-                                                keyboardType={'numeric'}
-                                                onChangeText={text => handleAmountChange(text)}
-                                                value={`${amountValue}`}
-                                                placeholder={'Amount Coin'}
-                                            />
-                                            <Button
-                                                backgroundColor={'primary.field'}
-                                                borderLeftColor={'secondary.lightGray'}
-                                                borderLeftWidth={1}
-                                                borderRadius={0}
-                                                pt={1}
-                                                pb={1}
-                                                flexBasis={'15%'}>
-                                                <Image w={4} h={4} alt={'Add'} source={AddIcon} />
-                                            </Button>
-                                        </HStack>
-                                    </View>
+                                            borderRightColor={'secondary.lightGray'}
+                                            borderRightWidth={1}
+                                            borderRadius={0}
+                                            pt={1}
+                                            pb={1}
+                                            flexBasis={'15%'}>
+                                            <Image alt={'Substract'} source={SubIcon} />
+                                        </Button>
+                                        <Input
+                                            color={'secondary.white'}
+                                            variant={'unstyled'}
+                                            flexBasis={'70%'}
+                                            textAlign={'center'}
+                                            keyboardType={'numeric'}
+                                            onChangeText={text => handleAmountChange(text)}
+                                            value={`${amountValue}`}
+                                            placeholder={'Amount Coin'}
+                                        />
+                                        <Button
+                                            backgroundColor={'primary.field'}
+                                            borderLeftColor={'secondary.lightGray'}
+                                            borderLeftWidth={1}
+                                            borderRadius={0}
+                                            pt={1}
+                                            pb={1}
+                                            flexBasis={'15%'}>
+                                            <Image w={4} h={4} alt={'Add'} source={AddIcon} />
+                                        </Button>
+                                    </HStack>
+                                </View>
                             </WalkthroughableView>
                         </CopilotStep>
 
@@ -417,47 +417,47 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         >
                             <WalkthroughableView>
                                 <View>
-                                <Text ml={3}>USDT</Text>
-                                <HStack
-                                    backgroundColor={'primary.field'}
-                                    justifyContent={'space-between'}
-                                    m={3}
-                                    mt={1}
-                                    pt={1.5}
-                                    pb={1.5}
-                                    borderRadius={5}
-                                >
-                                    <Button
+                                    <Text ml={3}>USDT</Text>
+                                    <HStack
                                         backgroundColor={'primary.field'}
-                                        borderRightColor={'secondary.lightGray'}
-                                        borderRightWidth={1}
-                                        borderRadius={0}
-                                        pt={1}
-                                        pb={1}
-                                        flexBasis={'15%'}>
-                                        <Image alt={'Substract'} source={SubIcon} />
-                                    </Button>
-                                    <Input
-                                        color={'secondary.white'}
-                                        variant={'unstyled'}
-                                        flexBasis={'70%'}
-                                        textAlign={'center'}
-                                        keyboardType={'numeric'}
-                                        onChangeText={text => handleTotalChange(text)}
-                                        value={`${totalValue}`}
-                                        placeholder={'Total USDT'}
-                                    />
-                                    <Button
-                                        backgroundColor={'primary.field'}
-                                        borderLeftColor={'secondary.lightGray'}
-                                        borderLeftWidth={1}
-                                        borderRadius={0}
-                                        pt={1}
-                                        pb={1}
-                                        flexBasis={'15%'}>
-                                        <Image w={4} h={4} alt={'Add'} source={AddIcon} />
-                                    </Button>
-                                </HStack>
+                                        justifyContent={'space-between'}
+                                        m={3}
+                                        mt={1}
+                                        pt={1.5}
+                                        pb={1.5}
+                                        borderRadius={5}
+                                    >
+                                        <Button
+                                            backgroundColor={'primary.field'}
+                                            borderRightColor={'secondary.lightGray'}
+                                            borderRightWidth={1}
+                                            borderRadius={0}
+                                            pt={1}
+                                            pb={1}
+                                            flexBasis={'15%'}>
+                                            <Image alt={'Substract'} source={SubIcon} />
+                                        </Button>
+                                        <Input
+                                            color={'secondary.white'}
+                                            variant={'unstyled'}
+                                            flexBasis={'70%'}
+                                            textAlign={'center'}
+                                            keyboardType={'numeric'}
+                                            onChangeText={text => handleTotalChange(text)}
+                                            value={`${totalValue}`}
+                                            placeholder={'Total USDT'}
+                                        />
+                                        <Button
+                                            backgroundColor={'primary.field'}
+                                            borderLeftColor={'secondary.lightGray'}
+                                            borderLeftWidth={1}
+                                            borderRadius={0}
+                                            pt={1}
+                                            pb={1}
+                                            flexBasis={'15%'}>
+                                            <Image w={4} h={4} alt={'Add'} source={AddIcon} />
+                                        </Button>
+                                    </HStack>
                                 </View>
                             </WalkthroughableView>
                         </CopilotStep>
@@ -471,12 +471,12 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         >
                             <WalkthroughableView>
                                 <View>
-                                <HStack justifyContent={'space-between'} m={3}>
-                                    <Button w={"23%"} backgroundColor={percentBtn === '25%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('25%')}>25%</Button>
-                                    <Button w={"23%"} backgroundColor={percentBtn === '50%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('50%')}>50%</Button>
-                                    <Button w={"23%"} backgroundColor={percentBtn === '75%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('75%')}>75%</Button>
-                                    <Button w={"23%"} backgroundColor={percentBtn === '100%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('100%')}>100%</Button>
-                                </HStack>
+                                    <HStack justifyContent={'space-between'} m={3}>
+                                        <Button w={"23%"} backgroundColor={percentBtn === '25%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('25%')}>25%</Button>
+                                        <Button w={"23%"} backgroundColor={percentBtn === '50%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('50%')}>50%</Button>
+                                        <Button w={"23%"} backgroundColor={percentBtn === '75%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('75%')}>75%</Button>
+                                        <Button w={"23%"} backgroundColor={percentBtn === '100%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('100%')}>100%</Button>
+                                    </HStack>
                                 </View>
                             </WalkthroughableView>
                         </CopilotStep>
@@ -489,7 +489,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         </HStack>
                     </Box>
                 </VStack>
-                
+
                 {sellActive ?
                     <Button
                         w={'93%'}
@@ -509,16 +509,16 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                     >
                         <WalkthroughableView>
                             <View>
-                            <Button
-                                w={'93%'}
-                                alignSelf={'flex-start'}
-                                ml={3}
-                                mr={3}
-                                mt={5}
-                                backgroundColor={'secondary.blue'}
-                                onPress={handleMarketBuy}
-                                isLoading={loadingBuy}
-                            >Buy</Button>
+                                <Button
+                                    w={'93%'}
+                                    alignSelf={'flex-start'}
+                                    ml={3}
+                                    mr={3}
+                                    mt={5}
+                                    backgroundColor={'secondary.blue'}
+                                    onPress={handleMarketBuy}
+                                    isLoading={loadingBuy}
+                                >Buy</Button>
                             </View>
                         </WalkthroughableView>
                     </CopilotStep>
@@ -576,25 +576,25 @@ const styles = StyleSheet.create({
 // export default BuyAndSellComponent;
 
 BuyAndSellComponent.propTypes = {
-	start: PropTypes.func.isRequired,
-	copilotEvents: PropTypes.shape({
-		on: PropTypes.func.isRequired,
-	}).isRequired,
+    start: PropTypes.func.isRequired,
+    copilotEvents: PropTypes.shape({
+        on: PropTypes.func.isRequired,
+    }).isRequired,
 };
 
 const style = {
-	backgroundColor: "#386AF5",
-	color: "#fff",
+    backgroundColor: "#386AF5",
+    color: "#fff",
 };
 
 export default copilot({
-	// verticalOffset: 25,
-	tooltipComponent: TourTooltip,
-	arrowColor: "#386AF5",
-	tooltipStyle: style,
-	backdropColor: "rgba(23, 17, 34, 0.95)",
-	animated: true, // Can be true or false
-	overlay: "svg", // Can be either view or svg
-	stepNumberComponent: () => <></>,
+    // verticalOffset: 25,
+    tooltipComponent: TourTooltip,
+    arrowColor: "#386AF5",
+    tooltipStyle: style,
+    backdropColor: "rgba(23, 17, 34, 0.95)",
+    animated: true, // Can be true or false
+    overlay: "svg", // Can be either view or svg
+    stepNumberComponent: () => <></>,
 })(BuyAndSellComponent);
 

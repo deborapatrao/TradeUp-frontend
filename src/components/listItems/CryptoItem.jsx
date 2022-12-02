@@ -13,40 +13,40 @@ const WalkthroughableView = walkthroughable(View);
 
 const CryptoItem = ({ coin, navigation, start, copilotEvents }) => {
   // console.log("coin",coin)
-	const [marketTour, setMarketTour] = useState(true);
+  const [marketTour, setMarketTour] = useState(true);
 
   const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
-	useEffect(() => {
-		const tourTimeout = setTimeout(() => {
-			start();
-		}, 300);
+  useEffect(() => {
+    const tourTimeout = setTimeout(() => {
+      start();
+    }, 300);
 
-		copilotEvents.on("stepChange", (step) => {
-			if(step.name == "marketstep4"){
-				copilotEvents.on("stop", () => {
-					navigation.navigate('CryptoDetail', { ticker: coin.symbol })
-				});
-			}
-			console.log(`Step is ${step.name}`);
-		});
+    copilotEvents.on("stepChange", (step) => {
+      if (step.name == "marketstep4") {
+        copilotEvents.on("stop", () => {
+          navigation.navigate('CryptoDetail', { ticker: coin.symbol })
+        });
+      }
+      console.log(`Step is ${step.name}`);
+    });
 
-		return () => {
-			clearTimeout(tourTimeout);
-			copilotEvents.off("stepChange");
-			copilotEvents.off("stop");
-		};
-	}, []);
+    return () => {
+      clearTimeout(tourTimeout);
+      copilotEvents.off("stepChange");
+      copilotEvents.off("stop");
+    };
+  }, []);
 
   const assetImage = cryptoImages.find(imgItem => imgItem.ticker === coin.symbol).image;
   // navigation.navigate('Market', { screen: 'CryptoDetail', params: { ticker: coin.symbol } })
   return (
     <>
-        {user && user.isTutorial && marketTour && coin.symbol == "BTCUSDT" ? (
+      {user && user.isTutorial && marketTour && coin.symbol == "BTCUSDT" ? (
         // Passing params to the nested screens ....
         <Pressable onPress={() => navigation.navigate('CryptoDetail', { ticker: coin.symbol })}>
           <HStack onPress style={[styles.column, styles.tableLine]} alignItems={'center'}>
-            
+
             <CopilotStep
               text="BTC is the abbreviation coin name for Bitcoin."
               order={1}
@@ -57,24 +57,25 @@ const CryptoItem = ({ coin, navigation, start, copilotEvents }) => {
                   <Image source={assetImage} alt={coin.symbol} style={{ width: 30, height: 30 }} />
                   <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
                 </HStack>
-                </WalkthroughableView>
+              </WalkthroughableView>
             </CopilotStep>
             <HStack justifyContent={'space-between'} w={'60%'}>
 
               <CopilotStep text="This refers to the current price of 1 BTC coin in USDT." order={2} name="marketstep2">
-              <WalkthroughableView>
-                <View>
+                <WalkthroughableView>
+                  {/* <View> */}
                   <CopilotStep
                     text="Select the coin to view all information to help you buy."
                     order={4}
                     name="marketstep4"
                   >
                     <WalkthroughableText>
-                      <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
+                      <Text style={styles.text}>{parseFloat(coin.lastPrice) < 1 ? parseFloat(coin.lastPrice).toFixed(4) : parseFloat(coin.lastPrice).toFixed(2)} </Text>
+
                     </WalkthroughableText>
                   </CopilotStep>
-              </View>
-              </WalkthroughableView>
+                  {/* </View> */}
+                </WalkthroughableView>
               </CopilotStep>
 
               <CopilotStep text="This refers to the change in price over the last 24 hours." order={3} name="marketstep3">
@@ -87,7 +88,7 @@ const CryptoItem = ({ coin, navigation, start, copilotEvents }) => {
             </HStack>
           </HStack>
         </Pressable>
-    ) : (
+      ) : (
         // Passing params to the nested screens ....
         <Pressable onPress={() => navigation.navigate('CryptoDetail', { ticker: coin.symbol })}>
           <HStack onPress style={[styles.column, styles.tableLine]} alignItems={'center'}>
@@ -96,14 +97,14 @@ const CryptoItem = ({ coin, navigation, start, copilotEvents }) => {
               <Text style={styles.text}>{coin.symbol.slice(0, -4)} </Text>
             </HStack>
             <HStack justifyContent={'space-between'} w={'60%'}>
-              <Text style={styles.text}>{parseFloat(coin.lastPrice).toFixed(4)} </Text>
-              <Text style={[styles.text, styles.percentage, coin.priceChangePercent >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
+              <Text style={styles.text}>{parseFloat(coin.lastPrice) < 1 ? parseFloat(coin.lastPrice).toFixed(4) : parseFloat(coin.lastPrice).toFixed(2)} </Text>
+              <Text style={[styles.text, styles.percentage, parseFloat(coin.priceChangePercent) >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
                 {Number.parseFloat(coin.priceChangePercent).toFixed(2)} %
               </Text>
             </HStack>
           </HStack>
         </Pressable>
-    )}
+      )}
     </>
 
   )
@@ -147,24 +148,24 @@ const styles = StyleSheet.create({
 // export default CryptoItem
 
 CryptoItem.propTypes = {
-	start: PropTypes.func.isRequired,
-	copilotEvents: PropTypes.shape({
-		on: PropTypes.func.isRequired,
-	}).isRequired,
+  start: PropTypes.func.isRequired,
+  copilotEvents: PropTypes.shape({
+    on: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const style = {
-	backgroundColor: "#386AF5",
-	color: "#fff",
+  backgroundColor: "#386AF5",
+  color: "#fff",
 };
 
 export default copilot({
-	// verticalOffset: 25,
-	tooltipComponent: TourTooltip,
-	arrowColor: "#386AF5",
-	tooltipStyle: style,
-	backdropColor: "rgba(23, 17, 34, 0.95)",
-	animated: true, // Can be true or false
-	overlay: "svg", // Can be either view or svg
-	stepNumberComponent: () => <></>,
+  // verticalOffset: 25,
+  tooltipComponent: TourTooltip,
+  arrowColor: "#386AF5",
+  tooltipStyle: style,
+  backdropColor: "rgba(23, 17, 34, 0.95)",
+  animated: true, // Can be true or false
+  overlay: "svg", // Can be either view or svg
+  stepNumberComponent: () => <></>,
 })(CryptoItem);
