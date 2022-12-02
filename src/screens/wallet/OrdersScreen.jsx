@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Box,
     Text,
@@ -30,65 +30,66 @@ const OrdersScreen = ({ navigation }) => {
 
 
     useEffect(() => {
-		
+
         const unsubscribe = navigation.addListener('focus', async () => {
-            loadHistory();
-            setStatusFilter(status);
+            const dataNew = await loadHistory();
+            setStatusFilter(status, dataNew);
         });
 
 
         return unsubscribe;
-	}, [navigation]);
+    }, [navigation]);
 
-	const loadHistory = async () => {
-		try {
-			const res = await getOrderHistoryData("/crypto/order/history");
+    const loadHistory = async () => {
+        try {
+            const res = await getOrderHistoryData("/crypto/order/history");
             setData(res.orderHistory);
             setDatalist(res.orderHistory);
+            return res.orderHistory
 
-            
-		} catch (error) {
-			console.log(error);
-		}
-	};
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-    const setStatusFilter = status => {
-        if(status === 'Active'){
-            setDatalist([...data.reverse().filter(e => e.status === false)])
-        }else if(status === 'Filled'){
-            setDatalist([...data.reverse().filter(e => e.status === true)])
-        }else{
-            setDatalist(data.reverse())
+    const setStatusFilter = (status, history) => {
+        if (status === 'Active') {
+            setDatalist([...history.reverse().filter(e => e.status === false)])
+        } else if (status === 'Filled') {
+            setDatalist([...history.reverse().filter(e => e.status === true)])
+        } else {
+            setDatalist(history.reverse())
+
             // console.log(`datalist: ${datalist}`);
         }
-            setStatus(status)
+        setStatus(status)
     }
 
 
-    const renderItem = ({item, index}) => {
+    const renderItem = ({ item, index }) => {
         return (
             <Box key={index} style={styles.itemContainer}>
                 <Box>
                     <Box style={styles.tickerPriceContainer}>
                         <Text>{item.name}</Text>
                         <Text style={styles.price}> USDT</Text>
-                    </Box>                    
+                    </Box>
                     <Text style={styles.orderType}>Limit Order</Text>
                     <Text>Price (USDT)</Text>
                     <Text style={styles.quantity}>Quantity ({item.ticker})</Text>
                 </Box>
                 <Box alignItems={'flex-end'}>
-                    <Text style={styles.date}>{(item.createdAt).slice(0,10)}</Text>
-                    {item.status === false ? 
-                    <Box style={styles.statusContainer}>
-                        <Text style={styles.statusCancel}>Cancel</Text>
-                        <Text style={styles.statusActive}>Active</Text>
-                    </Box>
-                    : <Text style={styles.statusFilled}>Filled</Text>}
+                    <Text style={styles.date}>{(item.createdAt).slice(0, 10)}</Text>
+                    {item.status === false ?
+                        <Box style={styles.statusContainer}>
+                            <Text style={styles.statusCancel}>Cancel</Text>
+                            <Text style={styles.statusActive}>Active</Text>
+                        </Box>
+                        : <Text style={styles.statusFilled}>Filled</Text>}
                     <Text>${item.price}</Text>
                     <Text style={styles.quantity}>{(item.quantity).toFixed(7)}</Text>
                 </Box>
-                    
+
             </Box>
         )
     }
@@ -97,23 +98,23 @@ const OrdersScreen = ({ navigation }) => {
 
         <SafeAreaView style={styles.container}>
             <View style={styles.listTab}>
-            {
-                listTab.map((e, index) => (
-                <TouchableOpacity 
-                    /* A ternary operator. If the status is equal to the status of the element, then it
-                    will apply the style of btnTabActive. */
-                    style={[styles.btnTab, status === e.status && styles.btnTabActive]}
-                    onPress={() => setStatusFilter(e.status)}
-                    key={index}
-                >
-                    <Text 
-                        style={[styles.textTab, status === e.status && styles.btnTabActive]}
-                    >
-                        {e.status}
-                    </Text>
-                </TouchableOpacity>
-                ))
-            }                
+                {
+                    listTab.map((e, index) => (
+                        <TouchableOpacity
+                            /* A ternary operator. If the status is equal to the status of the element, then it
+                            will apply the style of btnTabActive. */
+                            style={[styles.btnTab, status === e.status && styles.btnTabActive]}
+                            onPress={() => setStatusFilter(e.status)}
+                            key={index}
+                        >
+                            <Text
+                                style={[styles.textTab, status === e.status && styles.btnTabActive]}
+                            >
+                                {e.status}
+                            </Text>
+                        </TouchableOpacity>
+                    ))
+                }
             </View>
 
             <FlatList
@@ -130,8 +131,8 @@ const OrdersScreen = ({ navigation }) => {
 export default OrdersScreen;
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1, 
+    container: {
+        flex: 1,
     },
     listTab: {
         flexDirection: 'row',
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
         marginTop: 25,
         marginBottom: 20,
     },
-    btnTab:{
+    btnTab: {
         width: Dimensions.get('window').width / 4.5,
         flexDirection: 'row',
         height: 33,
@@ -152,10 +153,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    textTab:{
-        fontSize:16,
+    textTab: {
+        fontSize: 16,
     },
-    btnTabActive:{
+    btnTabActive: {
         width: Dimensions.get('window').width / 4,
         height: 33,
         borderRadius: 8,
@@ -168,7 +169,7 @@ const styles = StyleSheet.create({
     texTabActive: {
         color: 'white',
     },
-    itemContainer:{
+    itemContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 15,
@@ -176,23 +177,23 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: 'rgba(204, 204, 204, 0.05)',
     },
-    date:{
+    date: {
         color: '#7F7F7F',
         fontSize: 10,
     },
-    tickerPriceContainer:{
+    tickerPriceContainer: {
         flexDirection: 'row',
     },
-    price:{
+    price: {
         color: '#7F7F7F',
         marginLeft: 5,
     },
-    orderType:{
+    orderType: {
         color: '#7F7F7F',
         marginTop: 7,
         marginBottom: 7,
     },
-    statusActive:{
+    statusActive: {
         backgroundColor: '#29A343',
         textAlign: 'center',
         overflow: 'hidden',
@@ -202,7 +203,7 @@ const styles = StyleSheet.create({
         marginBottom: 7,
         marginLeft: 5,
     },
-    statusCancel:{
+    statusCancel: {
         backgroundColor: '#FF6666',
         textAlign: 'center',
         overflow: 'hidden',
@@ -211,7 +212,7 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginBottom: 7,
     },
-    statusFilled:{
+    statusFilled: {
         backgroundColor: '#386AF5',
         textAlign: 'center',
         overflow: 'hidden',
@@ -222,11 +223,11 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginBottom: 7,
     },
-    quantity:{
+    quantity: {
         marginTop: 7,
         marginBottom: 7,
     },
-    statusContainer:{
+    statusContainer: {
         flexDirection: 'row',
     }
 });
