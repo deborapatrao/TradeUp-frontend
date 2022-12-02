@@ -17,15 +17,14 @@ import { useNavigation } from '@react-navigation/native';
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
-		shouldShowAlert: false,
-		shouldPlaySound: false,
-		shouldSetBadge: false,
-		icon: 'https://i.stack.imgur.com/YlzsO.png',
+		shouldShowAlert: true,
+		shouldPlaySound: true,
+		shouldSetBadge: true,
 	}),
 });
 
 
-const Home = ({goToMarket}) => {
+const Home = ({ goToMarket }) => {
 	const navigation = useNavigation();
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
@@ -34,7 +33,7 @@ const Home = ({goToMarket}) => {
 	const [notification, setNotification] = useState(false);
 	const notificationListener = useRef();
 	const responseListener = useRef();
-	
+
 	// Testing
 	// useEffect(() => {
 
@@ -56,9 +55,9 @@ const Home = ({goToMarket}) => {
 				try {
 					await AsyncStorage.setItem("expoPushToken", token);
 					setExpoPushToken(token)
-					if(!user.fcm_token) {
+					if (!user.fcm_token) {
 						await postData("/user/token", { token });
-						
+
 					}
 				} catch (error) {
 					console.log(error);
@@ -82,9 +81,9 @@ const Home = ({goToMarket}) => {
 			Notifications.removeNotificationSubscription(responseListener.current);
 		};
 	}, []);
-	
+
 	useEffect(() => {
-		if(goToMarket){
+		if (goToMarket) {
 			navigation.navigate("Market");
 		}
 	}, [goToMarket]);
