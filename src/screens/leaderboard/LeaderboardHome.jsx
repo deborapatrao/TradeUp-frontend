@@ -12,8 +12,37 @@ import {
 } from "native-base";
 import Profile from "../../assets/images/icons/profile.png";
 import { StyleSheet, ScrollView } from "react-native";
+import { getTopTraders } from "../../utils/requests";
+import { useSelector } from "react-redux";
+import Loader from "../../components/utils/Loader";
 
-const LeaderboardHome = () => {
+const LeaderboardHome = ({ topTraders }) => {
+
+	// const { user } = useSelector((state) => state.auth);
+	// const [topTraders, setTopTraders] = useState([]);
+
+	// useEffect(() => {
+	// 	loadTopTraders();
+	// }, []);
+
+	// // useEffect(() => {
+    // //     const checkedFocus = navigation.addListener('focus', async () => {
+    // //         await loadTopTraders();
+    // //         console.log('Top Traders Home focused');
+    // //     });
+
+    // //     return checkedFocus;
+	// // }, [navigation]);
+
+	// const loadTopTraders = async () => {
+    //     try {
+    //         const datas = await getTopTraders("/leaderboard", user.location.city);
+    //         setTopTraders(datas);  
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+	// };
+
 	const data = [
 		{ name: "Bruce", percentage: "5%", rank: 1 },
 		{
@@ -67,7 +96,7 @@ const LeaderboardHome = () => {
 		<>
 			<ScrollView>
 				<View ml={3} mr={3}>
-					{data.map((item, index) => (
+					{topTraders ? (topTraders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
 							alignItems={"center"}
@@ -80,15 +109,15 @@ const LeaderboardHome = () => {
 									alt={"user-image"}
 									style={styles.imageList}
 								/>
-								<Text style={styles.text}>{item.name} </Text>
+								<Text style={styles.text}>{item.username}</Text>
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"60%"}>
 								<Text style={styles.percentage}>
-									{item.percentage}
+									{item.performance.toFixed(2)}%
 								</Text>
 							</HStack>
 						</HStack>
-					))}
+					))) : (<Loader />)}
 				</View>
 			</ScrollView>
 		</>

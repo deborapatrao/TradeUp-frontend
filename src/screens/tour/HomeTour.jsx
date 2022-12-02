@@ -29,13 +29,13 @@ import ResourceIconInactive from "../../assets/images/bottom-tabs-icons/inactive
 import WalletIconInactive from "../../assets/images/bottom-tabs-icons/inactive/wallet.png";
 import HomeIconActive from "../../assets/images/bottom-tabs-icons/active/home.png";
 import { useNavigation } from "@react-navigation/native";
-import Leaderboard from "../leaderboard/Leaderboard";
-import LeaderboardHome from "../leaderboard/LeaderboardHome";
 import { skipTutorial } from "../../redux/action";
 import { useDispatch, useSelector } from "react-redux";
 
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
 import Carousel from "../resources/Carousel";
+
+import { getTopTraders } from "../../utils/requests";
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableImage = walkthroughable(Image);
@@ -54,6 +54,7 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 	const [type, setType] = useState("standard");
 	const [currentStep, setCurrentStep] = useState("win");
 	const [canRequest, setCanRequest] = useState(true);
+	const [topTraders, setTopTraders] = useState([]);
 
 	useEffect(() => {
 		loadTrendingCoins();
@@ -96,12 +97,28 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 		setToggle(!toggle);
 	};
 
+	useEffect(() => {
+		loadTopTraders();
+	}, []);
+
+	const loadTopTraders = async () => {
+        try {
+            const traderdata = await getTopTraders("/leaderboard", user.location.city);
+            setTopTraders(traderdata);  
+        } catch (error) {
+            console.log(error);
+        }
+	};
+
+
 
 	useEffect(() => {
 
-		const tourTimeout = setTimeout(() => {
-			start(false, refScrollView.current);
-		}, 300);
+		// const tourTimeout = setTimeout(() => {
+			if(topTraders.length > 0) {
+				start(false, refScrollView.current);
+			}
+		// }, 300);
 
 		copilotEvents.on("stepChange", (step) => {
 			if(step.order < 3){
@@ -121,11 +138,11 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 		});
 
 		return () => {
-			clearTimeout(tourTimeout);
+			// clearTimeout(tourTimeout);
 			copilotEvents.off("stepChange");
 			copilotEvents.off("stop");
 		};
-	}, [user]);
+	}, [user, topTraders]);
 
 	
 
@@ -225,7 +242,7 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 					>
 						<WalkthroughableView>
 							<View>
-							<TopTradersContainer />
+							<TopTradersContainer topTraders={topTraders} />
 							</View>
 						</WalkthroughableView>
 					</CopilotStep>

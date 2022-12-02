@@ -124,3 +124,18 @@ export const getActiveOrderHistoryData = async (url) => {
         console.log(e)
     }
 }
+
+export const getTopTraders = async (url, city) => {
+    try {
+        const userId = await AsyncStorage.getItem(`userId`);
+        const response = await axios.post(`${BASE_URL}${url}`, {
+            userId: userId,
+            city: city
+        })
+        const data = response.data.traders
+        console.log('RESPONSE Top Traders', response.data);
+        return data;
+    } catch (e) {
+        console.log(e)
+    }
+}
