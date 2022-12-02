@@ -98,12 +98,13 @@ const OrdersScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.listTab}>
             {
-                listTab.map(e => (
+                listTab.map((e, index) => (
                 <TouchableOpacity 
                     /* A ternary operator. If the status is equal to the status of the element, then it
                     will apply the style of btnTabActive. */
                     style={[styles.btnTab, status === e.status && styles.btnTabActive]}
                     onPress={() => setStatusFilter(e.status)}
+                    key={index}
                 >
                     <Text 
                         style={[styles.textTab, status === e.status && styles.btnTabActive]}

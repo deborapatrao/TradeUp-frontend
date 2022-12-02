@@ -17,7 +17,7 @@ const Carousel = () => {
 
     async function loadArticles() {
         try {
-            const response = await axios.get(`https://newsapi.org/v2/top-headlines?q=crypto+currency&pageSize=5&apiKey=${apiKey}`);
+            const response = await axios.get(`https://newsapi.org/v2/top-headlines?q=crypto&pageSize=5&apiKey=${apiKey}`);
 
             setData(response.data.articles);
 

@@ -22,6 +22,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import TourTooltip from "../../../components/utils/TourTooltip";
 import { copilot, walkthroughable, CopilotStep } from "react-native-copilot";
+import { skipTutorial } from "../../../redux/action";
 
 const WalkthroughableText = walkthroughable(Text);
 const WalkthroughableView = walkthroughable(View);
@@ -34,7 +35,6 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
-    const [tourStatus, setTourStatus] = useState(onTour);
     const [priceValue, setPriceValue] = useState(0);
     const [amountValue, setAmountValue] = useState('')
     const [totalValue, setTotalValue] = useState('')
@@ -47,7 +47,9 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     const [buySellData, setBuySellData] = useState({})
     const [percentBtn, setPercentBtn] = useState('');
 
-    console.log("amountValue", amountValue)
+    // Tour states
+    const [tourStatus, setTourStatus] = useState(onTour);
+    const [defaultAmount, setDefaultAmount] = useState(10);
 
     const url24 = `https://api.binance.com/api/v3/ticker/24hr?symbol=${ticker}`;
     const url = 'https://api.binance.com/api/v3/depth?symbol=ETHUSDT&limit=10';
@@ -116,6 +118,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
     const handleTotalChange = (txt) => {
         const newPrice = parseFloat(txt)
+
         if (!isNaN(newPrice)) {
             setTotalValue(newPrice)
         } else {
@@ -142,12 +145,12 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     const handleMarketBuy = async () => {
         if (orderType == 'market') {
             //market order
-            if (totalValue !== '') {
+            if (totalValue !== '' && !isNaN(amountValue)) {
                 const data = {
                     coinTicker: ticker,
                     amount: parseFloat(amountValue),
                 }
-                console.log('DATA: ', data);
+                console.log('BUY DATA: ', data);
                 setLoadingBuy(true);
                 await marketOrder('/buy', data);
                 setLoadingBuy(false);
@@ -205,8 +208,9 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                 '100%': 1,
             }
             const newAmount = parseFloat(buySellData.usdtBalance) * percentObj[percent];
-            console.log(newAmount);
             handleTotalChange(newAmount);
+
+
         } else {
             console.log('sell');
         }
@@ -214,24 +218,26 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
 
 	useEffect(() => {
-
-
 		const tourTimeout = setTimeout(() => {
-			start(false, refScrollView.current);
+            if(user && tourStatus && user.isTutorial) {
+                start(false, refScrollView.current);
+            }
 		}, 300);
 
-		copilotEvents.on("stepChange", (step) => {
-			console.log(`Step is ${step.name}`);
-			if(step.name == "buystep8"){
-				copilotEvents.on("stop", () => {
-                    // handleMarketBuy()
-                    setTourStatus(false);
-				});
-			}
-		});
+		// copilotEvents.on("stepChange", (step) => {
+		// 	// console.log(`Step is ${step.name}`);
+		// 	if(step.name == "buystep8"){
+		// 		copilotEvents.on("stop", () => {
+        //             // dispatch(skipTutorial(user.firebase_uuid, false));
+        //             // amountValue ? handleMarketBuy() : ""
+        //             // setTourStatus(false);
+		// 		});
+		// 	}
+		// });
 
 		copilotEvents.on("stop", () => {
             setTourStatus(false)
+            dispatch(skipTutorial(user.firebase_uuid, false));
 		});
 
 		return () => {
