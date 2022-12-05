@@ -32,8 +32,8 @@ const OrdersScreen = ({ navigation }) => {
     useEffect(() => {
 
         const unsubscribe = navigation.addListener('focus', async () => {
-            const dataNew = await loadHistory();
-            setStatusFilter(status, dataNew);
+            loadHistory();
+            setStatusFilter(status);
         });
 
 
@@ -45,21 +45,20 @@ const OrdersScreen = ({ navigation }) => {
             const res = await getOrderHistoryData("/crypto/order/history");
             setData(res.orderHistory);
             setDatalist(res.orderHistory);
-            return res.orderHistory
+
 
         } catch (error) {
             console.log(error);
         }
     };
 
-    const setStatusFilter = (status, history) => {
+    const setStatusFilter = status => {
         if (status === 'Active') {
-            setDatalist([...history.reverse().filter(e => e.status === false)])
+            setDatalist([...data.reverse().filter(e => e.status === false)])
         } else if (status === 'Filled') {
-            setDatalist([...history.reverse().filter(e => e.status === true)])
+            setDatalist([...data.filter(e => e.status === true)])
         } else {
-            setDatalist(history.reverse())
-
+            setDatalist(data)
             // console.log(`datalist: ${datalist}`);
         }
         setStatus(status)
@@ -74,7 +73,7 @@ const OrdersScreen = ({ navigation }) => {
                         <Text>{item.name}</Text>
                         <Text style={styles.price}> USDT</Text>
                     </Box>
-                    <Text style={styles.orderType}>Limit Order</Text>
+                    <Text style={styles.orderType}>{item.typeOrder}</Text>
                     <Text>Price (USDT)</Text>
                     <Text style={styles.quantity}>Quantity ({item.ticker})</Text>
                 </Box>
@@ -103,9 +102,9 @@ const OrdersScreen = ({ navigation }) => {
                         <TouchableOpacity
                             /* A ternary operator. If the status is equal to the status of the element, then it
                             will apply the style of btnTabActive. */
+                            key={index}
                             style={[styles.btnTab, status === e.status && styles.btnTabActive]}
                             onPress={() => setStatusFilter(e.status)}
-                            key={index}
                         >
                             <Text
                                 style={[styles.textTab, status === e.status && styles.btnTabActive]}
@@ -147,8 +146,8 @@ const styles = StyleSheet.create({
         height: 33,
         marginRight: 10,
         backgroundColor: 'rgba(204, 204, 204, 0.05)',
+        borderRadius: 8,
         textAlign: 'center',
-        overflow: 'hidden',
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -162,9 +161,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         backgroundColor: '#386AF5',
         textAlign: 'center',
-        overflow: 'hidden',
-        paddingTop: 5,
-        paddingBottom: 2,
+        textAlignVertical: 'center',
     },
     texTabActive: {
         color: 'white',
@@ -196,7 +193,6 @@ const styles = StyleSheet.create({
     statusActive: {
         backgroundColor: '#29A343',
         textAlign: 'center',
-        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         marginTop: 7,
@@ -206,7 +202,6 @@ const styles = StyleSheet.create({
     statusCancel: {
         backgroundColor: '#FF6666',
         textAlign: 'center',
-        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         marginTop: 7,
@@ -215,7 +210,6 @@ const styles = StyleSheet.create({
     statusFilled: {
         backgroundColor: '#386AF5',
         textAlign: 'center',
-        overflow: 'hidden',
         borderRadius: 5,
         width: 60,
         paddingTop: 2,
