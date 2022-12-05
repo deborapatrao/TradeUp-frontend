@@ -55,7 +55,7 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 	const [currentStep, setCurrentStep] = useState("win");
 	const [canRequest, setCanRequest] = useState(true);
 	const [topTraders, setTopTraders] = useState([]);
-
+    const [isLoading, setIsLoading] = useState(false);
 	useEffect(() => {
 		loadTrendingCoins();
 	}, [type, toggle]);
@@ -103,8 +103,10 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 
 	const loadTopTraders = async () => {
         try {
+			setIsLoading(true);
             const traderdata = await getTopTraders("/leaderboard", user.location.city);
-            setTopTraders(traderdata);  
+            setTopTraders(traderdata);
+			setIsLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -115,7 +117,7 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 	useEffect(() => {
 
 		// const tourTimeout = setTimeout(() => {
-			if(topTraders.length > 0) {
+			if(!isLoading) {
 				start(false, refScrollView.current);
 			}
 		// }, 300);
@@ -124,14 +126,14 @@ function HomeTour({ navigation, start, stop, copilotEvents, setCanTour, setGoToM
 			if(step.order < 3){
 				copilotEvents.on("stop", () => {
 					// if(step.order == 1){
-						dispatch(skipTutorial(user.firebase_uuid, false))
+						// dispatch(skipTutorial(user.firebase_uuid, false))
 						setCanTour(false)
 					// }
 				});
 
 			} else {
 				copilotEvents.on("stop", () => {
-					dispatch(skipTutorial(user.firebase_uuid, true))
+					// dispatch(skipTutorial(user.firebase_uuid, true))
 					setGoToMarket(true)
 				});
 			}

@@ -283,7 +283,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
                         {tourStatus ? (
                             <CopilotStep
-                                text="Toggle to choose between buy or sell. Let's buy."
+                                text="Select from different types of trading. Let's choose market."
                                 order={2}
                                 name="buystep2"
                             >
