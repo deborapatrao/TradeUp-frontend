@@ -91,7 +91,7 @@ const TrendingCoinsList = ({ navigation }) => {
 						<CoinListHeader handleTypeChange={handleTypeChange} />
 					</>
 				)}
-				data={data.slice(0,4)}
+				data={data.slice(0,5)}
 				style={{ paddingHorizontal: 5 }}
 				renderItem={({ item }) => {
 					return <CryptoItem navigation={navigation} coin={item} />;
