@@ -9,7 +9,11 @@ import {
 	Image,
 	VStack,
 	Box,
+	ChevronUpIcon,
+	ChevronDownIcon,
 } from "native-base";
+import Down from "../../assets/images/icons/down.png";
+import Up from "../../assets/images/icons/up.png";
 import Profile from "../../assets/images/icons/profile.png";
 import { StyleSheet, ScrollView } from "react-native";
 import Loader from "../../components/utils/Loader";
@@ -18,56 +22,7 @@ import { useSelector } from "react-redux";
 import { ordinalFormatter } from "../../components/utils/numberFormats";
 
 const Leaderboard = ({ navigation }) => {
-	const data = [
-		{ name: "Bruce", percentage: "5%", rank: 1 },
-		{
-			name: "Martha",
-			percentage: "2%",
-			rank: 2,
-		},
-		{
-			name: "Alfred",
-			percentage: "0.25%",
-			rank: 3,
-		},
-	];
-	const datapt2 = [
-		{
-			name: "Gordon",
-			percentage: "5%",
-			rank: 4,
-		},
-		{
-			name: "Bane",
-			percentage: "0.25%",
-			rank: 5,
-		},
-		{
-			name: "Joker",
-			percentage: "2%",
-			rank: 6,
-		},
-		{
-			name: "Harley",
-			percentage: "0.35%",
-			rank: 7,
-		},
-		{
-			name: "Ivy",
-			percentage: "0.75%",
-			rank: 8,
-		},
-		{
-			name: "Harvey",
-			percentage: "0.15%",
-			rank: 9,
-		},
-		{
-			name: "Jonathan",
-			percentage: "0.85%",
-			rank: 10,
-		},
-	];
+
 
 	const { user } = useSelector((state) => state.auth);
 	const [top3, setTop3] = useState([]);
@@ -142,15 +97,30 @@ const Leaderboard = ({ navigation }) => {
 						</View>
 					</View>
 					<Text>{item.username}</Text>
-					<Text>{item.performance.toFixed(2)}%</Text>
+					{item.performance > 0 ? 
+								<HStack>
+								<Up style={styles.positivePercentage} />
+								<Text style={styles.percentage}>
+									{item.performance.toFixed(2)}%
+								</Text> 
+								</HStack>
+								:
+								<HStack>
+								<Down style={styles.negativePercentage} />
+									
+								<Text style={styles.percentage}>
+									{item.performance.toFixed(2)}%
+								</Text> 
+								</HStack>
+							    }
 				</VStack>
 				))}
 			</HStack>
 			{/* </Box> */}
 			<ScrollView>
 				<View ml={3} mr={3}>
-					<HStack style={styles.column}>
-						<Text>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
+					<HStack style={styles.rank}>
+						<Text fontSize={'xl'}>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
 					</HStack>
 
 					{topTraders.map((item, index) => (
@@ -169,9 +139,22 @@ const Leaderboard = ({ navigation }) => {
 								<Text style={styles.text}>{item.username} </Text>
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"50%"}>
+							{item.performance > 0 ? 
+								<HStack>
+								<Up style={styles.positivePercentage} />
 								<Text style={styles.percentage}>
 									{item.performance.toFixed(2)}%
-								</Text>
+								</Text> 
+								</HStack>
+								:
+								<HStack>
+								<Down style={styles.negativePercentage} />
+									
+								<Text style={styles.percentage}>
+									{item.performance.toFixed(2)}%
+								</Text> 
+								</HStack>
+							    }
 							</HStack>
 						</HStack>
 					))}
@@ -184,6 +167,10 @@ const Leaderboard = ({ navigation }) => {
 const styles = StyleSheet.create({
 	background: {
 		backgroundColor: "#171122",
+	},
+	rank:{
+		marginBottom: 5,
+		marginTop: 5,
 	},
 
 	column: {
@@ -212,15 +199,19 @@ const styles = StyleSheet.create({
 		borderRadius: 3,
 		overflow: "hidden",
 		paddingLeft: 4,
-		marginRight: 4,
+		marginRight: 6,
 	},
 
-	percentagePositive: {
-		backgroundColor: "#31c451",
+	positivePercentage: {
+		marginLeft: 2, 
+		color: "#31c451", 
+		alignSelf: 'center',
 	},
 
-	percentageNegative: {
-		backgroundColor: "#ff6666",
+	negativePercentage: {
+		marginLeft: 2, 
+		color: "#FF6666", 
+		alignSelf: 'center',
 	},
 	laterals: {
 		flexGrow: 1,
@@ -261,7 +252,7 @@ const styles = StyleSheet.create({
 	imageCentral: {
 		height: 120,
 		width: 120,
-		borderRadius: 50,
+		borderRadius: 60,
 	},
 	leaders: {
 		justifyContent: "space-between",

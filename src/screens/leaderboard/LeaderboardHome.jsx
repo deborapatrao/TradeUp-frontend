@@ -43,59 +43,11 @@ const LeaderboardHome = ({ topTraders }) => {
     //     }
 	// };
 
-	const data = [
-		{ name: "Bruce", percentage: "5%", rank: 1 },
-		{
-			name: "Martha",
-			percentage: "2%",
-			rank: 2,
-		},
-		{
-			name: "Alfred",
-			percentage: "0.25%",
-			rank: 3,
-		},
-		{
-			name: "Gordon",
-			percentage: "5%",
-			rank: 4,
-		},
-		{
-			name: "Bane",
-			percentage: "0.25%",
-			rank: 5,
-		},
-		{
-			name: "Joker",
-			percentage: "2%",
-			rank: 6,
-		},
-		{
-			name: "Harley",
-			percentage: "0.35%",
-			rank: 7,
-		},
-		{
-			name: "Ivy",
-			percentage: "0.75%",
-			rank: 8,
-		},
-		{
-			name: "Harvey",
-			percentage: "0.15%",
-			rank: 9,
-		},
-		{
-			name: "Jonathan",
-			percentage: "0.85%",
-			rank: 10,
-		},
-	];
 
 	return (
 		<>
 			<ScrollView>
-				<View ml={3} mr={3}>
+				<View >
 					{topTraders.traders ? (topTraders.traders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
@@ -109,9 +61,9 @@ const LeaderboardHome = ({ topTraders }) => {
 									alt={"user-image"}
 									style={styles.imageList}
 								/>
-								<Text style={styles.text}>{item.username}</Text>
+								<Text style={styles.text}>{item.username.substring(0,9)}</Text>
 							</HStack>
-							<HStack justifyContent={"flex-end"} w={"60%"}>
+							<HStack justifyContent={"flex-end"} w={"50%"}>
 								<Text style={styles.percentage}>
 									{item.performance.toFixed(2)}%
 								</Text>
@@ -168,14 +120,11 @@ const styles = StyleSheet.create({
 	laterals: {
 		flexGrow: 1,
 		alignItems: "center",
-		h: 40,
 		justifyContent: "flex-end",
-		pb: 3,
 	},
 	central: {
 		flexGrow: 2,
 		alignItems: "center",
-		h: 40,
 		justifyContent: "center",
 		paddingBottom: 15,
 	},
@@ -210,7 +159,7 @@ const styles = StyleSheet.create({
 		justifyContent: "space-between",
 		marginLeft: 3,
 		marginRigh: 3,
-		maargBottom: 3,
+		marginBottom: 3,
 		marginTop: 4,
 	},
 });
