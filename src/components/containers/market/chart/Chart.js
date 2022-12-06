@@ -36,7 +36,7 @@ const Chart = ({ candles, domain }) => {
 
       steps.push(strNum);
     }
-    // console.log('steps: ', steps);
+
     return steps;
   }
 

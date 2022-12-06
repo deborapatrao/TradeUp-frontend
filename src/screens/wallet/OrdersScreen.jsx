@@ -81,10 +81,10 @@ const OrdersScreen = ({ navigation }) => {
                     <Text style={styles.date}>{(item.createdAt).slice(0, 10)}</Text>
                     {item.status === false ?
                         <Box style={styles.statusContainer}>
-                            <Text style={styles.statusCancel}>Cancel</Text>
-                            <Text style={styles.statusActive}>Active</Text>
+                            <Box style={styles.statusCancel}>Cancel</Box>
+                            <Box style={styles.statusActive}>Active</Box>
                         </Box>
-                        : <Text style={styles.statusFilled}>Filled</Text>}
+                        : <Box style={styles.statusFilled}>Filled</Box>}
                     <Text>${item.price}</Text>
                     <Text style={styles.quantity}>{(item.quantity).toFixed(7)}</Text>
                 </Box>
@@ -116,11 +116,13 @@ const OrdersScreen = ({ navigation }) => {
                 }
             </View>
 
-            <FlatList
-                data={datalist}
-                keyExtractor={(e, i) => i.toString()}
-                renderItem={renderItem}
-            />
+            <View style={{ paddingHorizontal: 20 }}>
+                <FlatList
+                    data={datalist}
+                    keyExtractor={(e, i) => i.toString()}
+                    renderItem={renderItem}
+                />
+            </View>
 
 
         </SafeAreaView>
@@ -136,32 +138,32 @@ const styles = StyleSheet.create({
     listTab: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        marginLeft: 10,
-        marginTop: 25,
-        marginBottom: 20,
+        marginLeft: 20,
+        marginTop: 20,
+        marginBottom: 10,
     },
     btnTab: {
-        width: Dimensions.get('window').width / 4.5,
+        width: Dimensions.get('window').width / 4,
         flexDirection: 'row',
         height: 33,
         marginRight: 10,
         backgroundColor: 'rgba(204, 204, 204, 0.05)',
-        borderRadius: 8,
         textAlign: 'center',
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: 10
     },
     textTab: {
         fontSize: 16,
     },
     btnTabActive: {
-        width: Dimensions.get('window').width / 4,
-        height: 33,
-        borderRadius: 8,
+        // width: Dimensions.get('window').width / 4,
+        // height: 33,
+        // borderRadius: 8,
         backgroundColor: '#386AF5',
-        textAlign: 'center',
-        textAlignVertical: 'center',
+        // textAlign: 'center',
+        // textAlignVertical: 'center',
     },
     texTabActive: {
         color: 'white',
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 15,
-        margin: 10,
+        marginVertical: 10,
         borderRadius: 10,
         backgroundColor: 'rgba(204, 204, 204, 0.05)',
     },
@@ -194,26 +196,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#29A343',
         textAlign: 'center',
         borderRadius: 5,
-        width: 60,
         marginTop: 7,
         marginBottom: 7,
-        marginLeft: 5,
+        marginLeft: 10,
+        paddingHorizontal: 10,
     },
     statusCancel: {
         backgroundColor: '#FF6666',
         textAlign: 'center',
         borderRadius: 5,
-        width: 60,
         marginTop: 7,
         marginBottom: 7,
+        paddingHorizontal: 10,
     },
     statusFilled: {
         backgroundColor: '#386AF5',
         textAlign: 'center',
         borderRadius: 5,
-        width: 60,
         paddingTop: 2,
         paddingBottom: 2,
+        paddingHorizontal: 12,
         marginTop: 7,
         marginBottom: 7,
     },

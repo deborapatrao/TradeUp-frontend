@@ -37,26 +37,26 @@ const OverviewScreen = ({ navigation }) => {
     }, [navigation]);
 
     return (
-        <Box bgColor={'primary.bg'} flex={1} px={4} pt={6}>
+        <Box bgColor={'primary.bg'} flex={1} style={{ paddingHorizontal: 20, paddingTop: 20 }}>
             <VStack>
                 <HStack style={styles.heading} justifyContent={'space-between'}>
                     <Heading style={styles.headingText} color={'supporting.lightGreen'}>Performance</Heading>
-                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>{((parseFloat(walletData?.totalBalance) - 1000) / 1000 * 100).toFixed(4)}%</Heading>
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>{priceFormatter((parseFloat(walletData?.totalBalance) - 1000) / 1000 * 100)}%</Heading>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Total Gain (Loss)</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>-</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>{(parseFloat(walletData?.totalBalance) - 1000) > 0 ? "" : "-"} ${priceFormatter((parseFloat(walletData?.totalBalance) - 1000) > 0 ? (parseFloat(walletData?.totalBalance) - 1000) : (-1) * (parseFloat(walletData?.totalBalance) - 1000))}</Text>
                 </HStack>
 
-                <HStack style={styles.row} justifyContent={'space-between'} >
+                <HStack style={styles.row} justifyContent={'space-between'}>
                     <Text style={styles.rowText} color={'secondary.white'}>Total Trades</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>-</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>{walletData?.totalQuantity}</Text>
                 </HStack>
 
                 <HStack style={styles.row} justifyContent={'space-between'} >
                     <Text style={styles.rowText} color={'secondary.white'}>Average Performance</Text>
-                    <Text style={styles.rowText} color={'secondary.white'}>-</Text>
+                    <Text style={styles.rowText} color={'secondary.white'}>{priceFormatter(priceFormatter((parseFloat(walletData?.totalBalance) - 1000) / 1000 * 100) / walletData?.totalQuantity)}%</Text>
                 </HStack>
 
                 <HStack style={styles.heading} justifyContent={'space-between'} >
