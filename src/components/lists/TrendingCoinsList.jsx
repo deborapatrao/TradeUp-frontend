@@ -17,14 +17,12 @@ const TrendingCoinsList = ({ navigation }) => {
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
 	const [data, setData] = useState([]);
-	const [trending, setTrending] = useState([]);
 	const [toggle, setToggle] = useState(false);
 	const [type, setType] = useState("standard");
 	const [topTraders, setTopTraders] = useState([]);
 
 	useEffect(() => {
 		loadTopTraders();
-		setTrending(data.slice(0, 4));
 	}, []);
 
 	const loadTopTraders = async () => {
@@ -93,7 +91,7 @@ const TrendingCoinsList = ({ navigation }) => {
 						<CoinListHeader handleTypeChange={handleTypeChange} />
 					</>
 				)}
-				data={trending}
+				data={data.slice(0,5)}
 				style={{ paddingHorizontal: 5 }}
 				renderItem={({ item }) => {
 					return <CryptoItem navigation={navigation} coin={item} />;
