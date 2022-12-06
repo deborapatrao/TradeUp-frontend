@@ -96,7 +96,7 @@ const LeaderboardHome = ({ topTraders }) => {
 		<>
 			<ScrollView>
 				<View ml={3} mr={3}>
-					{topTraders ? (topTraders.map((item, index) => (
+					{topTraders.traders ? (topTraders.traders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
 							alignItems={"center"}
@@ -105,7 +105,7 @@ const LeaderboardHome = ({ topTraders }) => {
 							<HStack space={4} alignItems={"center"}>
 								<Text style={styles.text}>{item.rank} </Text>
 								<Image
-									source={Profile}
+									source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
 									alt={"user-image"}
 									style={styles.imageList}
 								/>

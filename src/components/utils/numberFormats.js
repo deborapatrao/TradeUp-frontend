@@ -24,3 +24,7 @@ export const coinPriceFormatter = (value) => {
     //     case 
     // }
 }
+
+export const ordinalFormatter = (n) => {
+    return[n+"st",n+"nd",n+"rd"][(((n<0?-n:n)+90)%100-10)%10-1] || n+"th"
+}

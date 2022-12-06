@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-    Text,
-    HStack,
-    Divider,
-    FlatList,
-    Button,
-    View,
+  Text,
+  HStack,
+  Divider,
+  FlatList,
+  Button,
+  View,
 } from "native-base";
-import { StyleSheet, ScrollView} from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import CryptoItem from "../listItems/CryptoItem";
 import MarketItemTour from "../../screens/tour/MarketItemTour";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -22,7 +22,7 @@ const CryptoList = ({ navigation, route }) => {
   const [data, setData] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [type, setType] = useState("standard");
-	const [marketTour, setMarketTour] = useState(true);
+  const [marketTour, setMarketTour] = useState(true);
 
   const { user, token, isAuthenticated } = useSelector((state) => state.auth);
 
@@ -38,8 +38,8 @@ const CryptoList = ({ navigation, route }) => {
     "TRXUSDT",
   ];
 
-    //create string to use on fetch with the coins we will use on our project
-    const symbolsString = `symbols=[${symbols.map(symbol => `"${symbol}"`)}]`;
+  //create string to use on fetch with the coins we will use on our project
+  const symbolsString = `symbols=[${symbols.map(symbol => `"${symbol}"`)}]`;
 
   useEffect(() => {
     loadCoins();
@@ -50,35 +50,35 @@ const CryptoList = ({ navigation, route }) => {
 
   }, [type, toggle])
 
-  
-  async function loadCoins(){
+
+  async function loadCoins() {
     try {
       const reponse = await axios.get(`https://api.binance.com/api/v3/ticker/24hr?${symbolsString}`);
       // console.log(JSON.stringify(reponse.data, null ,2));
 
       let sortedData = [];
 
-        switch(type){
-          case "24":
-            sortedData =  reponse.data.sort((a, b) => {
-              return toggle
-              ?a.priceChangePercent - b.priceChangePercent
-              :b.priceChangePercent - a.priceChangePercent  
-            });
-            
-            break;
-          case "alphabetical":
-            sortedData = data.sort((a, b) => {
-              return toggle
-              ?a.symbol.localeCompare(b.symbol)
-              :b.symbol.localeCompare(a.symbol)
-            });
-            break;
-          default:
-            sortedData = reponse.data
-          } 
+      switch (type) {
+        case "24":
+          sortedData = reponse.data.sort((a, b) => {
+            return toggle
+              ? a.priceChangePercent - b.priceChangePercent
+              : b.priceChangePercent - a.priceChangePercent
+          });
 
-          setData([...sortedData])
+          break;
+        case "alphabetical":
+          sortedData = data.sort((a, b) => {
+            return toggle
+              ? a.symbol.localeCompare(b.symbol)
+              : b.symbol.localeCompare(a.symbol)
+          });
+          break;
+        default:
+          sortedData = reponse.data
+      }
+
+      setData([...sortedData])
 
     } catch (error) {
       console.log(error)
@@ -93,14 +93,14 @@ const CryptoList = ({ navigation, route }) => {
 
   // console.log(user)
 
-  return(
+  return (
     <>
-    
+
       <View>
-        
-        <HStack style={styles.column}>
-          <Button style={styles.background} 
-          onPress={() => handleTypeChange("alphabetical")}
+
+        <HStack style={{ ...styles.column, paddingHorizontal: 14 }}>
+          <Button style={styles.background}
+            onPress={() => handleTypeChange("alphabetical")}
           >
             <Text style={styles.text}>Pair</Text>
             <Text style={styles.text}>USDT</Text>
@@ -111,19 +111,19 @@ const CryptoList = ({ navigation, route }) => {
             <Text style={styles.text}>price</Text>
           </Button>
 
-          <Button style={styles.background} 
-          onPress={() => handleTypeChange('24')}
+          <Button style={styles.background}
+            onPress={() => handleTypeChange('24')}
           >
-            <Text style={{...styles.text, width: 60, textAlign: 'center'}}>24H Change</Text>
+            <Text style={{ ...styles.text, width: 60, textAlign: 'center' }}>24H Change</Text>
             {/* <Text style={styles.text}>Change</Text> */}
           </Button>
         </HStack>
-        
+
         <Divider />
-        
-        <FlatList 
+
+        <FlatList
           data={data}
-          style={{ paddingHorizontal: 5 }}
+          style={{ paddingHorizontal: 20, paddingTop: 10 }}
           renderItem={({ item, index }) => {
             return user && user.isTutorial && marketTour && item.symbol == "BTCUSDT" ? <MarketItemTour key={index} navigation={navigation} ticker={item.symbol} coin={item} setMarketTour={setMarketTour} /> : <CryptoItem key={index} navigation={navigation} coin={item} />
             // return <CryptoItem key={index} navigation={navigation} coin={item} />
@@ -131,7 +131,7 @@ const CryptoList = ({ navigation, route }) => {
           keyExtractor={item => item.symbol}
         />
 
-      
+
       </View>
     </>
   )
@@ -140,7 +140,7 @@ const CryptoList = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   background: {
     backgroundColor: '#171122',
-  }, 
+  },
 
   column: {
     justifyContent: 'space-between',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
 
-  text:{
+  text: {
     color: '#fff'
   },
 

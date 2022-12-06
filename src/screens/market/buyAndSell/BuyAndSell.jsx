@@ -60,7 +60,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
     const loadBuySellData = async () => {
         const data = await getBuyAndSellData('/crypto', ticker);
-        setPriceValue(priceFormatter(data.currentPrice))
+        setPriceValue(priceFormatter(data?.currentPrice))
         setBuySellData(data)
         console.log(data);
     }
@@ -251,8 +251,8 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     return (
         <>
             <ScrollView ref={refScrollView}>
-                <VStack w="100%" backgroundColor='#171122' safeArea>
-                    <HStack ml={3} mb={3} mr={3} justifyContent={'space-between'}>
+                <VStack w="100%" backgroundColor='#171122' safeArea style={{ paddingHorizontal: 20 }}>
+                    <HStack mb={3} justifyContent={'space-between'}>
                         <Button.Group isAttached>
                             <CopilotStep
                                 text="Toggle to choose between buy or sell. Let's buy."
@@ -272,13 +272,15 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                                 </WalkthroughableView>
                             </CopilotStep>
 
-                            <Button
-                                onPress={() => handleBuySellChange("sell")}
-                                flexBasis={'15%'}
-                                backgroundColor={sellActive === true ? 'secondary.red' : 'primary.field'}
-                            >
-                                <Text>Sell</Text>
-                            </Button>
+                            <View>
+                                <Button
+                                    onPress={() => handleBuySellChange("sell")}
+                                    flexBasis={'15%'}
+                                    backgroundColor={sellActive === true ? 'secondary.red' : 'primary.field'}
+                                >
+                                    <Text>Sell</Text>
+                                </Button>
+                            </View>
                         </Button.Group>
 
                         {tourStatus ? (
@@ -298,8 +300,8 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         ) : (
                             <Select selectedValue={orderType} flexBasis={'50%'} accessibilityLabel="Choose Service" placeholder="Order Type"
                                 onValueChange={itemValue => setOrderType(itemValue)}>
-                                <Select.Item label="Limit" value="limit" />
                                 <Select.Item label="Market" value="market" />
+                                <Select.Item label="Limit" value="limit" />
                             </Select>
                         )}
                     </HStack>
@@ -322,7 +324,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                                             <HStack
                                                 backgroundColor={'primary.field'}
                                                 justifyContent={'space-between'}
-                                                m={3}
+                                                my={3}
                                                 mt={1}
                                                 pt={1.5}
                                                 pb={1.5}
@@ -375,7 +377,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                                     <HStack
                                         backgroundColor={'primary.field'}
                                         justifyContent={'space-between'}
-                                        m={3}
+                                        my={3}
                                         mt={1}
                                         pt={1.5}
                                         pb={1.5}
@@ -427,7 +429,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                                     <HStack
                                         backgroundColor={'primary.field'}
                                         justifyContent={'space-between'}
-                                        m={3}
+                                        my={3}
                                         mt={1}
                                         pt={1.5}
                                         pb={1.5}
@@ -477,7 +479,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         >
                             <WalkthroughableView>
                                 <View>
-                                    <HStack justifyContent={'space-between'} m={3}>
+                                    <HStack justifyContent={'space-between'} my={3}>
                                         <Button w={"23%"} backgroundColor={percentBtn === '25%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('25%')}>25%</Button>
                                         <Button w={"23%"} backgroundColor={percentBtn === '50%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('50%')}>50%</Button>
                                         <Button w={"23%"} backgroundColor={percentBtn === '75%' ? 'secondary.blue' : 'primary.field'} onPress={() => handlePercentBtnClick('75%')}>75%</Button>
@@ -489,7 +491,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
                     </Box>
                     <Box>
-                        <HStack justifyContent={'space-between'} m={3}>
+                        <HStack justifyContent={'space-between'} my={3}>
                             <Text>Available</Text>
                             {sellActive ? <Text>{priceFormatter(buySellData?.coinQuantity)} {!buyActive ? ticker.replace('USDT', '') : 'USDT'}</Text> : <Text>{priceFormatter(buySellData?.usdtBalance)} {!buyActive ? ticker.replace('USDT', '') : 'USDT'}</Text>}
                         </HStack>
@@ -497,16 +499,18 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                 </VStack>
 
                 {sellActive ?
-                    <Button
-                        w={'93%'}
-                        alignSelf={'flex-start'}
-                        ml={3}
-                        mr={3}
-                        mt={5}
-                        backgroundColor={'secondary.red'}
-                        onPress={handleMarketSell}
-                        isLoading={loadingSell}
-                    >Sell</Button> :
+                    <View style={{ paddingHorizontal: 20 }}>
+                        <Button
+                            w={'100%'}
+                            alignSelf={'center'}
+                            my={3}
+                            mt={5}
+                            backgroundColor={'secondary.red'}
+                            onPress={handleMarketSell}
+                            isLoading={loadingSell}
+                        >Sell</Button>
+                    </View>
+                    :
 
                     <CopilotStep
                         text="Finally, select Buy to place your order."
@@ -514,12 +518,10 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         name="buystep8"
                     >
                         <WalkthroughableView>
-                            <View>
+                            <View style={{ paddingHorizontal: 20 }}>
                                 <Button
-                                    w={'93%'}
-                                    alignSelf={'flex-start'}
-                                    ml={3}
-                                    mr={3}
+                                    w={'100%'}
+                                    alignSelf={'center'}
                                     mt={5}
                                     backgroundColor={'secondary.blue'}
                                     onPress={handleMarketBuy}
@@ -544,6 +546,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 const styles = StyleSheet.create({
     togglebtns: {
         backgroundColor: 'primary.field',
+        borderRadius: 5,
     },
     containers: {
         backgroundColor: 'primary.field',
@@ -557,7 +560,7 @@ const styles = StyleSheet.create({
         flexBasis: '15%',
         borderRightColor: 'secondary.lightGray',
         borderRightWidth: 1,
-        borderRadius: 0,
+        borderRadius: 5,
         mt: 1,
         mb: 1,
     },
@@ -566,7 +569,7 @@ const styles = StyleSheet.create({
         flexBasis: '15%',
         borderLeftColor: 'secondary.lightGray',
         borderLeftWidth: 1,
-        borderRadius: 0,
+        borderRadius: 5,
         mt: 1,
         mb: 1,
     },
