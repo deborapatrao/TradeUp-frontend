@@ -136,7 +136,7 @@ const Leaderboard = ({ navigation }) => {
 						/>
 						<View
 							style={index == 1 ? styles.viewContainerCentral : styles.viewContainerLateral}
-							backgroundColor={"#A7A7AD"}
+							backgroundColor={index == 0 ? "#A7A7AD" : "#A77044"}
 						>
 							<Text style={styles.leads}>{item.rank}</Text>
 						</View>
@@ -145,7 +145,6 @@ const Leaderboard = ({ navigation }) => {
 					<Text>{item.performance.toFixed(2)}%</Text>
 				</VStack>
 				))}
-
 			</HStack>
 			{/* </Box> */}
 			<ScrollView>
