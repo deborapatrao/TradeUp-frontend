@@ -105,7 +105,7 @@ const LeaderboardHome = ({ topTraders }) => {
 							<HStack space={4} alignItems={"center"}>
 								<Text style={styles.text}>{item.rank} </Text>
 								<Image
-									source={Profile}
+									source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
 									alt={"user-image"}
 									style={styles.imageList}
 								/>
