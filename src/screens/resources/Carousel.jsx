@@ -27,7 +27,7 @@ const Carousel = () => {
     }
 
     const { width } = Dimensions.get('window');
-    const height = width * 0.6;
+    const height = width * 0.5;
 
 
 
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         marginLeft: 2,
         marginRight: 2,
         borderRadius: 10,
-        width: '95%',
+        width: '90%',
         height: "100%",
         resizeMode: 'cover',
     },
@@ -91,8 +91,9 @@ const styles = StyleSheet.create({
     Dot: {
         color: 'black',
         backgroundColor: 'rgba(128, 128, 128, 0.90)',
-        width: '95%',
-        borderRadius: 10,
+        width: '90%',
+        borderRadius: 5,
+        overflow: 'hidden',
         padding: 3,
         fontWeight: 'bold',
         marginBottom: 2,
