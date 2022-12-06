@@ -126,74 +126,25 @@ const Leaderboard = ({ navigation }) => {
 			{/* <Box style={[styles.trapezoid]}> */}
 			<HStack style={styles.leaders}>
 
-				{top3.map((item, index) => {
-					if(index === 0) {
-						return (
-							<>
-								<VStack style={styles.laterals}>
-									<View>
-										<Image
-											source={Profile}
-											alt={"user-image"}
-											style={styles.imageLaterals}
-										/>
-										<View
-											style={styles.viewContainerLateral}
-											backgroundColor={"#A7A7AD"}
-										>
-											<Text style={styles.leads}>2</Text>
-										</View>
-									</View>
-									<Text>{item.username}</Text>
-									<Text>{item.performance.toFixed(2)}%</Text>
-								</VStack>
-							</>
-						)
-					} else if(index === 1) {
-						return (
-							<>
-								<VStack style={styles.central}>
-									<View>
-										<Image
-											source={Profile}
-											alt={"user-image"}
-											style={styles.imageCentral}
-										/>
-										<View style={styles.viewContainerCentral}>
-											<Text style={styles.leads}>1</Text>
-										</View>
-									</View>
-									<Text>{item.username}</Text>
-									<Text>{item.performance.toFixed(2)}%</Text>
-								</VStack>
-							</>
-						)
-					} else {
-						return (
-							<>
-								<VStack style={styles.laterals}>
-									<View>
-										<Image
-											source={Profile}
-											alt={"user-image"}
-											style={styles.imageLaterals}
-										/>
-										<View
-											style={styles.viewContainerLateral}
-											backgroundColor={"#A77044"}
-										>
-											<Text style={styles.leads}>3</Text>
-										</View>
-									</View>
-									<Text>{item.username}</Text>
-									<Text>{item.performance.toFixed(2)}%</Text>
-								</VStack>
-							</>
-						)
-					}
-				})}
-
-
+				{top3.map((item, index) => (
+					<VStack style={index == 1 ? styles.central : styles.laterals} key={index}>
+					<View>
+						<Image
+							source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
+							alt={"user-image"}
+							style={index == 1 ? styles.imageCentral : styles.imageLaterals}
+						/>
+						<View
+							style={index == 1 ? styles.viewContainerCentral : styles.viewContainerLateral}
+							backgroundColor={"#A7A7AD"}
+						>
+							<Text style={styles.leads}>{item.rank}</Text>
+						</View>
+					</View>
+					<Text>{item.username}</Text>
+					<Text>{item.performance.toFixed(2)}%</Text>
+				</VStack>
+				))}
 
 			</HStack>
 			{/* </Box> */}
@@ -212,7 +163,7 @@ const Leaderboard = ({ navigation }) => {
 							<HStack space={4} alignItems={"center"}>
 								<Text style={styles.text}>{item.rank} </Text>
 								<Image
-									source={Profile}
+									source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
 									alt={"user-image"}
 									style={styles.imageList}
 								/>
