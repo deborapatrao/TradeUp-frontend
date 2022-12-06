@@ -26,9 +26,9 @@ const Onboarding = ({ navigation, skipAuthHandler }) => {
                         </Button>
                     </HStack>
 
-                    <Button size="sm" variant="link" colorScheme="indigo" onPress={skipAuthHandler}>
+                    {/* <Button size="sm" variant="link" colorScheme="indigo" onPress={skipAuthHandler}>
                         Skip
-                    </Button>
+                    </Button> */}
                 </VStack>
             </Center>
         </>

@@ -132,8 +132,8 @@ export const getTopTraders = async (url, city) => {
             userId: userId,
             city: city
         })
-        const data = response.data.traders
-        console.log('RESPONSE Top Traders', response.data);
+        const data = response.data
+        // console.log('RESPONSE Top Traders', response.data);
         return data;
     } catch (e) {
         console.log(e)

@@ -96,7 +96,7 @@ const LeaderboardHome = ({ topTraders }) => {
 		<>
 			<ScrollView>
 				<View ml={3} mr={3}>
-					{topTraders ? (topTraders.map((item, index) => (
+					{topTraders.traders ? (topTraders.traders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
 							alignItems={"center"}
