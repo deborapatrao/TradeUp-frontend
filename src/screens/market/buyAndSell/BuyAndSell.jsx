@@ -237,7 +237,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
         copilotEvents.on("stop", () => {
             setTourStatus(false)
-            // dispatch(skipTutorial(user.firebase_uuid, false));
+            dispatch(skipTutorial(user.firebase_uuid, false));
         });
 
         return () => {
