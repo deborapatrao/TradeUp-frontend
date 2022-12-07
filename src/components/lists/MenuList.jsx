@@ -10,27 +10,31 @@ import {
 	HStack,
 	VStack,
 	Spacer,
+	Divider,
 } from "native-base";
 import { menuItems } from "../utils/constants";
 import { Octicons } from "@expo/vector-icons";
 import { Icon } from "native-base";
 import { TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 
 const MenuList = ({ navigation }) => {
 	return (
 		<>
 			<FlatList
 				data={menuItems}
-				renderItem={({ item }) => (
+				renderItem={({ item, index }) => (
 					<Box
+						key={index}
+						borderTopWidth={index === 0 ? "1" : "0"}
 						borderBottomWidth="1"
 						_dark={{
-							borderColor: "muted.50",
+							borderColor: "#2E2343",
 						}}
-						borderColor="muted.800"
+						borderColor="#2E2343"
 						pl={["0", "4"]}
 						pr={["0", "5"]}
-						padding="2"
+						padding="3.5"
 						mx={5}
 					>
 						<TouchableOpacity
@@ -41,13 +45,7 @@ const MenuList = ({ navigation }) => {
 								justifyContent="space-between"
 							>
 								<VStack>
-									<Text
-										_dark={{
-											color: "secondary.lightGray",
-										}}
-										color="coolGray.800"
-										bold
-									>
+									<Text style={styles.menuItem}>
 										{item.name}
 									</Text>
 								</VStack>
@@ -55,6 +53,7 @@ const MenuList = ({ navigation }) => {
 									as={Octicons}
 									name="chevron-right"
 									color="white"
+									size={6}
 								/>
 							</HStack>
 						</TouchableOpacity>
@@ -68,3 +67,12 @@ const MenuList = ({ navigation }) => {
 };
 
 export default MenuList;
+
+const styles = StyleSheet.create({
+	menuItem: {
+		color: "#FFFFFF",
+		fontSize: 16,
+		fontWeight: "600",
+	},
+
+});

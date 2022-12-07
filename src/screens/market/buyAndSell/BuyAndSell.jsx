@@ -219,7 +219,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
     useEffect(() => {
         const tourTimeout = setTimeout(() => {
-            if (user && tourStatus && user.isTutorial) {
+            if (user && user.isTutorial) {
                 start(false, refScrollView.current);
             }
         }, 300);

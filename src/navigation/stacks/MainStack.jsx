@@ -23,14 +23,15 @@ const MainStack = ({ goToMarket }) => {
     const { user } = useSelector((state) => state.auth);
 
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+        screenOptions={{
+            headerBackTitleVisible: false
+        }}
+        >
             <Stack.Screen name="Main" children={() => <Home goToMarket={goToMarket} />} options={{
                 headerShown: false, // hide header
             }} />
-            <Stack.Screen name="Menu" component={Menu} options={{
-                headerTitle: '',
-                headerBackTitleVisible: false
-            }} />
+            <Stack.Screen name="Menu" component={Menu} />
             <Stack.Screen name="Leaderboard" component={Leaderboard} />
             <Stack.Screen name="Saved Resources" component={SavedResources} />
             <Stack.Screen name="Profile Settings" component={Profile} />
