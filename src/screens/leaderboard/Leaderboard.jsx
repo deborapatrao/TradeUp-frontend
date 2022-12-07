@@ -100,8 +100,10 @@ const Leaderboard = ({ navigation }) => {
 					</View>
 					<Text>{item.username}</Text>
 					<HStack>
-						{item.performance > 0 ? <Image source={Up} style={styles.positivePercentage} alt="up"/>  : <Image source={Down} style={styles.negativePercentage} alt="down"/>}
-						<Text style={item.performance > 0 ? styles.percentage : styles.negativePercentage}>
+						{item.performance > 0 ? 
+						<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
+						<Image source={Down} style={styles.negativePercentage} alt="down"/>}
+						<Text style={ styles.percentage }>
 							{item.performance.toFixed(2)}%
 						</Text> 
 					</HStack>
@@ -121,7 +123,7 @@ const Leaderboard = ({ navigation }) => {
 							alignItems={"center"}
 							key={index}
 						>
-							<HStack space={4} alignItems={"center"}>
+							<HStack space={2} alignItems={"center"}>
 								<Text style={styles.text}>{item.rank} </Text>
 								<Image
 									source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
@@ -132,8 +134,10 @@ const Leaderboard = ({ navigation }) => {
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"50%"}>
 							<HStack>
-								{item.performance > 0 ? <Image source={Up} style={styles.positivePercentage} alt="up"/>  : <Image source={Down} style={styles.negativePercentage} alt="down"/>}
-								<Text style={item.performance > 0 ? styles.percentage : styles.negativePercentage}>
+								{item.performance > 0 ? 
+								<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
+								<Image source={Down} style={styles.negativePercentage} alt="down"/>}
+								<Text style={styles.percentage}>
 									{item.performance.toFixed(2)}%
 								</Text> 
 							</HStack>
@@ -181,20 +185,22 @@ const styles = StyleSheet.create({
 	percentage: {
 		borderRadius: 3,
 		overflow: "hidden",
-		paddingLeft: 4,
 		marginRight: 6,
+		marginLeft: 6,
 	},
 
 	positivePercentage: {
 		marginLeft: 2, 
 		color: "#31c451", 
 		alignSelf: 'center',
+		marginTop: 2,
 	},
 
 	negativePercentage: {
 		marginLeft: 2, 
 		color: "#FF6666", 
 		alignSelf: 'center',
+		marginTop: 2,
 	},
 	laterals: {
 		flexGrow: 1,
