@@ -6,6 +6,9 @@ import {
   HStack,
   Button,
   Divider,
+  SearchIcon,
+  Input,
+  Checkbox
 } from "native-base";
 import { StyleSheet } from 'react-native';
 import { getWalletData } from '../../utils/requests';
@@ -17,6 +20,8 @@ import { useSelector } from "react-redux";
 
 const AssetsScreen = ({ navigation }) => {
   const [assetData, setAssetData] = useState(null);
+  const [notNullAssetData, setNotNullAssetData] = useState(null);
+  const [checkZero, setCheckZero] = useState(true);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -30,7 +35,9 @@ const AssetsScreen = ({ navigation }) => {
       console.log('AssetsScreen focused');
       const data = await getWalletData('/wallet/assets');
       console.log('Data: ', data);
+      const newData = data.assets.filter((item) => item.quantity > 0);
       setAssetData(data.assets);
+      setNotNullAssetData(newData);
     });
     loadCoins();
     return unsubscribe;
@@ -64,7 +71,7 @@ const AssetsScreen = ({ navigation }) => {
           sortedData = reponse.data
       }
 
-      setData([...sortedData])
+      setAssetData([...sortedData])
 
     } catch (error) {
       console.log(error)
@@ -77,8 +84,40 @@ const AssetsScreen = ({ navigation }) => {
     setToggle(!toggle)
   }
 
+  const handleCheckbox = (status) => {
+    setCheckZero(status)
+  }
+
   return (
     <Box bgColor={'primary.bg'} flex={1} px={4}>
+      <HStack space={4} mt={4} justifyContent={'space-between'} px={2}>
+        <Checkbox
+          value="zero"
+          backgroundColor={"#231D30"}
+          borderColor={"#231D30"}
+          onChange={(nextValue) => handleCheckbox(nextValue)}
+          isChecked={checkZero}
+          _checked={{ borderColor: 'supporting.lightGreen', backgroundColor: 'supporting.lightGreen' }}
+          _pressed={{ borderColor: 'supporting.lightGreen' }}
+          _icon={{ color: 'white' }}
+        >
+          Hide 0 balances
+        </Checkbox>
+
+        <Input
+          placeholder='Search a coin'
+          placeholderTextColor={'secondary.darkGray'}
+          fontSize={'md'}
+          borderRadius={5}
+          borderColor={'primary.field'}
+          focusOutlineColor={'gray.400'}
+          backgroundColor='primary.field'
+          w={160}
+          h='80%'
+          InputRightElement={
+            <SearchIcon size={5} ml={2} color={'secondary.darkGray'} mr={2} />
+          } />
+      </HStack>
 
       <HStack style={styles.column}>
         <Button style={styles.background}
@@ -104,7 +143,7 @@ const AssetsScreen = ({ navigation }) => {
       <Divider />
 
       <FlatList
-        data={assetData}
+        data={checkZero ? notNullAssetData : assetData}
         style={{ paddingTop: 10 }}
         renderItem={({ item }) => {
           return <AssetItem asset={item} />
@@ -129,6 +168,18 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff'
   },
+  checkbox: {
+    backgroundColor: "#231D30",
+    _checked: {
+      backgroundColor: "red",
+    },
+    _icon: {
+      color: 'white'
+    },
+    _pressed: {
+      color: 'white'
+    }
+  }
 
 
 });
