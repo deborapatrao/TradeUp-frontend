@@ -237,7 +237,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
         copilotEvents.on("stop", () => {
             setTourStatus(false)
-            dispatch(skipTutorial(user.firebase_uuid, false));
+            // dispatch(skipTutorial(user.firebase_uuid, false));
         });
 
         return () => {
@@ -283,9 +283,9 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                             </View>
                         </Button.Group>
 
-                        {tourStatus ? (
+                        {user && user.isTutorial ? (
                             <CopilotStep
-                                text="Select from different types of trading. Let's choose market."
+                                text="Select from different types of trading"
                                 order={2}
                                 name="buystep2"
                             >
@@ -308,13 +308,13 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                     <Box>
 
                         <CopilotStep
-                            text="There are 4 ways to buy coins. Each method updates the other fields."
+                            text="Enter the USDT price you want to pay per coin. Market price is the default."
                             order={3}
                             name="buystep3"
                         >
                             <WalkthroughableView>
                                 <CopilotStep
-                                    text="1. Enter the USDT price you want to pay per coin. Market price is shown by default."
+                                    text="There are 3 ways to buy coins. Each method updates the other fields."
                                     order={4}
                                     name="buystep4"
                                 >
@@ -367,7 +367,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
 
 
                         <CopilotStep
-                            text="2. Enter the amount of coins you want to buy. You can also buy a fraction of a coin."
+                            text="1. Enter the amount of coins you want to buy. You can also buy a fraction of a coin."
                             order={5}
                             name="buystep5"
                         >
@@ -419,7 +419,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         </CopilotStep>
 
                         <CopilotStep
-                            text="3. Enter the total USDT you are willing to pay."
+                            text="2. Or enter the USDT you are willing to pay. You have 1000 USDT to begin with."
                             order={6}
                             name="buystep6"
                         >
@@ -473,7 +473,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                     <Box>
 
                         <CopilotStep
-                            text="4. Select a fraction of your total USDT available."
+                            text="3. Or select a fraction of your total available USDT."
                             order={7}
                             name="buystep7"
                         >
