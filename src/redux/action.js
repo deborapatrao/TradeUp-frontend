@@ -29,7 +29,7 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({ type: "loginSuccess", payload: data });
 
     } catch (error) {
-        console.log("Error 1", error.message);
+        // console.log("Error 1", error);
 
         dispatch({
             type: "loginFailure",
@@ -65,10 +65,10 @@ export const signup = (email, password, location) => async (dispatch) => {
 
         dispatch({ type: "signupSuccess", payload: data });
     } catch (error) {
-        console.log("Error 1", error);
+        // console.log("Error 1", error);
         dispatch({
             type: "signupFailure",
-            payload: error.message,
+            payload: error,
         });
 
     }
@@ -92,7 +92,7 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         // console.log("Load user", data)
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        console.log("Error 2", error.message);
+        // console.log("Error 2", error.message);
 
         dispatch({
             type: "loadUserFailure",
@@ -123,7 +123,7 @@ export const saveLocation = (userIdToken, location) => async (dispatch) => {
 
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        console.log("Error 2", error.message);
+        // console.log("Error 2", error.message);
 
         dispatch({
             type: "loadUserFailure",
@@ -147,7 +147,7 @@ export const logout = () => async (dispatch) => {
         dispatch({ type: "logoutSuccess" });
 
     } catch (error) {
-        console.log("Error 3", error);
+        // console.log("Error 3", error);
         dispatch({
             type: "logoutFailure",
             payload: error.message,
@@ -174,7 +174,7 @@ export const skipTutorial = (userId, tutorialStatus) => async (dispatch) => {
 
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        console.log("Error skip", error.message);
+        // console.log("Error skip", error.message);
 
         dispatch({
             type: "loadUserFailure",

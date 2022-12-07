@@ -18,7 +18,7 @@ const Onboarding = ({ navigation, skipAuthHandler }) => {
 				<VStack space={5} alignItems="center" mx={6}>
 					<Image
 						source={TradeUp}
-						alt="Alternate Text"
+						alt="Welcome to Trade Up"
 						style={{
 							width: 250,
 							resizeMode: "contain",

@@ -13,6 +13,7 @@ import {
 	Icon,
 	Divider,
 	View,
+	Spinner
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
@@ -20,7 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/action";
 
 const SignIn = ({ navigation }) => {
-	const { error } = useSelector((state) => state.auth);
+	const { error, isLoading } = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 
@@ -53,7 +54,7 @@ const SignIn = ({ navigation }) => {
 	const loginHandler = () => {
 		validateForm()
 			? dispatch(login(formData.email, formData.password))
-			: console.log("Validation Failed");
+			: "";
 	};
 
 	useEffect(() => {
