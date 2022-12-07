@@ -12,6 +12,7 @@ import {
 	Checkbox,
 	Pressable,
 	Icon,
+	Divider
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -66,6 +67,8 @@ const SignUp = ({ navigation }) => {
 	}, [error, dispatch, alert]);
 
 	return (
+		<>
+		<Divider />
 		<Center w="100%">
 			<Box safeArea p="2" w="100%" maxW="290" py="8">
 				<VStack space={3} mt="5">
@@ -146,6 +149,8 @@ const SignUp = ({ navigation }) => {
 				</VStack>
 			</Box>
 		</Center>
+		</>
+
 	);
 };
 

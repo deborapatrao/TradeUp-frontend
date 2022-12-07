@@ -6,12 +6,16 @@ import SignIn from "../screens/SignIn";
 import SignUp from "../screens/SignUp";
 import Onboarding from "../screens/Onboarding";
 
-import { useColorMode } from "native-base";
+import { useColorMode, Button, Text } from "native-base";
 import { navigatorTheme } from "../theme";
+import { TouchableOpacity } from "react-native";
+import { navigationRef } from './RootNavigation';
+import { AntDesign } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 
 export default function AuthStack({ skipAuthHandler }) {
+
 	const { colorMode } = useColorMode();
 
 	const MyTheme = {
@@ -35,30 +39,58 @@ export default function AuthStack({ skipAuthHandler }) {
 	const { error } = useSelector((state) => state.auth);
 
 	return (
-		<NavigationContainer theme={MyTheme}>
-			<Stack.Navigator initialRouteName={!error ? "Onboarding" : ""}>
+		<NavigationContainer theme={MyTheme} ref={navigationRef}>
+			<Stack.Navigator 
+				initialRouteName={!error ? "Onboarding" : ""}
+				screenOptions={{
+					headerStyle: {
+						backgroundColor: headerBackground,
+						borderBottomWidth: 1,
+						borderBottomColor: "#fff",
+					},
+					headerBackVisible:false,
+					headerLeft: () => null,
+					headerTintColor: "#fff",
+					headerTitleStyle: {
+						fontWeight: "bold",
+					},
+				}}
+			>
 				<Stack.Screen
 					name="Sign In"
 					component={SignIn}
 					options={{
-						headerStyle: {
-							backgroundColor: headerBackground,
-						},
+						title: "Sign In",
+						headerBackVisible:false,
+						headerLeft: () => null,
+						headerRight: () => (
+							<TouchableOpacity
+								onPress={() => navigationRef.navigate("Onboarding")}
+							>
+								<AntDesign name="close" size={24} color="white" />
+							</TouchableOpacity>
+						),
 					}}
 				/>
 				<Stack.Screen
 					name="Sign Up"
 					component={SignUp}
 					options={{
-						headerStyle: {
-							backgroundColor: headerBackground,
-						},
+						headerBackVisible:false,
+						headerLeft: () => null,
+						headerRight: () => (
+							<TouchableOpacity
+								onPress={() => navigationRef.navigate("Onboarding")}
+							>
+								<AntDesign name="close" size={24} color="white" />
+							</TouchableOpacity>
+						),
 					}}
 				/>
 				<Stack.Screen
 					name="Onboarding"
 					options={{
-						headerShown: false, // hide header
+						headerShown: false,
 					}}
 				>
 					{(props) => (
