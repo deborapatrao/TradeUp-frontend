@@ -12,16 +12,17 @@ import { StyleSheet } from "react-native";
 const ArticleSingle = ({ route }) => {
 
     const { article } = route.params;
-
-    console.log(article);
+    console.log(article)
     return(
         <>
         <ScrollView>
+            <VStack space={4} px={4} pt={10}>
             <Image height={140} source={{uri:article.urlToImage}} alt={article.title} />
             <Heading style={styles.headingText} color={'supporting.lightGreen'}>
                 {article.title}
             </Heading>
             <Text>{article.content}</Text>
+            </VStack>
         </ScrollView>
         </>
     )};
