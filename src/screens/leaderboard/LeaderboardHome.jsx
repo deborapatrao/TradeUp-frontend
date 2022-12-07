@@ -20,31 +20,7 @@ import Loader from "../../components/utils/Loader";
 
 const LeaderboardHome = ({ topTraders }) => {
 
-	// const { user } = useSelector((state) => state.auth);
-	// const [topTraders, setTopTraders] = useState([]);
-
-	// useEffect(() => {
-	// 	loadTopTraders();
-	// }, []);
-
-	// // useEffect(() => {
-    // //     const checkedFocus = navigation.addListener('focus', async () => {
-    // //         await loadTopTraders();
-    // //         console.log('Top Traders Home focused');
-    // //     });
-
-    // //     return checkedFocus;
-	// // }, [navigation]);
-
-	// const loadTopTraders = async () => {
-    //     try {
-    //         const datas = await getTopTraders("/leaderboard", user.location.city);
-    //         setTopTraders(datas);  
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-	// };
-
+	// console.log(topTraders)
 
 	return (
 		<>
@@ -59,7 +35,7 @@ const LeaderboardHome = ({ topTraders }) => {
 							<HStack space={4} alignItems={"center"}>
 								<Text style={styles.text}>{item.rank} </Text>
 								<Image
-									source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
+									source={{ uri: item.picture ? item.picture : "https://firebasestorage.googleapis.com/v0/b/trade-up-bc1be.appspot.com/o/user_placeholder.jpg?alt=media&token=f4a15f20-ca35-449f-bf12-394e246d8be2", }}
 									alt={"user-image"}
 									style={styles.imageList}
 								/>
