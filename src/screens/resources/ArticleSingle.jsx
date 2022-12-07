@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
     VStack,
     Image,
@@ -12,20 +12,21 @@ import { StyleSheet } from "react-native";
 const ArticleSingle = ({ route }) => {
 
     const { article } = route.params;
-    console.log(article)
-    return(
+
+    return (
         <>
-        <ScrollView>
-            <VStack space={4} px={4} pt={10}>
-            <Image height={140} source={{uri:article.urlToImage}} alt={article.title} />
-            <Heading style={styles.headingText} color={'supporting.lightGreen'}>
-                {article.title}
-            </Heading>
-            <Text>{article.content}</Text>
-            </VStack>
-        </ScrollView>
+            <ScrollView>
+                <VStack space={4} px={4} pt={10}>
+                    <Image height={140} source={{ uri: article.urlToImage }} alt={article.title} />
+                    <Heading style={styles.headingText} color={'supporting.lightGreen'}>
+                        {article.title}
+                    </Heading>
+                    <Text>{article.content}</Text>
+                </VStack>
+            </ScrollView>
         </>
-    )};
+    )
+};
 
 const styles = StyleSheet.create({
 
