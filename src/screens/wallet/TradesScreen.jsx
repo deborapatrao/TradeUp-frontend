@@ -13,7 +13,7 @@ const TradesScreen = ({ navigation }) => {
 		const checkedFocus = navigation.addListener('focus', async () => {
 			setLoading(true);
 			await loadTradeHistory();
-			console.log('TradesScreen focused');
+			// console.log('TradesScreen focused');
 			setLoading(false);
 		});
 
