@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
     getAuth,
     signInWithCustomToken,
+    onAuthStateChanged,
+    signOut,
 } from 'firebase/auth';
 import { BASE_URL } from "../utils/api";
 const serverUrl = BASE_URL;
@@ -84,13 +86,40 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         // dispatch({ type: "loadUserRequest" });
         // console.log('userIdToken: ', userIdToken);
         const auth = getAuth();
-        const getTok = await signInWithCustomToken(auth, userIdToken);
 
-        // console.log("getTok", getTok);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                user.getIdToken(true)
+                .then(function(idToken) {
+                    // console.log(idToken)
+                }).catch(function(error) {
+                    console.log(error)
+                });
+              // ...
+            } else {
+              // User is signed out
+              // ...
+              console.log('user is signed out');
+            }
+          });
 
+        const getTok = await signInWithCustomToken(auth, userIdToken)
+
+        // auth.onIdTokenChanged(function(user) {
+        //     if (user) {
+        //       console.log(user)
+        //     }
+        //   });
+
+        // console.log("getTok", getTok._tokenResponse.idToken);
+
+        // https://securetoken.googleapis.com/v1/token?key=[API_KEY]
+
+        const uid = await AsyncStorage.getItem("userId");
         const { data } = await axios.get(`${serverUrl}/me`, {
             headers: {
                 Authorization: `Bearer ${getTok._tokenResponse.idToken}`,
+                uid: uid
             },
         });
         // console.log("Load user", data)
@@ -143,8 +172,8 @@ export const logout = () => async (dispatch) => {
 
         await axios.post(`${serverUrl}/logout`);
 
-        // const auth = getAuth();
-        // await firebaseSignOut(auth);
+        const auth = getAuth();
+        await auth.signOut();
 
         await AsyncStorage.removeItem("userIdToken"); // remove the token from storage
         await AsyncStorage.removeItem("userId");

@@ -27,7 +27,8 @@ export default function RootNavigation() {
 			const value = await AsyncStorage.getItem("userIdToken");
 			if (userId && tokenStorage) {
 				// value previously stored
-				// console.log("value", value);
+				// console.log("userId", userId);
+				// console.log("tokenStorage", tokenStorage);
 				dispatch(loadUser(tokenStorage));
 			}
 		} catch (e) {
@@ -52,7 +53,7 @@ export default function RootNavigation() {
 				backgroundColor="transparent"
 			/>
 
-			{isAuthenticated || skipAuth ? (
+			{isAuthenticated ? (
 				<AppStack />
 			) : (
 				<AuthStack skipAuthHandler={skipAuthHandler} />
