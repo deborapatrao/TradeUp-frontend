@@ -8,9 +8,8 @@ import {
 	View,
 	Image,
 	VStack,
+	Center,
 	Box,
-	ChevronUpIcon,
-	ChevronDownIcon,
 } from "native-base";
 import Down from "../../assets/images/icons/down.png";
 import Up from "../../assets/images/icons/up.png";
@@ -34,14 +33,14 @@ const Leaderboard = ({ navigation }) => {
 		loadTopTraders();
 	}, []);
 
-	useEffect(() => {
-		const checkedFocus = navigation.addListener("focus", async () => {
-			await loadTopTraders();
-			// console.log("Leaderboard focused");
-		});
+	// useEffect(() => {
+	// 	const checkedFocus = navigation.addListener("focus", async () => {
+	// 		await loadTopTraders();
+	// 		// console.log("Leaderboard focused");
+	// 	});
 
-		return checkedFocus;
-	}, [navigation]);
+	// 	return checkedFocus;
+	// }, [navigation]);
 
 
 	const swapElements = (arr) => {
@@ -79,10 +78,12 @@ const Leaderboard = ({ navigation }) => {
 
 	return (
 		<>
+		{userRank != 0 ?
+		<>
 			{/* <Box style={[styles.trapezoid]}> */}
 			<HStack style={styles.leaders}>
 
-				{top3 ? top3.map((item, index) => (
+				{top3.map((item, index) => (
 					<VStack style={index == 1 ? styles.central : styles.laterals} key={index}>
 										{console.log(item)}
 					<View>
@@ -108,16 +109,16 @@ const Leaderboard = ({ navigation }) => {
 						</Text> 
 					</HStack>
 				</VStack>
-				)) : <Text>Loading...</Text>}
+				))}
 			</HStack>
 			{/* </Box> */}
 			<ScrollView>
 				<View ml={3} mr={3}>
 					<HStack style={styles.rank}>
-						<Text fontSize={'xl'}>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
+						<Text fontSize={'xl'} fontWeight={"bold"}>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
 					</HStack>
 
-					{topTraders ? topTraders.map((item, index) => (
+					{topTraders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
 							alignItems={"center"}
@@ -143,10 +144,16 @@ const Leaderboard = ({ navigation }) => {
 							</HStack>
 							</HStack>
 						</HStack>
-					)) : <Text>Loading...</Text>}
+					))}
 
 				</View>
 			</ScrollView>
+		</>
+		:
+		<Box style={styles.loader}>
+			<Loader />
+		</Box>
+		}
 		</>
 	);
 };
@@ -156,10 +163,13 @@ const styles = StyleSheet.create({
 		backgroundColor: "#171122",
 	},
 	rank:{
-		marginBottom: 5,
-		marginTop: 5,
+		marginBottom: 25,
+		marginTop: 40,
 	},
-
+	loader:{
+		justifyContent: "center",
+		height: "100%",
+	},
 	column: {
 		justifyContent: "space-between",
 		marginBottom: 5,
@@ -176,6 +186,7 @@ const styles = StyleSheet.create({
 	text: {
 		color: "#fff",
 		paddingLeft: 8,
+		fontWeight: "bold",
 	},
 
 	button: {
@@ -187,6 +198,7 @@ const styles = StyleSheet.create({
 		overflow: "hidden",
 		marginRight: 6,
 		marginLeft: 6,
+		fontWeight: "bold",
 	},
 
 	positivePercentage: {
@@ -200,7 +212,7 @@ const styles = StyleSheet.create({
 		marginLeft: 2, 
 		color: "#FF6666", 
 		alignSelf: 'center',
-		marginTop: 2,
+		marginBottom: 2,
 	},
 	laterals: {
 		flexGrow: 1,
@@ -212,7 +224,6 @@ const styles = StyleSheet.create({
 	central: {
 		flexGrow: 2,
 		alignItems: "center",
-		h: 40,
 		justifyContent: "center",
 		paddingBottom: 15,
 	},
@@ -248,7 +259,7 @@ const styles = StyleSheet.create({
 		marginLeft: 3,
 		marginRigh: 3,
 		maargBottom: 3,
-		marginTop: 4,
+		marginTop: 15,
 	},
 	viewContainerLateral: {
 		flexDirection: "row",

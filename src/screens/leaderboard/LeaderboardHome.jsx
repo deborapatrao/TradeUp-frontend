@@ -11,6 +11,8 @@ import {
 	Box,
 } from "native-base";
 import Profile from "../../assets/images/icons/profile.png";
+import Down from "../../assets/images/icons/down.png";
+import Up from "../../assets/images/icons/up.png";
 import { StyleSheet, ScrollView } from "react-native";
 import { getTopTraders } from "../../utils/requests";
 import { useSelector } from "react-redux";
@@ -64,9 +66,12 @@ const LeaderboardHome = ({ topTraders }) => {
 								<Text style={styles.text}>{item.username.substring(0,9)}</Text>
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"50%"}>
+								{item.performance > 0 ? 
+								<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
+								<Image source={Down} style={styles.negativePercentage} alt="down"/>}
 								<Text style={styles.percentage}>
 									{item.performance.toFixed(2)}%
-								</Text>
+								</Text> 
 							</HStack>
 						</HStack>
 					))) : (<Loader />)}
@@ -97,6 +102,7 @@ const styles = StyleSheet.create({
 	text: {
 		color: "#fff",
 		paddingLeft: 8,
+		fontWeight: "bold",
 	},
 
 	button: {
@@ -108,14 +114,7 @@ const styles = StyleSheet.create({
 		overflow: "hidden",
 		paddingLeft: 4,
 		marginRight: 4,
-	},
-
-	percentagePositive: {
-		backgroundColor: "#31c451",
-	},
-
-	percentageNegative: {
-		backgroundColor: "#ff6666",
+		fontWeight: "bold",
 	},
 	laterals: {
 		flexGrow: 1,
@@ -139,6 +138,19 @@ const styles = StyleSheet.create({
 		borderRightColor: "transparent",
 		borderStyle: "solid",
 		backgroundColor: "red",
+	},
+
+	positivePercentage: {
+		marginLeft: 2, 
+		color: "#31c451", 
+		alignSelf: 'center',
+		marginTop: 2,
+	},
+	negativePercentage: {
+		marginLeft: 2, 
+		color: "#FF6666", 
+		alignSelf: 'center',
+		marginBottom: 2,
 	},
 	imageList: {
 		height: 35,
