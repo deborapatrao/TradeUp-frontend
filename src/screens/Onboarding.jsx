@@ -1,4 +1,6 @@
-import { Heading, Center, VStack, HStack, Button } from "native-base";
+import { Heading, Center, VStack, HStack, Button, Image, Box, Text } from "native-base";
+import { StyleSheet } from "react-native";
+import TradeUp from "../assets/images/TradeUp_Logo_light.png";
 
 const Onboarding = ({ navigation, skipAuthHandler }) => {
 
@@ -6,23 +8,33 @@ const Onboarding = ({ navigation, skipAuthHandler }) => {
         <>
             <Center
                 flex={1}
-                px={4}
+                px={3}
             >
-                <VStack space={5} alignItems="center">
-                    <Heading size="lg">Welcome to Trade Up</Heading>
+                <VStack space={5} alignItems="center" mx={6}>
+                    
+                    <Image source={TradeUp} alt="Alternate Text"
+                      style={{
+                        width: 250,
+                        resizeMode:'contain'
+                      }}
+                    />
 
-                    <HStack space={3}>
+                    {/* <Heading size="lg">Welcome to Trade Up</Heading> */}
+
+                    <HStack space={3} mx={10}>
                         <Button
                             onPress={() => navigation.navigate("Sign Up")}
-                            colorScheme="indigo"
+                            style={styles.button}
+                            size="lg"
                         >
-                            Sign up
+                            <Text style={styles.btnText}>Sign up</Text>
                         </Button>
                         <Button
                             onPress={() => navigation.navigate("Sign In")}
-                            colorScheme="indigo"
+                            style={styles.button}
+                            size="lg"
                         >
-                            Log in
+                            <Text style={styles.btnText}>Log in</Text>
                         </Button>
                     </HStack>
 
@@ -36,3 +48,14 @@ const Onboarding = ({ navigation, skipAuthHandler }) => {
 };
 
 export default Onboarding;
+
+const styles = StyleSheet.create({
+    button: {
+        backgroundColor: "#386AF5",
+        flex: 1,
+    },
+    btnText: {
+        fontSize: 16,
+        fontWeight: "500",
+    }
+});
