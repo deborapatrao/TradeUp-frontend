@@ -1,10 +1,12 @@
-import React, { useState, useEffect}  from 'react';
-import { Center, Button, AlertDialog, Text, Image, VStack} from "native-base";
+import React, { useState, useEffect } from 'react';
+import { Center, Button, AlertDialog, Text, Image, VStack } from "native-base";
 import axios from "axios";
 // import ResourcesList from "../resources.json";
+import StaticResource from '../utils/resources.json'
 
-const AlertDialogComponent = ({ alert, setAlert }) => {
+const AlertDialogComponent = ({ alert, setAlert, navigation }) => {
     // const [isOpen, setIsOpen] = React.useState(false);
+    const staticData = StaticResource[0];
 
     const onClose = () => setAlert(false);
     const cancelRef = React.useRef(null);
@@ -27,16 +29,27 @@ const AlertDialogComponent = ({ alert, setAlert }) => {
     //         console.log(error)
     //       }
     // }
+    const viewHandle = () => {
+        onClose();
+        // navigation.navigate('SampleResource', { article: staticData })
+        navigation.navigate('Resources', {
+            screen: 'SampleResource',
+            initial: false,
+            params: {
+                article: staticData
+            }
+        })
+    }
 
 
     let data = {
-            "id": "1",
-            "title": "Understanding Basic Candlestick Charts",
-            "description": "Candlestick charts are used by traders to determine possible price movement based on past patterns. Candlesticks are useful when trading as they show four price points (open, close, high, and low) throughout the period of time the trader specifies.",
-            "urlToImage": "https://www.investopedia.com/thmb/pWBTORzzifDoVLg_mw8NmvQKccg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/UnderstandingBasicCandlestickCharts-01_2-4d7b49098a0e4515bbb0b8f62cc85d77.png",
-            "age": "20",
-            "source": "https://www.investopedia.com"
-          
+        "id": "1",
+        "title": "Understanding Basic Candlestick Charts",
+        "description": "Candlestick charts are used by traders to determine possible price movement based on past patterns. Candlesticks are useful when trading as they show four price points (open, close, high, and low) throughout the period of time the trader specifies.",
+        "urlToImage": "https://www.investopedia.com/thmb/pWBTORzzifDoVLg_mw8NmvQKccg=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/UnderstandingBasicCandlestickCharts-01_2-4d7b49098a0e4515bbb0b8f62cc85d77.png",
+        "age": "20",
+        "source": "https://www.investopedia.com"
+
     };
 
     return (
@@ -48,19 +61,19 @@ const AlertDialogComponent = ({ alert, setAlert }) => {
                     </AlertDialog.Header>
                     <AlertDialog.CloseButton onPress={onClose} />
                     <AlertDialog.Body backgroundColor={'secondary.lightGray'} mt={2} mb={2}>
-                        <Image height={140} source={{uri:data.urlToImage}} alt={data.title} borderRadius={5}/>
+                        <Image height={140} source={{ uri: data.urlToImage }} alt={data.title} borderRadius={5} />
                         <Text mt={2} mb={2} color={'supporting.darkGreen'} fontWeight={'bold'}>{data.title}</Text>
                         <Text color={'black'} fontSize={'sm'}>{data.description} </Text>
-                    {/* <AlertDialog.Footer backgroundColor={'secondary.lightGray'}> */}
+                        {/* <AlertDialog.Footer backgroundColor={'secondary.lightGray'}> */}
                         <VStack w={'100%'} mt={2}>
-                            <Button variant="unstyled" backgroundColor={'secondary.blue'} color={'white'}>
+                            <Button variant="unstyled" backgroundColor={'secondary.blue'} color={'white'} onPress={() => viewHandle()}>
                                 View Resources
                             </Button>
                             <Button backgroundColor={'secondary.lightGray'} onPress={onClose} >
-                               <Text color={'#7F7F7F'}> Close</Text> 
+                                <Text color={'#7F7F7F'}> Close</Text>
                             </Button>
                         </VStack>
-                        </AlertDialog.Body>
+                    </AlertDialog.Body>
                     {/* </AlertDialog.Footer> */}
                 </AlertDialog.Content>
             </AlertDialog>

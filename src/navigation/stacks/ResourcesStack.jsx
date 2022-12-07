@@ -12,15 +12,15 @@ const ResourcesStack = createStackNavigator();
 
 const ResourcesStackScreen = () => {
 
-    return(
+    return (
         <ResourcesStack.Navigator>
             <ResourcesStack.Screen name='ArticleList' component={ArticleList} options={{
                 headerShown: false
             }} />
 
             <ResourcesStack.Screen name='SampleResource' component={SampleResource} options={({ navigation, route }) => ({
-            readerTitle: (props) => <ArticleHeader {...props} navigation={navigation} route={route} />,
-            navigationBarColor: 'gray.400',
+                headerTitle: 'Candlestick Chart Basics',
+                navigationBarColor: 'gray.400',
                 headerTitleAlign: 'center',
                 headerStyle: {
                     backgroundColor: '#171122',
@@ -32,11 +32,10 @@ const ResourcesStackScreen = () => {
                 headerBackTitleStyle: {
                     color: '#fff'
                 }
-        })} />
-            
+            })} />
+
             < ResourcesStack.Screen name='ArticleSingle' component={ArticleSingle} options={({ navigation, route }) => ({
-            readerTitle: (props) => <ArticleHeader {...props} navigation={navigation} route={route} />,
-            navigationBarColor: 'gray.400',
+                navigationBarColor: 'gray.400',
                 headerTitleAlign: 'center',
                 headerStyle: {
                     backgroundColor: '#171122',
@@ -48,8 +47,8 @@ const ResourcesStackScreen = () => {
                 headerBackTitleStyle: {
                     color: '#fff'
                 }
-        })
-    }/>
+            })
+            } />
 
         </ResourcesStack.Navigator>
     )

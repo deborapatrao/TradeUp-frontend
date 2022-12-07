@@ -538,7 +538,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                 {/* <Button w={'93%'} alignSelf={'flex-start'} onPress={() => navigation.navigate('PriceAlert')} ml={3} mr={3} mt={10}>Buy</Button> */}
             </ScrollView>
 
-            <AlertDialogComponent alert={alert} setAlert={setAlert} />
+            <AlertDialogComponent alert={alert} setAlert={setAlert} navigation={navigation} />
         </>
     );
 };
