@@ -13,7 +13,7 @@ import {
 import { StyleSheet } from 'react-native';
 import { getWalletData } from '../../utils/requests';
 import AssetItem from '../../components/listItems/AssetItem';
-
+import Loader from '../../components/utils/Loader';
 import { useSelector } from "react-redux";
 
 
@@ -22,6 +22,7 @@ const AssetsScreen = ({ navigation }) => {
   const [assetData, setAssetData] = useState(null);
   const [notNullAssetData, setNotNullAssetData] = useState(null);
   const [checkZero, setCheckZero] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -33,13 +34,15 @@ const AssetsScreen = ({ navigation }) => {
     // }
     const unsubscribe = navigation.addListener('focus', async () => {
       console.log('AssetsScreen focused');
+      setLoading(true);
       const data = await getWalletData('/wallet/assets');
       console.log('Data: ', data);
       const newData = data.assets.filter((item) => item.quantity > 0);
       setAssetData(data.assets);
       setNotNullAssetData(newData);
+      setLoading(false);
     });
-    loadCoins();
+    // loadCoins();
     return unsubscribe;
 
   }, [navigation]);
@@ -142,13 +145,15 @@ const AssetsScreen = ({ navigation }) => {
 
       <Divider />
 
-      <FlatList
-        data={checkZero ? notNullAssetData : assetData}
-        style={{ paddingTop: 10 }}
-        renderItem={({ item }) => {
-          return <AssetItem asset={item} />
-        }}
-      />
+      {loading ? <Box style={{ marginTop: 20 }}><Loader /></Box> :
+        <FlatList
+          data={checkZero ? notNullAssetData : assetData}
+          style={{ paddingTop: 10 }}
+          renderItem={({ item }) => {
+            return <AssetItem asset={item} />
+          }}
+        />
+      }
     </Box>
   );
 };
