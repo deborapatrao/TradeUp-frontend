@@ -63,7 +63,11 @@ export const signup = (email, password, location) => async (dispatch) => {
         await AsyncStorage.setItem("userIdToken", data.token);
         await AsyncStorage.setItem("userId", data.user.firebase_uuid);
 
-        dispatch({ type: "signupSuccess", payload: data });
+        const delay = await setTimeout(function(){
+            dispatch({ type: "signupSuccess", payload: data });
+        }, 500); 
+
+
     } catch (error) {
         // console.log("Error 1", error);
         dispatch({

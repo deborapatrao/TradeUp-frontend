@@ -61,38 +61,56 @@ const SignUp = ({ navigation }) => {
 
 	const validateForm = () => {
 
-		console.log(formData.email, formData.password, formData.terms);
-		
-		if (!formData.email && !formData.password && !formData.terms) {
+		if (!formData.email && !formData.password) {
 			setErrors({
 				...errors,
 				email: "Email is required",
 				password: "Password is required",
-				terms: "Please accept terms and conditions",
 			});
 			return false;
-		} else if (formData.email && !formData.password && !formData.terms) {
-			setErrors({ ...errors, password: "Password is required", terms: "Please accept terms and conditions"});
+		} else if (!formData.email && formData.password) {
+			setErrors({ ...errors, email: "Email is required" });
 			return false;
-		} else if (formData.email && formData.password && !formData.terms) {
-			setErrors({ ...errors, terms: "Please accept terms and conditions"});
-			return false;
-		} else if (formData.email && !formData.password && formData.terms) {
-			setErrors({ ...errors, password: "Password is required"});
-			return false;
-		} else if (!formData.email && formData.password && formData.terms) {
-			setErrors({ ...errors, email: "Email is required"});
-			return false;
-		} else if (!formData.email && formData.password && !formData.terms) {
-			setErrors({ ...errors, email: "Email is required", terms: "Please accept terms and conditions"});
-			return false;
-		} else if (!formData.email && !formData.password && formData.terms) {
-			setErrors({ ...errors, email: "Email is required", password: "Password is required"});
+		} else if (formData.email && !formData.password) {
+			setErrors({ ...errors, password: "Password is required" });
 			return false;
 		} else {
 			setErrors({});
 			return true;
 		}
+
+		// console.log(formData.email, formData.password, formData.terms);
+		
+		// if (!formData.email && !formData.password && !formData.terms) {
+		// 	setErrors({
+		// 		...errors,
+		// 		email: "Email is required",
+		// 		password: "Password is required",
+		// 		terms: "Please accept terms and conditions",
+		// 	});
+		// 	return false;
+		// // } else if (formData.email && !formData.password && !formData.terms) {
+		// // 	setErrors({ ...errors, password: "Password is required", terms: "Please accept terms and conditions"});
+		// // 	return false;
+		// } else if (formData.email && formData.password && !formData.terms) {
+		// 	setErrors({ ...errors, terms: "Please accept terms and conditions"});
+		// 	return false;
+		// } else if (formData.email && !formData.password && formData.terms) {
+		// 	setErrors({ ...errors, password: "Password is required"});
+		// 	return false;
+		// } else if (!formData.email && formData.password && formData.terms) {
+		// 	setErrors({ ...errors, email: "Email is required"});
+		// 	return false;
+		// // } else if (!formData.email && formData.password && !formData.terms) {
+		// // 	setErrors({ ...errors, email: "Email is required", terms: "Please accept terms and conditions"});
+		// // 	return false;
+		// // } else if (!formData.email && !formData.password && formData.terms) {
+		// // 	setErrors({ ...errors, email: "Email is required", password: "Password is required"});
+		// // 	return false;
+		// } else {
+		// 	setErrors({});
+		// 	return true;
+		// }
 	};
 
 	async function registerHandler() {
@@ -191,7 +209,13 @@ const SignUp = ({ navigation }) => {
 										terms: value,
 									})
 								}
+								defaultIsChecked
 								accessibilityLabel="Terms"
+								backgroundColor={"#231D30"}
+								borderColor={"#231D30"}
+								_checked={{ borderColor: 'supporting.lightGreen', backgroundColor: 'supporting.lightGreen' }}
+								_pressed={{ borderColor: 'supporting.lightGreen' }}
+								_icon={{ color: 'white' }}
 							>
 								<Text style={{fontSize:14}}>Accept Terms of Use &amp; Privacy Policy</Text>
 							</Checkbox>

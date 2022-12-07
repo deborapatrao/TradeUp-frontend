@@ -60,13 +60,18 @@ const Leaderboard = ({ navigation }) => {
 
 			setUserRank(data.rank);
 
-			var first3 = data.traders.slice(0, 3)
-			first3 = swapElements(first3)
-			setTop3(first3)
-
-			const traders = data.traders.slice(3, data.traders.length)
-			setTopTraders(traders);
-
+			if(data.traders.length < 3){
+				setTopTraders(data.traders);
+			// } else if(data.traders.length == 3){
+			// 	setTop3(data.traders);
+			} else {
+				var first3 = data.traders.slice(0, 3)
+				first3 = swapElements(first3)
+				setTop3(first3)
+	
+				const traders = data.traders.slice(3, data.traders.length)
+				setTopTraders(traders);
+			}
 
 		} catch (error) {
 			console.log(error);
@@ -74,11 +79,9 @@ const Leaderboard = ({ navigation }) => {
 	};
 
 
-
-
 	return (
 		<>
-		{userRank != 0 ?
+		{topTraders != 0 ?
 		<>
 			{/* <Box style={[styles.trapezoid]}> */}
 			<HStack style={styles.leaders}>

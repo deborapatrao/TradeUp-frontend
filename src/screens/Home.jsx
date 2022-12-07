@@ -50,7 +50,7 @@ const Home = ({ goToMarket }) => {
 
 	useEffect(() => {
 		registerForPushNotificationsAsync().then(async token => {
-			console.log('Token: ', token);
+			// console.log('Token: ', token);
 			if (token) {
 				try {
 					await AsyncStorage.setItem("expoPushToken", token);

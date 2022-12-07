@@ -7,7 +7,7 @@ import {
 	Button,
 	View,
 	Image,
-	VStack,
+	Center,
 	Box,
 } from "native-base";
 import Profile from "../../assets/images/icons/profile.png";
@@ -20,12 +20,10 @@ import Loader from "../../components/utils/Loader";
 
 const LeaderboardHome = ({ topTraders }) => {
 
-	// console.log(topTraders)
-
 	return (
 		<>
 			<ScrollView>
-				<View >
+				<View>
 					{topTraders.traders ? (topTraders.traders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
