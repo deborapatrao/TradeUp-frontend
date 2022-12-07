@@ -9,7 +9,7 @@ export const marketOrder = async (url, data) => {
 
         const response = await axios.post(`${BASE_URL}${url}`, { ...data, userId });
 
-        console.log('RESPONSE: ', response.data);
+        // console.log('RESPONSE: ', response.data);
 
     } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ export const postData = async (url, data) => {
 
         const response = await axios.post(`${BASE_URL}${url}`, { ...data, userId });
 
-        console.log('RESPONSE: ', response.data);
+        // console.log('RESPONSE: ', response.data);
 
     } catch (error) {
         console.log(error.message);
@@ -39,7 +39,7 @@ export const getWalletData = async (url) => {
             userId: userId
         })
 
-        console.log('RESPONSE wallet: ', response.data);
+        // console.log('RESPONSE wallet: ', response.data);
         data = response.data;
 
     } catch (error) {
@@ -58,7 +58,7 @@ export const getBuyAndSellData = async (url, ticker) => {
             coinTicker: ticker
         })
 
-        console.log('RESPONSE buysell: ', response.data);
+        // console.log('RESPONSE buysell: ', response.data);
         data = response.data;
 
     } catch (error) {
@@ -76,7 +76,7 @@ export const getTradeHistoryData = async (url) => {
             userId: userId,
         })
 
-        console.log('RESPONSE trade: ', response.data);
+        // console.log('RESPONSE trade: ', response.data);
         data = response.data;
 
 
