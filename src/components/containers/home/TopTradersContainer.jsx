@@ -80,7 +80,7 @@ const TopTradersContainer = ({ navigation, topTraders }) => {
 
 	return (
 		<>
-			<Heading>Top Traders</Heading>
+			<Heading marginBottom={3}>Top Traders</Heading>
 
 			{/* <Text>{user ? user.email : "Not logged in"}</Text> */}
 			{!location ? (
