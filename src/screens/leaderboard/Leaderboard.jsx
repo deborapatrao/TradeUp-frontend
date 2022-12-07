@@ -74,15 +74,17 @@ const Leaderboard = ({ navigation }) => {
 		}
 	};
 
-	// console.log("top3", top3);
+
+
 
 	return (
 		<>
 			{/* <Box style={[styles.trapezoid]}> */}
 			<HStack style={styles.leaders}>
 
-				{top3.map((item, index) => (
+				{top3 ? top3.map((item, index) => (
 					<VStack style={index == 1 ? styles.central : styles.laterals} key={index}>
+										{console.log(item)}
 					<View>
 						<Image
 							source={{ uri: `https://i.pravatar.cc/150?u=${item.username}`}}
@@ -97,24 +99,14 @@ const Leaderboard = ({ navigation }) => {
 						</View>
 					</View>
 					<Text>{item.username}</Text>
-					{item.performance > 0 ? 
-								<HStack>
-								<Up style={styles.positivePercentage} />
-								<Text style={styles.percentage}>
-									{item.performance.toFixed(2)}%
-								</Text> 
-								</HStack>
-								:
-								<HStack>
-								<Down style={styles.negativePercentage} />
-									
-								<Text style={styles.percentage}>
-									{item.performance.toFixed(2)}%
-								</Text> 
-								</HStack>
-							    }
+					<HStack>
+						{item.performance > 0 ? <Image source={Up} style={styles.positivePercentage} alt="up"/>  : <Image source={Down} style={styles.negativePercentage} alt="down"/>}
+						<Text style={item.performance > 0 ? styles.percentage : styles.negativePercentage}>
+							{item.performance.toFixed(2)}%
+						</Text> 
+					</HStack>
 				</VStack>
-				))}
+				)) : <Text>Loading...</Text>}
 			</HStack>
 			{/* </Box> */}
 			<ScrollView>
@@ -123,7 +115,7 @@ const Leaderboard = ({ navigation }) => {
 						<Text fontSize={'xl'}>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
 					</HStack>
 
-					{topTraders.map((item, index) => (
+					{topTraders ? topTraders.map((item, index) => (
 						<HStack
 							style={[styles.column, styles.tableLine]}
 							alignItems={"center"}
@@ -139,25 +131,16 @@ const Leaderboard = ({ navigation }) => {
 								<Text style={styles.text}>{item.username} </Text>
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"50%"}>
-							{item.performance > 0 ? 
-								<HStack>
-								<Up style={styles.positivePercentage} />
-								<Text style={styles.percentage}>
+							<HStack>
+								{item.performance > 0 ? <Image source={Up} style={styles.positivePercentage} alt="up"/>  : <Image source={Down} style={styles.negativePercentage} alt="down"/>}
+								<Text style={item.performance > 0 ? styles.percentage : styles.negativePercentage}>
 									{item.performance.toFixed(2)}%
 								</Text> 
-								</HStack>
-								:
-								<HStack>
-								<Down style={styles.negativePercentage} />
-									
-								<Text style={styles.percentage}>
-									{item.performance.toFixed(2)}%
-								</Text> 
-								</HStack>
-							    }
+							</HStack>
 							</HStack>
 						</HStack>
-					))}
+					)) : <Text>Loading...</Text>}
+
 				</View>
 			</ScrollView>
 		</>
