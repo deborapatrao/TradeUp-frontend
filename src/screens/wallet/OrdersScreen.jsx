@@ -7,6 +7,7 @@ import {
 } from "native-base";
 import { getOrderHistoryData } from '../../utils/requests';
 import { SafeAreaView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import Loader from '../../components/utils/Loader';
 
 const listTab = [
     {
@@ -23,17 +24,19 @@ const listTab = [
 
 
 const OrdersScreen = ({ navigation }) => {
-
+    const [loading, setLoading] = useState(false);
     const [status, setStatus] = useState('All Orders')
-    const [datalist, setDatalist] = useState(data)
-    const [data, setData] = useState()
+    const [data, setData] = useState(null)
+    const [datalist, setDatalist] = useState(null)
 
 
     useEffect(() => {
 
         const unsubscribe = navigation.addListener('focus', async () => {
-            loadHistory();
-            setStatusFilter(status);
+            setLoading(true);
+            await loadHistory();
+            // setStatusFilter(status);
+            setLoading(false);
         });
 
 
@@ -45,6 +48,7 @@ const OrdersScreen = ({ navigation }) => {
             const res = await getOrderHistoryData("/crypto/order/history");
             setData(res.orderHistory);
             setDatalist(res.orderHistory);
+            console.log(res.orderHistory);
 
 
         } catch (error) {
@@ -117,11 +121,15 @@ const OrdersScreen = ({ navigation }) => {
             </View>
 
             <View style={{ paddingHorizontal: 20 }}>
-                <FlatList
-                    data={datalist}
-                    keyExtractor={(e, i) => i.toString()}
-                    renderItem={renderItem}
-                />
+                {loading ? <Box style={{ marginTop: 20 }}><Loader /></Box> :
+                    datalist !== null ?
+                        <FlatList
+                            data={datalist}
+                            keyExtractor={(e, i) => i.toString()}
+                            renderItem={renderItem}
+                        />
+                        : <Text style={{ textAlign: 'center', marginTop: 20 }}>No data</Text>
+                }
             </View>
 
 
