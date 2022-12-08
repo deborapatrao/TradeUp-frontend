@@ -12,6 +12,10 @@ import {
 import { NativeBaseProvider } from "native-base";
 import { customTheme } from "./src/theme";
 // import { TourGuideProvider } from "rn-tourguide";
+import { LogBox } from 'react-native';
+
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 export default function App() {
     const [fontsLoaded] = useFonts({
