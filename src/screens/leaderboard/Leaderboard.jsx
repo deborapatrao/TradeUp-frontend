@@ -58,12 +58,11 @@ const Leaderboard = ({ navigation }) => {
 				user.location.city
 			);
 
+			console.log("top3", data)
 			setUserRank(data.rank);
 
 			if(data.traders.length < 3){
 				setTopTraders(data.traders);
-			// } else if(data.traders.length == 3){
-			// 	setTop3(data.traders);
 			} else {
 				var first3 = data.traders.slice(0, 3)
 				first3 = swapElements(first3)
@@ -77,7 +76,6 @@ const Leaderboard = ({ navigation }) => {
 			console.log(error);
 		}
 	};
-
 
 	return (
 		<>
@@ -136,7 +134,7 @@ const Leaderboard = ({ navigation }) => {
 								<Text style={styles.text}>{item.username} </Text>
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"50%"}>
-							<HStack>
+							<HStack justifyContent={"flex-start"} space={2}>
 								{item.performance > 0 ? 
 								<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
 								<Image source={Down} style={styles.negativePercentage} alt="down"/>}

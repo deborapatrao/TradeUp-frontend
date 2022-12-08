@@ -86,23 +86,6 @@ export const loadUser = (userIdToken) => async (dispatch) => {
         // dispatch({ type: "loadUserRequest" });
         // console.log('userIdToken: ', userIdToken);
         const auth = getAuth();
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                user.getIdToken(true)
-                .then(function(idToken) {
-                    // console.log(idToken)
-                }).catch(function(error) {
-                    console.log(error)
-                });
-              // ...
-            } else {
-              // User is signed out
-              // ...
-              console.log('user is signed out');
-            }
-          });
-
         const getTok = await signInWithCustomToken(auth, userIdToken)
 
         // auth.onIdTokenChanged(function(user) {
