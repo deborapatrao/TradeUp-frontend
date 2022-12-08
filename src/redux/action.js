@@ -96,8 +96,6 @@ export const loadUser = (userIdToken) => async (dispatch) => {
 
         // console.log("getTok", getTok._tokenResponse.idToken);
 
-        // https://securetoken.googleapis.com/v1/token?key=[API_KEY]
-
         const uid = await AsyncStorage.getItem("userId");
         const { data } = await axios.get(`${serverUrl}/me`, {
             headers: {
