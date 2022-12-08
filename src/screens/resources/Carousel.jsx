@@ -9,7 +9,7 @@ const Carousel = () => {
     const [data, setData] = useState([])
     const [state, setState] = useState({ active: 0 })
 
-    const apiKey = '1a01a2c1e3e54c10b6e7cfca9c84d7cd';
+    const apiKey = '951f797b551d48f590c91a9f3af557f3';
 
     useEffect(() => {
         loadArticles()

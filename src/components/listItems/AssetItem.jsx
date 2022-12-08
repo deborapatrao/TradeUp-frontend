@@ -19,7 +19,7 @@ const AssetItem = ({ asset }) => {
         </VStack>
       </HStack>
 
-      <HStack justifyContent={'space-between'} w={'55%'} alignItems={'center'}>
+      <HStack justifyContent={'space-between'} w={'52%'} alignItems={'center'}>
         <VStack>
           <Text style={styles.text}>{parseFloat(asset.quantity).toFixed(4)}</Text>
           <Text style={styles.textSecondary} color={'secondary.darkGray'}>${priceFormatter(asset.usdtBalance)}</Text>
@@ -29,8 +29,11 @@ const AssetItem = ({ asset }) => {
         </VStack>
 
         <VStack>
-          <Text style={styles.text}>%</Text>
-          <Text style={styles.textSecondary} color={'secondary.darkGray'}>$</Text>
+          {/* <Text style={styles.text}>%</Text>
+          <Text style={styles.textSecondary} color={'secondary.darkGray'}>$</Text> */}
+          <Text style={[styles.text, styles.percentage, parseFloat(asset.priceChangePercent) >= 0 ? styles.percentagePositive : styles.percentageNegative]}>
+            {Number.parseFloat(asset.priceChangePercent).toFixed(2)} %
+          </Text>
         </VStack>
       </HStack>
 

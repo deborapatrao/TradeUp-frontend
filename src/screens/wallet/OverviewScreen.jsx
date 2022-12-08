@@ -91,7 +91,7 @@ const OverviewScreen = ({ navigation }) => {
                 </HStack>
 
                 <VStack space={4} mt={5}>
-                    <Button bg={'secondary.blue'}>Trade</Button>
+                    <Button bg={'secondary.blue'} onPress={() => navigation.navigate('Market', { screen: 'CryptoList' })}>Trade</Button>
                     <Button bg={'secondary.darkGray'} isDisabled>Reset</Button>
                 </VStack>
             </VStack>

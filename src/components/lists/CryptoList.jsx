@@ -96,9 +96,9 @@ const CryptoList = ({ navigation, route }) => {
   return (
     <>
 
-      <View>
+      <View style={{ paddingHorizontal: 20 }}>
 
-        <HStack style={{ ...styles.column, paddingHorizontal: 14 }}>
+        <HStack style={styles.column}>
           <Button style={styles.background}
             onPress={() => handleTypeChange("alphabetical")}
           >
@@ -123,7 +123,7 @@ const CryptoList = ({ navigation, route }) => {
 
         <FlatList
           data={data}
-          style={{ paddingHorizontal: 20, paddingTop: 10 }}
+          style={{ paddingTop: 10 }}
           renderItem={({ item, index }) => {
             return user && user.isTutorial && marketTour && item.symbol == "BTCUSDT" ? <MarketItemTour key={index} navigation={navigation} ticker={item.symbol} coin={item} setMarketTour={setMarketTour} /> : <CryptoItem key={index} navigation={navigation} coin={item} />
             // return <CryptoItem key={index} navigation={navigation} coin={item} />
