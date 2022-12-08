@@ -251,7 +251,7 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
     return (
         <>
             <ScrollView ref={refScrollView}>
-                <VStack w="100%" backgroundColor='#171122' safeArea style={{ paddingHorizontal: 20 }}>
+                <VStack w="100%" backgroundColor='#171122' safeArea>
                     <HStack mb={3} justifyContent={'space-between'}>
                         <Button.Group isAttached>
                             <CopilotStep
@@ -499,12 +499,10 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                 </VStack>
 
                 {sellActive ?
-                    <View style={{ paddingHorizontal: 20 }}>
+                    <View>
                         <Button
                             w={'100%'}
                             alignSelf={'center'}
-                            my={3}
-                            mt={5}
                             backgroundColor={'secondary.red'}
                             onPress={handleMarketSell}
                             isLoading={loadingSell}
@@ -518,11 +516,10 @@ const BuyAndSellComponent = ({ navigation, ticker, onTour, start, copilotEvents 
                         name="buystep8"
                     >
                         <WalkthroughableView>
-                            <View style={{ paddingHorizontal: 20 }}>
+                            <View>
                                 <Button
                                     w={'100%'}
                                     alignSelf={'center'}
-                                    mt={5}
                                     backgroundColor={'secondary.blue'}
                                     onPress={handleMarketBuy}
                                     isLoading={loadingBuy}

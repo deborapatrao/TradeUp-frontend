@@ -15,11 +15,28 @@ const CryptoDetailTabNavigator = ({ route }) => {
     const { ticker } = route.params;
     // console.log('ticker cryptodetail', ticker)
     return (
-        <Tab.Navigator screenOptions={{
+        <Tab.Navigator screenOptions={({ route }) => ({
             tabBarLabelStyle: { fontSize: 12, color: '#fff' },
             // tabBarItemStyle: { width: 100 },
-            tabBarStyle: { backgroundColor: '#171122' },
-        }}>
+            tabBarStyle: { borderBottomWidth: 0.3, borderBottomColor: '#2E2343' },
+            tabBarLabel: ({ focused, color }) => {
+                return <Text style={{
+                    textDecorationLine: focused ? 'underline' : 'none',
+                    color,
+                    textDecorationStyle: 'solid',
+                    fontSize: 16,
+                    fontWeight: focused ? 'bold' : 'normal',
+                    width: '110%',
+                }}>{route.name}</Text>;
+            },
+            tabBarIndicatorContainerStyle: {
+                borderBottomColor: '#2E2343',
+                borderBottomWidth: 0.5,
+                borderTopColor: '#2E2343',
+                borderTopWidth: 1.3,
+            },
+
+        })}>
             <Tab.Screen name="Chart" component={ChartScreen} initialParams={{
                 ticker: ticker
             }} />

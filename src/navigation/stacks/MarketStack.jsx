@@ -60,7 +60,8 @@ const MarketStackScreen = () => {
             })} />
             <MarketStack.Screen name="PriceAlert" component={PriceAlertScreen} options={{
                 headerTitle: 'Price Alert',
-                headerTitleAlign: 'center'
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: false,
             }} />
 
         </MarketStack.Navigator>

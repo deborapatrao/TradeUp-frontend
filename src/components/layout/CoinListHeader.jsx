@@ -16,7 +16,7 @@ import {
 } from "native-base";
 import { StyleSheet } from "react-native";
 
-const CoinListHeader = ({handleTypeChange}) => {
+const CoinListHeader = ({ handleTypeChange }) => {
 	return (
 		<>
 			<HStack style={styles.column}>
@@ -49,7 +49,7 @@ const CoinListHeader = ({handleTypeChange}) => {
 				</Button>
 			</HStack>
 
-			<Divider />
+			<Divider mb={2} />
 		</>
 	);
 };

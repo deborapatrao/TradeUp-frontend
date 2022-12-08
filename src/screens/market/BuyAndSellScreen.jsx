@@ -18,7 +18,7 @@ const BuyAndSellScreen = ({ navigation, route }) => {
     }, [])
 
     return (
-        <Box bgColor={'primary.bg'} flex={1}>
+        <Box bgColor={'primary.bg'} flex={1} style={{ paddingHorizontal: 20, paddingTop: 20 }}>
             <PriceStatic ticker={ticker} />
             <BuyAndSellComponent navigation={navigation} ticker={ticker} onTour={onTour} />
         </Box>

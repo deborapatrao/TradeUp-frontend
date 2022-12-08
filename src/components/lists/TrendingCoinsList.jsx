@@ -26,12 +26,12 @@ const TrendingCoinsList = ({ navigation }) => {
 	}, []);
 
 	const loadTopTraders = async () => {
-        try {
-            const traderdata = await getTopTraders("/leaderboard", user.location.city);
-            setTopTraders(traderdata);  
-        } catch (error) {
-            console.log(error);
-        }
+		try {
+			const traderdata = await getTopTraders("/leaderboard", user.location.city);
+			setTopTraders(traderdata);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
@@ -91,7 +91,7 @@ const TrendingCoinsList = ({ navigation }) => {
 						<CoinListHeader handleTypeChange={handleTypeChange} />
 					</>
 				)}
-				data={data.slice(0,5)}
+				data={data.slice(0, 5)}
 				style={{ paddingHorizontal: 5 }}
 				renderItem={({ item }) => {
 					return <CryptoItem navigation={navigation} coin={item} />;

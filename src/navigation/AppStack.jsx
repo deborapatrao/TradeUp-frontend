@@ -88,15 +88,15 @@ const AppStack = () => {
 	// console.log(user)
 	return (
 		<>
-		{user && user.isTutorial && canTour ? (
-			<NavigationContainer theme={MyTheme}>
-				<Stack.Navigator
-					screenOptions={{
-						headerShown: false,
-					}}
-				>
-					<Stack.Screen
-						name="Home"
+			{user && user.isTutorial && canTour ? (
+				<NavigationContainer theme={MyTheme}>
+					<Stack.Navigator
+						screenOptions={{
+							headerShown: false,
+						}}
+					>
+						<Stack.Screen
+							name="Home"
 						// options={({ navigation, route }) => ({
 						// 	header: (props) => <HomeHeader {...props} navigation={navigation} />,
 						// 	headerBackgroundContainerStyle: {
@@ -107,126 +107,125 @@ const AppStack = () => {
 						// 	},
 						// 	headerShown: true, // hide header     
 						// })}
+						>
+							{(props) => (
+								<HomeTour
+									{...props}
+									setCanTour={setCanTour}
+									setGoToMarket={setGoToMarket}
+								/>
+							)}
+						</Stack.Screen>
+					</Stack.Navigator>
+				</NavigationContainer>
+			) : (
+				<NavigationContainer theme={MyTheme}>
+					<Tab.Navigator
+						screenOptions={({ route }) => ({
+							tabBarIcon: ({ focused, color, size }) => {
+								let iconName;
+
+								if (route.name === "Home") {
+									iconName = focused
+										? HomeIconActive
+										: HomeIconInactive;
+								} else if (route.name === "Market") {
+									iconName = focused
+										? MarketIconActive
+										: MarketIconInactive;
+								} else if (route.name === "Resources") {
+									iconName = focused
+										? ResourceIconActive
+										: ResourceIconInactive;
+								} else if (route.name === "Wallet") {
+									iconName = focused
+										? WalletIconActive
+										: WalletIconInactive;
+								}
+
+								// You can return any component that you like here!
+								// return <Ionicons name={iconName} size={size} color={color} />;
+
+								// return <SvgUri  source={HomeIconInactive} width={'100%'} height={'100%'} />;
+								return <Image source={iconName} size={size} alt="Alternate Text" />;
+							},
+							tabBarActiveTintColor: "#F2F2F2",
+							tabBarInactiveTintColor: "#7F7F7F",
+							headerShown: false, // hide header
+							tabBarStyle: {
+								backgroundColor: "#171122",
+								borderTopColor: "#413556",
+							},
+							tabBarLabelStyle: {
+								fontSize: 12,
+							},
+							tabBarHideOnKeyboard: true,
+
+						})}
+					// initialRouteName="Market"
 					>
-						{(props) => (
-							<HomeTour
-								{...props}
-								setCanTour={setCanTour}
-								setGoToMarket={setGoToMarket}
-							/>
-						)}
-					</Stack.Screen>
-				</Stack.Navigator>
-			</NavigationContainer>
-		) : (
-		<NavigationContainer theme={MyTheme}>
-			<Tab.Navigator
-				screenOptions={({ route }) => ({
-					tabBarIcon: ({ focused, color, size }) => {
-						let iconName;
+						<Tab.Screen
+							name="Home"
+							children={() => <MainStack goToMarket={goToMarket} />}
+							// component={MainStack}
+							// options={{
+							// 	headerTitle: (props) => <HomeHeader {...props} />,
+							// 	headerBackgroundContainerStyle: {
+							// 		backgroundColor: "#171122",
+							// 	},
+							// 	headerStyle: {
+							// 		backgroundColor: "#171122",
+							// 	},
+							// 	headerShown: true, // show header
+							// }}
+							options={({ navigation, route }) => ({
+								headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+								headerBackgroundContainerStyle: {
+									backgroundColor: "#171122",
+								},
+								headerStyle: {
+									backgroundColor: "#171122",
+								},
+								headerShown: true, // show header
 
-						if (route.name === "Home") {
-							iconName = focused
-								? HomeIconActive
-								: HomeIconInactive;
-						} else if (route.name === "Market") {
-							iconName = focused
-								? MarketIconActive
-								: MarketIconInactive;
-						} else if (route.name === "Resources") {
-							iconName = focused
-								? ResourceIconActive
-								: ResourceIconInactive;
-						} else if (route.name === "Wallet") {
-							iconName = focused
-								? WalletIconActive
-								: WalletIconInactive;
-						}
-
-						// You can return any component that you like here!
-						// return <Ionicons name={iconName} size={size} color={color} />;
-
-						// return <SvgUri  source={HomeIconInactive} width={'100%'} height={'100%'} />;
-						return <Image source={iconName} size={size} alt="Alternate Text" />; 
-					},
-					tabBarActiveTintColor: "#F2F2F2",
-					tabBarInactiveTintColor: "#7F7F7F",
-					headerShown: false, // hide header
-					tabBarStyle: {
-						backgroundColor: "#171122",
-						borderTopColor: "#413556",
-					},
-					tabBarLabelStyle: {
-						fontSize: 12,
-					},
-					tabBarHideOnKeyboard: true,
-
-				})}
-				// initialRouteName="Market"
-			>
-				<Tab.Screen
-					name="Home"
-					children={() => <MainStack goToMarket={goToMarket} />}
-					// component={MainStack}
-					// options={{
-					// 	headerTitle: (props) => <HomeHeader {...props} />,
-					// 	headerBackgroundContainerStyle: {
-					// 		backgroundColor: "#171122",
-					// 	},
-					// 	headerStyle: {
-					// 		backgroundColor: "#171122",
-					// 	},
-					// 	headerShown: true, // hide header
-					// }}
-					options={({ navigation, route }) => ({
-						headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
-						headerBackgroundContainerStyle: {
-							backgroundColor: "#171122",
-						},
-						headerStyle: {
-							backgroundColor: "#171122",
-							height: 110,
-						},
-						headerShown: true, // hide header
-						
-					})}
-				/>
-				<Tab.Screen name="Market" component={MarketStack} 
-					options={({ navigation }) => ({
-						headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
-					})}
-				/>
-				<Tab.Screen
-					name="Resources"
-					component={ResourcesStackScreen}
-					options={({ navigation }) => ({
-						headerShown: true,
-						headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
-						headerStyle: {
-							backgroundColor: "#171122",
-						},
-						headerTitleStyle: {
-							color: "#F2F2F2",
-						},
-					})}
-				/>
-				<Tab.Screen
-					name="Wallet"
-					component={WalletTabNavigator}
-					options={({ navigation }) => ({
-						headerShown: true,
-						headerTitle: (props) => <HomeHeader {...props} navigation={navigation}/>,
-						headerStyle: {
-							backgroundColor: "#171122",
-						},
-						headerTitleStyle: {
-							color: "#F2F2F2",
-						},
-					})}
-				/>
-			</Tab.Navigator>
-		</NavigationContainer>
-		)}
+							})}
+						/>
+						<Tab.Screen name="Market" component={MarketStack}
+							options={({ navigation }) => ({
+								headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+							})}
+						/>
+						<Tab.Screen
+							name="Resources"
+							component={ResourcesStackScreen}
+							options={({ navigation }) => ({
+								headerShown: true,
+								headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+								headerStyle: {
+									backgroundColor: "#171122",
+								},
+								headerTitleStyle: {
+									color: "#F2F2F2",
+								},
+							})}
+						/>
+						<Tab.Screen
+							name="Wallet"
+							component={WalletTabNavigator}
+							options={({ navigation }) => ({
+								headerShown: true,
+								headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
+								headerStyle: {
+									backgroundColor: "#171122",
+								},
+								headerTitleStyle: {
+									color: "#F2F2F2",
+								},
+							})}
+						/>
+					</Tab.Navigator>
+				</NavigationContainer>
+			)}
 		</>
 	);
 };

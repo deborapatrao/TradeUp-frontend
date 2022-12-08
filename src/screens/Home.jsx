@@ -93,7 +93,7 @@ const Home = ({ goToMarket }) => {
 
 	return (
 		<>
-			<View ml={3} mr={3}>
+			<View ml={3} mr={3} mt={4}>
 				<TrendingCoinsList navigation={navigation} />
 			</View>
 			{/* <Button onPress={goToMarket}><Text>Test</Text></Button> */}
