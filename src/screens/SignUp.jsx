@@ -12,11 +12,14 @@ import {
 	Checkbox,
 	Pressable,
 	Icon,
+	Divider,
+	View
 } from "native-base";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../redux/action";
 import * as Location from "expo-location";
+import { StyleSheet } from "react-native";
 
 const SignUp = ({ navigation }) => {
 
@@ -25,10 +28,12 @@ const SignUp = ({ navigation }) => {
 	const dispatch = useDispatch();
 
 	const [show, setShow] = useState(false);
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	// const [email, setEmail] = useState("");
+	// const [password, setPassword] = useState("");
 	const [location, setLocation] = useState(null);
 	const [errorMsg, setErrorMsg] = useState(null);
+	const [formData, setData] = useState({terms: false});
+	const [errors, setErrors] = useState({});
 
 	useEffect(() => {
 		(async () => {
@@ -54,8 +59,64 @@ const SignUp = ({ navigation }) => {
 		})();
 	}, []);
 
+	const validateForm = () => {
+
+		if (!formData.email && !formData.password) {
+			setErrors({
+				...errors,
+				email: "Email is required",
+				password: "Password is required",
+			});
+			return false;
+		} else if (!formData.email && formData.password) {
+			setErrors({ ...errors, email: "Email is required" });
+			return false;
+		} else if (formData.email && !formData.password) {
+			setErrors({ ...errors, password: "Password is required" });
+			return false;
+		} else {
+			setErrors({});
+			return true;
+		}
+
+		// console.log(formData.email, formData.password, formData.terms);
+		
+		// if (!formData.email && !formData.password && !formData.terms) {
+		// 	setErrors({
+		// 		...errors,
+		// 		email: "Email is required",
+		// 		password: "Password is required",
+		// 		terms: "Please accept terms and conditions",
+		// 	});
+		// 	return false;
+		// // } else if (formData.email && !formData.password && !formData.terms) {
+		// // 	setErrors({ ...errors, password: "Password is required", terms: "Please accept terms and conditions"});
+		// // 	return false;
+		// } else if (formData.email && formData.password && !formData.terms) {
+		// 	setErrors({ ...errors, terms: "Please accept terms and conditions"});
+		// 	return false;
+		// } else if (formData.email && !formData.password && formData.terms) {
+		// 	setErrors({ ...errors, password: "Password is required"});
+		// 	return false;
+		// } else if (!formData.email && formData.password && formData.terms) {
+		// 	setErrors({ ...errors, email: "Email is required"});
+		// 	return false;
+		// // } else if (!formData.email && formData.password && !formData.terms) {
+		// // 	setErrors({ ...errors, email: "Email is required", terms: "Please accept terms and conditions"});
+		// // 	return false;
+		// // } else if (!formData.email && !formData.password && formData.terms) {
+		// // 	setErrors({ ...errors, email: "Email is required", password: "Password is required"});
+		// // 	return false;
+		// } else {
+		// 	setErrors({});
+		// 	return true;
+		// }
+	};
+
 	async function registerHandler() {
-		dispatch(signup(email, password, location))
+		validateForm()
+		? dispatch(signup(formData.email, formData.password, location))
+		: "";
 	}
 
 	useEffect(() => {
@@ -66,87 +127,176 @@ const SignUp = ({ navigation }) => {
 	}, [error, dispatch, alert]);
 
 	return (
-		<Center w="100%">
-			<Box safeArea p="2" w="100%" maxW="290" py="8">
+		<>
+		<Divider />
+		<Center w="100%" marginTop={12}>
+			<Box px="6" w="100%">
 				<VStack space={3} mt="5">
-					<FormControl>
+					<FormControl isRequired isInvalid={"email" in errors}>
 						<FormControl.Label>Email</FormControl.Label>
-						<Input
-							placeholder="Email address"
-							value={email}
-							onChangeText={setEmail}
-							autoCapitalize="none"
-						/>
+						<View style={styles.input}>
+							<Input
+								placeholder="Email address"
+								onChangeText={(value) =>
+									setData({ ...formData, email: value })
+								}
+								autoCapitalize="none"
+								variant={"unstyled"}
+								style={styles.inputText}
+							/>		
+						</View>
+						{"email" in errors ? (
+							<FormControl.ErrorMessage>
+								{errors.email}
+							</FormControl.ErrorMessage>
+						) : (
+							""
+						)}
 					</FormControl>
-					<FormControl>
+					<FormControl isRequired isInvalid={"password" in errors}>
 						<FormControl.Label>Password</FormControl.Label>
-						<Input
-							placeholder="Enter your password"
-							value={password}
-							onChangeText={setPassword}
-							type={show ? "text" : "password"}
-							InputRightElement={
-								<Pressable onPress={() => setShow(!show)}>
-									<Icon
-										as={
-											<MaterialIcons
-												name={
-													show
-														? "visibility"
-														: "visibility-off"
-												}
-											/>
-										}
-										size={5}
-										mr="2"
-										color="muted.400"
-									/>
-								</Pressable>
-							}
-						/>
+						<View style={styles.input}>
+							<Input
+								placeholder="Enter your password"
+								onChangeText={(value) =>
+									setData({
+										...formData,
+										password: value,
+									})
+								}
+								type={show ? "text" : "password"}
+								InputRightElement={
+									<Pressable onPress={() => setShow(!show)}>
+										<Icon
+											as={
+												<MaterialIcons
+													name={
+														show
+															? "visibility"
+															: "visibility-off"
+													}
+												/>
+											}
+											size={5}
+											mr="2"
+											color="muted.400"
+										/>
+									</Pressable>
+								}
+								variant={"unstyled"}
+								style={styles.inputText}
+							/>
+						</View>
+						{"password" in errors ? (
+							<FormControl.ErrorMessage>
+								{errors.password}
+							</FormControl.ErrorMessage>
+						) : (
+							""
+						)}
 						<FormControl.HelperText>
 							At least 8 characters with uppercase letters and numbers
 						</FormControl.HelperText>
 					</FormControl>
 
-					<HStack space={6}>
-						<Checkbox shadow={2} value="test" accessibilityLabel="Terms">
-							I accept the terms &amp; conditions
-						</Checkbox>
+					<HStack mt="5" space={6}>
+						<FormControl isRequired isInvalid={"terms" in errors}>
+							<Checkbox 
+								shadow={2}
+								onChange={(value) =>
+									setData({
+										...formData,
+										terms: value,
+									})
+								}
+								defaultIsChecked
+								accessibilityLabel="Terms"
+								backgroundColor={"#231D30"}
+								borderColor={"#231D30"}
+								_checked={{ borderColor: 'supporting.lightGreen', backgroundColor: 'supporting.lightGreen' }}
+								_pressed={{ borderColor: 'supporting.lightGreen' }}
+								_icon={{ color: 'white' }}
+							>
+								<Text style={{fontSize:14}}>Accept Terms of Use &amp; Privacy Policy</Text>
+							</Checkbox>
+							{"terms" in errors ? (
+								<FormControl.ErrorMessage>
+									{errors.terms}
+								</FormControl.ErrorMessage>
+							) : (
+								""
+							)}
+						</FormControl>
+
 					</HStack>
 
 					<Button
-						mt="2"
-						colorScheme="indigo"
+						mt="5"
+						style={styles.button}
 						onPress={registerHandler}
 					>
 						Sign up
 					</Button>
-					<HStack mt="6" justifyContent="center">
-						<Text
-							fontSize="sm"
-							color="coolGray.600"
-							_dark={{
-								color: "warmGray.200",
-							}}
-						>
-							Already have an account?{" "}
-						</Text>
-						<Link
-							_text={{
-								color: "indigo.500",
-								fontWeight: "medium",
-								fontSize: "sm",
-							}}
-							onPress={() => navigation.navigate("Sign In")}
-						>
-							Sign In
-						</Link>
-					</HStack>
 				</VStack>
 			</Box>
 		</Center>
+
+		<View style={styles.bottomView}>
+			<HStack justifyContent="center">
+				<Text
+					fontSize="md"
+					color="white"
+					_dark={{
+						color: "white",
+					}}
+				>
+					Already have an account?{" "}
+				</Text>
+				<Link
+					_text={{
+						color: "white",
+						fontWeight: "medium",
+						fontSize: "md",
+						textDecoration: "none",
+					}}
+					onPress={() => navigation.navigate("Sign In")}
+				>
+					Sign In
+				</Link>
+			</HStack>
+		</View>
+		</>
+
 	);
 };
 
 export default SignUp;
+
+const styles = StyleSheet.create({
+	input: {
+		backgroundColor: "#231D30",
+		borderColor: "#231D30",
+		paddingTop: 10,
+		paddingBottom: 10,
+		paddingRight: 5,
+		paddingLeft: 5,
+		color: "#CCCCCC",
+	},
+	inputText: {
+		color: "#CCCCCC",
+		fontSize: 14,
+	},
+	button: {
+		backgroundColor: "#386AF5",
+		borderRadius: 5,
+	},
+	btnText: {
+		fontSize: 16,
+		fontWeight: "500",
+	},
+	bottomView: {
+		flex: 1,
+		justifyContent: "flex-end",
+		marginBottom: 45,
+	},
+});

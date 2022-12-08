@@ -8,7 +8,7 @@ export const authReducer = createReducer({}, {
         state.loading = false;
         state.isAuthenticated = true;
         state.token = action.payload.token;
-        // state.user = action.payload.token;
+        state.user = action.payload.user;
         state.message = action.payload.message
     },
     loginFailure: (state, action) => {
@@ -24,7 +24,7 @@ export const authReducer = createReducer({}, {
         state.loading = false;
         state.isAuthenticated = true;
         state.token = action.payload.token;
-        // state.user = action.payload.token;
+        state.user = action.payload.user;
         state.message = action.payload.message
     },
     signupFailure: (state, action) => {
@@ -63,6 +63,19 @@ export const authReducer = createReducer({}, {
         state.error = action.payload;
     },
 
+    tutorialRequest: (state) => {
+        state.loading = true;
+    },
+    tutorialSuccess: (state) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.tutorial = false;
+    },
+    tutorialFailure: (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+    },
+
     clearError: (state) => {
         state.error = null;
     }, 
@@ -71,9 +84,11 @@ export const authReducer = createReducer({}, {
     },
 
     keepAuth: (state, action) => {
-        state.loading = false;
-        state.isAuthenticated = true;
-        state.token = action.payload;
+        // state.loading = false;
+        // state.isAuthenticated = true;
+        // state.token = action.payload.token;
+        // state.user = action.payload.user;
+        // state.message = action.payload.message
         // state.message = action.payload.message
     },
 })

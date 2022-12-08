@@ -7,7 +7,7 @@ import Candle, { Candle as CandleModel } from "./Candle";
 
 // Getting size based on the device width
 export const { width: size } = Dimensions.get("window");
-const newSize = size - 120;
+const newSize = size - 90;
 
 
 
@@ -26,12 +26,17 @@ const Chart = ({ candles, domain }) => {
     const step = range / 8;
     const steps = [];
     for (let i = 0; i < 8; i++) {
-      const newNum = (min + i * step).toFixed(2)
-      const strNum = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      let newNum = (min + i * step);
+      let strNum = '';
+      if (newNum < 1) {
+        strNum = newNum.toFixed(4).toString();
+      } else {
+        strNum = newNum.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
 
       steps.push(strNum);
     }
-    // console.log('steps: ', steps);
+
     return steps;
   }
 
@@ -98,9 +103,9 @@ const Chart = ({ candles, domain }) => {
         </Svg >
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          {new Array(10).fill('abc').map((item, index) => {
+          {/* {new Array(10).fill('abc').map((item, index) => {
             return <Text key={index} style={{ color: 'white' }}>{item}</Text>
-          })}
+          })} */}
         </View>
       </View>
     </View>

@@ -6,11 +6,11 @@ import {
 } from "native-base";
 import CryptoList from '../../components/lists/CryptoList';
 
-const MarketScreen = ({ navigation }) => {
+const MarketScreen = ({ navigation, route }) => {
 
     return (
         <Box>
-            <CryptoList navigation={navigation} />
+            <CryptoList navigation={navigation} route={route} />
         </Box>
     );
 };

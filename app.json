@@ -4,8 +4,15 @@
     "slug": "TradeUp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/tradeup.png",
     "userInterfaceStyle": "light",
+    "notification": {
+      "icon": "./assets/tradeup.png",
+      "color": "#311b92",
+      "androidMode": "default",
+      "androidCollapsedTitle": "Updates from Colab.notes",
+      "iosDisplayInForeground": true
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -31,3 +38,4 @@
     }
   }
 }
+

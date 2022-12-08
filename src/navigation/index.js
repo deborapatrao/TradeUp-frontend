@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loader from "../components/utils/Loader";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { loadUser } from "../redux/action";
 
 export default function RootNavigation() {
 	const dispatch = useDispatch();
@@ -21,11 +22,14 @@ export default function RootNavigation() {
 
 	const checkAuth = async () => {
 		try {
+			const tokenStorage = await AsyncStorage.getItem("userIdToken");
+			const userId = await AsyncStorage.getItem("userId");
 			const value = await AsyncStorage.getItem("userIdToken");
-			if (value !== null) {
+			if (userId && tokenStorage) {
 				// value previously stored
-				console.log("value", value);
-				dispatch({ type: "keepAuth", payload: value });
+				// console.log("userId", userId);
+				// console.log("tokenStorage", tokenStorage);
+				dispatch(loadUser(tokenStorage));
 			}
 		} catch (e) {
 			// error reading value
@@ -49,7 +53,7 @@ export default function RootNavigation() {
 				backgroundColor="transparent"
 			/>
 
-			{isAuthenticated || skipAuth ? (
+			{isAuthenticated ? (
 				<AppStack />
 			) : (
 				<AuthStack skipAuthHandler={skipAuthHandler} />

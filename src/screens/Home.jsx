@@ -1,107 +1,138 @@
-import React, { useState, useEffect } from "react";
-import { Platform, Linking } from "react-native";
-import { Box, Text, Button, Heading } from "native-base";
+import React, { useState, useEffect, useRef } from "react";
+import "../config/firebase-config";
 import { loadUser } from "../redux/action";
 import { useDispatch, useSelector } from "react-redux";
-import * as Location from "expo-location";
-import { color } from "react-native-reanimated";
-import Constants from "expo-constants";
-import * as IntentLauncher from "expo-intent-launcher";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getWalletData, postData } from "../utils/requests";
+import TrendingCoinsList from "../components/lists/TrendingCoinsList";
+import Leaderboard from "./leaderboard/Leaderboard";
+import { Text, Button, View } from "native-base";
+import { SvgUri } from 'react-native-svg';
+import HomeIconInactive from "../assets/images/bottom-tabs-icons/inactive/home2.svg";
+import { SafeAreaView } from "react-native-safe-area-context";
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { useNavigation } from '@react-navigation/native';
 
-const Home = () => {
+
+Notifications.setNotificationHandler({
+	handleNotification: async () => ({
+		shouldShowAlert: true,
+		shouldPlaySound: true,
+		shouldSetBadge: true,
+	}),
+});
+
+
+const Home = ({ goToMarket }) => {
+	const navigation = useNavigation();
 	const dispatch = useDispatch();
 	const { user, token, isAuthenticated } = useSelector((state) => state.auth);
-	const [location, setLocation] = useState(null);
-	const [errorMsg, setErrorMsg] = useState(null);
 
-	// Check if user is authenticated and token is received from server then load user
+	const [expoPushToken, setExpoPushToken] = useState('');
+	const [notification, setNotification] = useState(false);
+	const notificationListener = useRef();
+	const responseListener = useRef();
+
+	// Testing
+	// useEffect(() => {
+
+	// 	(async () => {
+	// 		// const token = await AsyncStorage.getAllKeys();
+	// 		// const token = await AsyncStorage.getItem("userIdToken");
+	// 		// const userToken = await AsyncStorage.getItem("userId");
+	// 		await AsyncStorage.clear();
+	// 		// console.log("Token: ", token);
+	// 		// console.log("userId: ", userToken);
+	// 		// const response = await getWalletData("/wallet/history");
+	// 	})();
+	// }, []);
+
 	useEffect(() => {
-		if (!user && token && isAuthenticated) {
-			dispatch(loadUser(token));
+		registerForPushNotificationsAsync().then(async token => {
+			// console.log('Token: ', token);
+			if (token) {
+				try {
+					await AsyncStorage.setItem("expoPushToken", token);
+					setExpoPushToken(token)
+					if (!user.fcm_token) {
+						await postData("/user/token", { token });
 
-			if (user) {
-				user.location.city
-					? setLocation(user.location.city)
-					: setLocation(null);
-			}
-		}
-	}, [dispatch, user]);
-
-	// Ask for permission to access location on the device
-	useEffect(() => {
-		(async () => {
-			if (location == null) {
-				let { status } =
-					await Location.requestForegroundPermissionsAsync();
-				if (status !== "granted") {
-					setErrorMsg("Permission to access location was denied");
-					return;
+					}
+				} catch (error) {
+					console.log(error);
 				}
 
-				let userLocation = await Location.getCurrentPositionAsync({});
-				let address = await Location.reverseGeocodeAsync(
-					userLocation.coords
-				);
-				setLocation(address[0].city);
 			}
-		})();
+		}).catch(e => console.log('Error: ', e));
+
+		// This listener is fired whenever a notification is received while the app is foregrounded
+		notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+			setNotification(notification);
+		});
+
+		// This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
+		responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+			console.log(response);
+		});
+
+		return () => {
+			Notifications.removeNotificationSubscription(notificationListener.current);
+			Notifications.removeNotificationSubscription(responseListener.current);
+		};
 	}, []);
 
-	const requestPermissions = async () => {
-		const permission = await Location.getForegroundPermissionsAsync();
-
-		// Detect if you can request this permission again
-		if (!permission.canAskAgain && permission.status == "denied") {
-			/**
-			 *   Code to open device setting then the user can manually grant the app
-			 *   permission
-			 */
-			if (Platform.OS == "ios") {
-				Linking.openURL("app-settings:");
-			} else {
-				const pkg = Constants.manifest.releaseChannel
-					? Constants.manifest.android.package
-					: "host.exp.exponent";
-
-				IntentLauncher.startActivityAsync(
-					IntentLauncher.ACTION_APPLICATION_DETAILS_SETTINGS,
-					{ data: "package:" + pkg }
-				);
-			}
-		} else {
-			// Ask for permission again
-			try {
-				let { status } =
-					await Location.requestForegroundPermissionsAsync();
-				if (status !== "granted") {
-					setErrorMsg("Permission to access location was denied");
-					return;
-				}
-
-				let userLocation = await Location.getCurrentPositionAsync({});
-				let address = await Location.reverseGeocodeAsync(
-					userLocation.coords
-				);
-				setLocation(address[0].city);
-			} catch (err) {
-				console.log(err);
-			}
+	useEffect(() => {
+		if (goToMarket) {
+			navigation.navigate("Market");
 		}
-	};
+	}, [goToMarket]);
+	// const goToMarket = () => {
+	// 	navigation.navigate("Market");
+	// }
 
 	return (
-        <>
-			<Heading>
-				Top Traders
-			</Heading>
-			<Text>{user ? user.email : "Not logged in"}</Text>
-			{!location ? (
-				<Button onPress={requestPermissions}>Allow Location</Button>
-			) : (
-				<Text>Location Allowed</Text>
-			)}
-        </>
+		<>
+			<View ml={3} mr={3} mt={4}>
+				<TrendingCoinsList navigation={navigation} />
+			</View>
+			{/* <Button onPress={goToMarket}><Text>Test</Text></Button> */}
+		</>
 	);
 };
+
+
+async function registerForPushNotificationsAsync() {
+	let token;
+	if (Device.isDevice) {
+		const { status: existingStatus } = await Notifications.getPermissionsAsync();
+		let finalStatus = existingStatus;
+		if (existingStatus !== 'granted') {
+			const { status } = await Notifications.requestPermissionsAsync();
+			finalStatus = status;
+		}
+		if (finalStatus !== 'granted') {
+			alert('Failed to get push token for push notification!');
+			return;
+		}
+		token = (await Notifications.getExpoPushTokenAsync()).data;
+		console.log(token);
+
+	} else {
+		// alert('Must use physical device for Push Notifications');
+		console.log('Must use physical device for Push Notifications');
+	}
+
+	if (Platform.OS === 'android') {
+		Notifications.setNotificationChannelAsync('default', {
+			name: 'default',
+			importance: Notifications.AndroidImportance.MAX,
+			vibrationPattern: [0, 250, 250, 250],
+			lightColor: '#FF231F7C',
+		});
+	}
+
+	return token;
+}
 
 export default Home;

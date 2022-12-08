@@ -13,6 +13,7 @@ import { logout } from "../redux/action"
 import MenuList from "../components/lists/MenuList";
 import MenuRegistered from "./MenuRegistered";
 import MenuUnregistered from "./MenuUnregistered";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 const Menu = ({ navigation }) => {
 	const dispatch = useDispatch();
@@ -29,12 +30,22 @@ const Menu = ({ navigation }) => {
 			<MenuList navigation={navigation} />
 
 			<Center>
-                <Button mt="2" variant="link" colorScheme="primary" onPress={logoutHandler}>
-                    Logout
-                </Button>
+				<TouchableOpacity style={styles.logout} onPress={logoutHandler}>
+					<Text style={styles.logoutText}>Log Out</Text>
+				</TouchableOpacity>
 			</Center>
 		</Box>
 	);
 };
 
 export default Menu;
+
+const styles = StyleSheet.create({
+	logout: {
+		marginTop: 25,
+	},
+	logoutText: {
+		fontSize: 18,
+		color: "#7F7F7F",
+	},
+});

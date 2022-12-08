@@ -13,23 +13,24 @@ import CryptoDetailTabNavigator from './CryptoDetailTabNavigator';
 import BuyAndSellScreen from '../../screens/market/BuyAndSellScreen';
 import PriceAlertScreen from '../../screens/market/PriceAlert';
 
-const HomeStack = createStackNavigator();
+const MarketStack = createStackNavigator();
 
 
 const MarketStackScreen = () => {
+
     return (
-        <HomeStack.Navigator>
-            <HomeStack.Screen name="CryptoList" component={MarketScreen} options={{
-                headerTitle: (props) => <HomeHeader {...props} />,
+        <MarketStack.Navigator>
+            <MarketStack.Screen name="CryptoList" component={MarketScreen} options={({ navigation }) => ({
+                headerTitle: (props) => <HomeHeader {...props} navigation={navigation} />,
                 headerShown: true, // hide header
                 headerStyle: {
                     backgroundColor: '#171122',
                 }
-            }} />
-            <HomeStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation, route }) => ({
-                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route}/>,
-                navigationBarColor:'gray.400',
-                headerTitleAlign:'center',
+            })} />
+            <MarketStack.Screen name="CryptoDetail" component={CryptoDetailTabNavigator} options={({ navigation, route }) => ({
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route} />,
+                navigationBarColor: 'gray.400',
+                headerTitleAlign: 'center',
                 headerStyle: {
                     backgroundColor: '#171122',
                 },
@@ -39,18 +40,31 @@ const MarketStackScreen = () => {
                 headerBackTitleVisible: false,
                 headerBackTitleStyle: {
                     color: '#fff'
-                }                
+                }
                 //    headerBackImageSource:'src image'
             })} />
-            <HomeStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={{
-               headerTitle: 'Ticker and icon here'
-            }} />
-            <HomeStack.Screen name="PriceAlert" component={PriceAlertScreen} options={{
+            <MarketStack.Screen name="BuyAndSell" component={BuyAndSellScreen} options={({ navigation, route }) => ({
+                headerTitle: (props) => <MarketHeader {...props} navigation={navigation} route={route} />,
+                navigationBarColor: 'gray.400',
+                headerTitleAlign: 'center',
+                headerStyle: {
+                    backgroundColor: '#171122',
+                },
+                headerTitleStyle: {
+                    color: '#fff'
+                },
+                headerBackTitleVisible: false,
+                headerBackTitleStyle: {
+                    color: '#fff'
+                }
+            })} />
+            <MarketStack.Screen name="PriceAlert" component={PriceAlertScreen} options={{
                 headerTitle: 'Price Alert',
-                headerTitleAlign:'center'
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: false,
             }} />
-            
-        </HomeStack.Navigator>
+
+        </MarketStack.Navigator>
     )
 }
 

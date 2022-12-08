@@ -18,22 +18,24 @@ import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
-const MainStack = () => {
+const MainStack = ({ goToMarket }) => {
 
     const { user } = useSelector((state) => state.auth);
 
     return (
-        <Stack.Navigator>
-            <Stack.Screen name="Main" component={Home} options={{
+        <Stack.Navigator
+        screenOptions={{
+            headerBackTitleVisible: false
+        }}
+        >
+            <Stack.Screen name="Main" children={() => <Home goToMarket={goToMarket} />} options={{
                 headerShown: false, // hide header
             }} />
-            <Stack.Screen name="Menu" component={Menu} options={{
-                headerTitle: ''
-            }} />
+            <Stack.Screen name="Menu" component={Menu} />
             <Stack.Screen name="Leaderboard" component={Leaderboard} />
             <Stack.Screen name="Saved Resources" component={SavedResources} />
             <Stack.Screen name="Profile Settings" component={Profile} />
-            <Stack.Screen name="Notifications" component={Notification} options={headerTitle="Notification Settings"} />
+            <Stack.Screen name="Notifications" component={Notification} options={headerTitle = "Notification Settings"} />
             <Stack.Screen name="Support" component={Support} />
             <Stack.Screen name="User Agreement" component={UserAgreement} />
         </Stack.Navigator>
