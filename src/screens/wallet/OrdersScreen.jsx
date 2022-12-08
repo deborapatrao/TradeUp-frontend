@@ -4,6 +4,7 @@ import {
     Text,
     FlatList,
     View,
+    Center
 } from "native-base";
 import { getOrderHistoryData } from '../../utils/requests';
 import { SafeAreaView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
@@ -122,13 +123,13 @@ const OrdersScreen = ({ navigation }) => {
 
             <View style={{ paddingHorizontal: 20 }}>
                 {loading ? <Box style={{ marginTop: 20 }}><Loader /></Box> :
-                    datalist !== null ?
+                    datalist !== null && datalist.length > 0 ?
                         <FlatList
                             data={datalist}
                             keyExtractor={(e, i) => i.toString()}
                             renderItem={renderItem}
                         />
-                        : <Text style={{ textAlign: 'center', marginTop: 20 }}>No data</Text>
+                        : <Center><Text style={{ textAlign: 'center', marginTop: 20 }}>No data available</Text></Center>
                 }
             </View>
 

@@ -32,7 +32,7 @@ const TradesScreen = ({ navigation }) => {
 	return (
 		<View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
 			{loading ? <Box style={{ marginTop: 20 }}><Loader /></Box> :
-				tradeHistoryData !== null ? (
+				tradeHistoryData !== null && tradeHistoryData.length > 0 ? (
 					<FlatList
 						data={tradeHistoryData}
 						renderItem={({ item }) => {
@@ -40,7 +40,7 @@ const TradesScreen = ({ navigation }) => {
 						}}
 					/>
 				) : (
-					<Center style={styles.container}><Text>No data available</Text></Center>
+					<Center><Text>No data available</Text></Center>
 				)
 			}
 		</View>
