@@ -55,7 +55,7 @@ const PriceStatic = ({ ticker }) => {
             <HStack space={2} alignItems={'center'}>
               <ChevronUpIcon
                 style={{ ml: 2, color: "#31c451", alignItems: 'center' }} />
-              <Text style={styles.text}>{Math.floor(parseFloat(dataCoin.priceChangePercent)) + '%'}</Text>
+              <Text style={styles.text}>{priceFormatter(dataCoin.priceChangePercent)+ '%'}</Text>
             </HStack>
           </HStack>
           :
@@ -66,7 +66,7 @@ const PriceStatic = ({ ticker }) => {
               <ChevronDownIcon
                 style={{ color: "#FF6666", alignItems: 'center' }} />
             </Box>
-                <Text style={styles.text}>{priceFormatter(dataCoin.priceChangePercent) + '%'}</Text>
+                <Text style={styles.text}>{parseFloat(dataCoin.priceChangePercent) + '%'}</Text>
             </HStack>
           </HStack>
         }
