@@ -146,6 +146,8 @@ const styles = StyleSheet.create({
     paddingLeft: 4,
     paddingRight: 4,
     height: 22,
+    minWidth: 50,
+    textAlign: 'center',
   },
 
   percentagePositive: {

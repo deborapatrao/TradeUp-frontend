@@ -68,7 +68,9 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     overflow: "hidden",
     paddingLeft: 4,
-    paddingRight: 4
+    paddingRight: 4,
+    minWidth: 50,
+    textAlign: 'center',
   },
 
   percentagePositive: {

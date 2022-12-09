@@ -55,7 +55,7 @@ const WalletTabNavigator = () => {
             <Tab.Screen name="Assets" component={AssetsScreen} />
             <Tab.Screen name="Trade History" component={TradesScreen} />
             <Tab.Screen name="Orders" component={OrdersScreen} />
-            <Tab.Screen name="Price Alert" component={OrdersScreen} />
+            {/* <Tab.Screen name="Price Alert" component={OrdersScreen} /> */}
         </Tab.Navigator>
     )
 }

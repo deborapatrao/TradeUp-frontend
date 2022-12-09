@@ -58,17 +58,15 @@ const Leaderboard = ({ navigation }) => {
 				user.location.city
 			);
 
+			console.log("top3", data)
 			setUserRank(data.rank);
 
-			if(data.traders.length < 3){
+			if (data.traders.length < 3) {
 				setTopTraders(data.traders);
-			// } else if(data.traders.length == 3){
-			// 	setTop3(data.traders);
 			} else {
 				var first3 = data.traders.slice(0, 3)
 				first3 = swapElements(first3)
 				setTop3(first3)
-	
 				const traders = data.traders.slice(3, data.traders.length)
 				setTopTraders(traders);
 			}
@@ -78,84 +76,83 @@ const Leaderboard = ({ navigation }) => {
 		}
 	};
 
-
 	return (
 		<>
-		{topTraders != 0 ?
-		<>
-			{/* <Box style={[styles.trapezoid]}> */}
-			<HStack style={styles.leaders}>
+			{topTraders != 0 ?
+				<>
+					{/* <Box style={[styles.trapezoid]}> */}
+					<HStack style={styles.leaders}>
 
-				{top3.map((item, index) => (
-					<VStack style={index == 1 ? styles.central : styles.laterals} key={index}>
-					<View>
-						<Image
-							source={{ uri: item.picture ? item.picture : "https://firebasestorage.googleapis.com/v0/b/trade-up-bc1be.appspot.com/o/user_placeholder.jpg?alt=media&token=f4a15f20-ca35-449f-bf12-394e246d8be2", }}
-							alt={"user-image"}
-							style={index == 1 ? styles.imageCentral : styles.imageLaterals}
-						/>
-						<View
-							style={index == 1 ? styles.viewContainerCentral : styles.viewContainerLateral}
-							backgroundColor={index == 0 ? "#A7A7AD" : "#A77044"}
-						>
-							<Text style={styles.leads}>{item.rank}</Text>
+						{top3.map((item, index) => (
+							<VStack style={index == 1 ? styles.central : styles.laterals} key={index}>
+								<View>
+									<Image
+										source={{ uri: item.picture ? item.picture : "https://firebasestorage.googleapis.com/v0/b/trade-up-bc1be.appspot.com/o/user_placeholder.jpg?alt=media&token=f4a15f20-ca35-449f-bf12-394e246d8be2", }}
+										alt={"user-image"}
+										style={index == 1 ? styles.imageCentral : styles.imageLaterals}
+									/>
+									<View
+										style={index == 1 ? styles.viewContainerCentral : styles.viewContainerLateral}
+										backgroundColor={index == 0 ? "#A7A7AD" : "#A77044"}
+									>
+										<Text style={styles.leads}>{item.rank}</Text>
+									</View>
+								</View>
+								<Text>{item.username}</Text>
+								<HStack>
+									{item.performance > 0 ?
+										<Image source={Up} style={styles.positivePercentage} alt="up" /> :
+										<Image source={Down} style={styles.negativePercentage} alt="down" />}
+									<Text style={styles.percentage}>
+										{item.performance.toFixed(2)}%
+									</Text>
+								</HStack>
+							</VStack>
+						))}
+					</HStack>
+					{/* </Box> */}
+					<ScrollView>
+						<View ml={3} mr={3}>
+							<HStack style={styles.rank}>
+								<Text fontSize={'xl'} fontWeight={"bold"}>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
+							</HStack>
+
+							{topTraders.map((item, index) => (
+								<HStack
+									style={[styles.column, styles.tableLine]}
+									alignItems={"center"}
+									key={index}
+								>
+									<HStack space={2} alignItems={"center"}>
+										<Text style={styles.text}>{item.rank} </Text>
+										<Image
+											source={{ uri: item.picture ? item.picture : "https://firebasestorage.googleapis.com/v0/b/trade-up-bc1be.appspot.com/o/user_placeholder.jpg?alt=media&token=f4a15f20-ca35-449f-bf12-394e246d8be2", }}
+											alt={"user-image"}
+											style={styles.imageList}
+										/>
+										<Text style={styles.text}>{item.username} </Text>
+									</HStack>
+									<HStack justifyContent={"flex-end"} w={"50%"}>
+										<HStack justifyContent={"flex-start"} space={2}>
+											{item.performance > 0 ?
+												<Image source={Up} style={styles.positivePercentage} alt="up" /> :
+												<Image source={Down} style={styles.negativePercentage} alt="down" />}
+											<Text style={styles.percentage}>
+												{item.performance.toFixed(2)}%
+											</Text>
+										</HStack>
+									</HStack>
+								</HStack>
+							))}
+
 						</View>
-					</View>
-					<Text>{item.username}</Text>
-					<HStack>
-						{item.performance > 0 ? 
-						<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
-						<Image source={Down} style={styles.negativePercentage} alt="down"/>}
-						<Text style={ styles.percentage }>
-							{item.performance.toFixed(2)}%
-						</Text> 
-					</HStack>
-				</VStack>
-				))}
-			</HStack>
-			{/* </Box> */}
-			<ScrollView>
-				<View ml={3} mr={3}>
-					<HStack style={styles.rank}>
-						<Text fontSize={'xl'} fontWeight={"bold"}>Your Rank: {userRank !== 0 ? ordinalFormatter(userRank) : "Not Ranked"}</Text>
-					</HStack>
-
-					{topTraders.map((item, index) => (
-						<HStack
-							style={[styles.column, styles.tableLine]}
-							alignItems={"center"}
-							key={index}
-						>
-							<HStack space={2} alignItems={"center"}>
-								<Text style={styles.text}>{item.rank} </Text>
-								<Image
-									source={{ uri: item.picture ? item.picture : "https://firebasestorage.googleapis.com/v0/b/trade-up-bc1be.appspot.com/o/user_placeholder.jpg?alt=media&token=f4a15f20-ca35-449f-bf12-394e246d8be2", }}
-									alt={"user-image"}
-									style={styles.imageList}
-								/>
-								<Text style={styles.text}>{item.username} </Text>
-							</HStack>
-							<HStack justifyContent={"flex-end"} w={"50%"}>
-							<HStack>
-								{item.performance > 0 ? 
-								<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
-								<Image source={Down} style={styles.negativePercentage} alt="down"/>}
-								<Text style={styles.percentage}>
-									{item.performance.toFixed(2)}%
-								</Text> 
-							</HStack>
-							</HStack>
-						</HStack>
-					))}
-
-				</View>
-			</ScrollView>
-		</>
-		:
-		<Box style={styles.loader}>
-			<Loader />
-		</Box>
-		}
+					</ScrollView>
+				</>
+				:
+				<Box style={styles.loader}>
+					<Loader />
+				</Box>
+			}
 		</>
 	);
 };
@@ -164,11 +161,11 @@ const styles = StyleSheet.create({
 	background: {
 		backgroundColor: "#171122",
 	},
-	rank:{
+	rank: {
 		marginBottom: 25,
 		marginTop: 40,
 	},
-	loader:{
+	loader: {
 		justifyContent: "center",
 		height: "100%",
 	},
@@ -204,15 +201,15 @@ const styles = StyleSheet.create({
 	},
 
 	positivePercentage: {
-		marginLeft: 2, 
-		color: "#31c451", 
+		marginLeft: 2,
+		color: "#31c451",
 		alignSelf: 'center',
 		marginTop: 2,
 	},
 
 	negativePercentage: {
-		marginLeft: 2, 
-		color: "#FF6666", 
+		marginLeft: 2,
+		color: "#FF6666",
 		alignSelf: 'center',
 		marginBottom: 2,
 	},

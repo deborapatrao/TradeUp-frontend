@@ -40,12 +40,14 @@ const LeaderboardHome = ({ topTraders }) => {
 								<Text style={styles.text}>{item.username.substring(0,9)}</Text>
 							</HStack>
 							<HStack justifyContent={"flex-end"} w={"50%"}>
+							<HStack justifyContent={"flex-start"} space={2} >
 								{item.performance > 0 ? 
 								<Image source={Up} style={styles.positivePercentage} alt="up"/>  : 
 								<Image source={Down} style={styles.negativePercentage} alt="down"/>}
 								<Text style={styles.percentage}>
 									{item.performance.toFixed(2)}%
 								</Text> 
+							</HStack>
 							</HStack>
 						</HStack>
 					))) : (<Loader />)}
