@@ -22,8 +22,6 @@ export const login = (email, password) => async (dispatch) => {
                 },
             }
         );
-        // console.log('data Token', data.token);
-        // console.log('data User', data.user.firebase_uuid);
 
         await AsyncStorage.setItem("userIdToken", data.token);
         await AsyncStorage.setItem("userId", data.user.firebase_uuid);
@@ -31,8 +29,6 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({ type: "loginSuccess", payload: data });
 
     } catch (error) {
-        // console.log("Error 1", error);
-
         dispatch({
             type: "loginFailure",
             payload: error.message,
@@ -54,13 +50,6 @@ export const signup = (email, password, location) => async (dispatch) => {
                 },
             }
         );
-        // console.log('data', data);
-        // await AsyncStorage.multiSet([["userId", "userIdToken"], [data.userId, data.token]], (err) => {
-        //     console.log(err);
-        // });
-
-        // console.log('data Token', data.token);
-        // console.log('data User', data.user.firebase_uuid);
 
         await AsyncStorage.setItem("userIdToken", data.token);
         await AsyncStorage.setItem("userId", data.user.firebase_uuid);
@@ -71,7 +60,6 @@ export const signup = (email, password, location) => async (dispatch) => {
 
 
     } catch (error) {
-        // console.log("Error 1", error);
         dispatch({
             type: "signupFailure",
             payload: error,
@@ -83,18 +71,9 @@ export const signup = (email, password, location) => async (dispatch) => {
 export const loadUser = (userIdToken) => async (dispatch) => {
 
     try {
-        // dispatch({ type: "loadUserRequest" });
-        // console.log('userIdToken: ', userIdToken);
+
         const auth = getAuth();
         const getTok = await signInWithCustomToken(auth, userIdToken)
-
-        // auth.onIdTokenChanged(function(user) {
-        //     if (user) {
-        //       console.log(user)
-        //     }
-        //   });
-
-        // console.log("getTok", getTok._tokenResponse.idToken);
 
         const uid = await AsyncStorage.getItem("userId");
         const { data } = await axios.get(`${serverUrl}/me`, {
@@ -103,11 +82,9 @@ export const loadUser = (userIdToken) => async (dispatch) => {
                 uid: uid
             },
         });
-        // console.log("Load user", data)
+
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        // console.log("Error 2", error.message);
-
         dispatch({
             type: "loadUserFailure",
             payload: error.message,
@@ -119,11 +96,9 @@ export const loadUser = (userIdToken) => async (dispatch) => {
 export const saveLocation = (userIdToken, location) => async (dispatch) => {
 
     try {
-        // dispatch({ type: "loadUserRequest" });
         const auth = getAuth();
         const getTok = await signInWithCustomToken(auth, userIdToken);
 
-        // console.log("getTok", getTok._tokenResponse.idToken);
 
         const { data } = await axios.post(
             `${serverUrl}/user/location`,
@@ -137,8 +112,6 @@ export const saveLocation = (userIdToken, location) => async (dispatch) => {
 
         dispatch({ type: "loadUserSuccess", payload: data });
     } catch (error) {
-        // console.log("Error 2", error.message);
-
         dispatch({
             type: "loadUserFailure",
             payload: error.message,
@@ -161,7 +134,6 @@ export const logout = () => async (dispatch) => {
         dispatch({ type: "logoutSuccess" });
 
     } catch (error) {
-        // console.log("Error 3", error);
         dispatch({
             type: "logoutFailure",
             payload: error.message,
@@ -175,12 +147,18 @@ export const skipTutorial = (userId, tutorialStatus) => async (dispatch) => {
     try {
         dispatch({ type: "tutorialRequest" });
 
+        const userIdToken = await AsyncStorage.getItem(`userIdToken`);
+        const auth = getAuth();
+        const getTok = await signInWithCustomToken(auth, userIdToken)
+
+
         // console.log("skip dispatch running")
         const { data } = await axios.post(
             `${serverUrl}/user/tutorial`,
             { userId, tutorialStatus },
             {
                 headers: {
+                    Authorization: `Bearer ${getTok._tokenResponse.idToken}`,
                     "Content-Type": "application/json",
                 },
             }
